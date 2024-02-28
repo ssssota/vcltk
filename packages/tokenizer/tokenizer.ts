@@ -49,8 +49,8 @@ export class Tokenizer implements Iterable<Token> {
   }
   private readNumber(start: number, startsWith0 = false): Token {
     let char = this.peekChar();
-    let hex = startsWith0 && char === "x";
     let end = this.cursor;
+    const hex = startsWith0 && char === "x";
     if (hex) {
       // whole part
       char = this.skipPeekChar();
@@ -349,6 +349,7 @@ export class Tokenizer implements Iterable<Token> {
     }
   }
   [Symbol.iterator](): Iterator<Token> {
+    // deno-lint-ignore no-this-alias
     const self = this;
     return (function* () {
       let token: Token | undefined;

@@ -1,7 +1,8 @@
 /**
  * Fastly VCL token types
  */
-export module Token {
+// deno-lint-ignore no-namespace
+export namespace Token {
   type TokenFor<T> = {
     readonly token: T;
     readonly start: number;
