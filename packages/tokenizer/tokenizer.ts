@@ -5,8 +5,16 @@ const ALPHA_REG = /[a-zA-Z]/;
 const HEX_REG = /[0-9a-fA-F]/;
 const DEC_REG = /[0-9]/;
 
+/**
+ * Fastly VCL tokenizer
+ */
 export class Tokenizer implements Iterable<Token> {
   private cursor = 0;
+
+  /**
+   * Create a new tokenizer
+   * @param input Fastly VCL source code
+   */
   constructor(private input: string) {}
   private static isWhitespace(char: string): boolean {
     return char === " " || char === "\t";
@@ -193,6 +201,11 @@ export class Tokenizer implements Iterable<Token> {
         return { token: "ident", start, end };
     }
   }
+
+  /**
+   * Get the next token
+   * @returns token
+   */
   next(): Token | undefined {
     if (this.cursor >= this.input.length) return;
     const start = this.cursor;
@@ -348,6 +361,11 @@ export class Tokenizer implements Iterable<Token> {
         if (DEC_REG.test(char)) return this.readNumber(start, char === "0");
     }
   }
+
+  /**
+   * Get the token iterator
+   * @returns token iterator
+   */
   [Symbol.iterator](): Iterator<Token> {
     // deno-lint-ignore no-this-alias
     const self = this;

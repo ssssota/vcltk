@@ -102,6 +102,9 @@ export namespace Token {
   export type Ratecounter = TokenFor<"ratecounter">;
 }
 
+/**
+ * Fastly VCL token
+ */
 export type Token =
   | Token.Illegal
   | Token.LF
