@@ -31,12 +31,12 @@ export namespace Declaration {
   }>;
   export type BackendDeclaration = Node<"backend", {
     name: string;
-    config: Record<string, Literal>;
+    config: Literal.Object;
   }>;
   export type DirectorDeclaration = Node<"director", {
     name: string;
     type: DirectorType;
-    config?: Record<string, Literal>;
+    config?: Literal.Object;
     directions: Literal.Object[];
   }>;
   export type PenaltyBoxDeclaration = Node<"penaltybox", { name: string }>;
