@@ -1,4 +1,4 @@
-import type { Token } from "@vcltk/token";
+import type { Token } from "jsr:@vcltk/token@^0.1.0";
 import { Tokenizer } from "./tokenizer.ts";
 
 /**

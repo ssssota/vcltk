@@ -1,5 +1,5 @@
-import type { Token } from "@vcltk/token";
 import { assertEquals } from "https://deno.land/std@0.217.0/assert/mod.ts";
+import type { Token } from "jsr:@vcltk/token@^0.1.0";
 import { Tokenizer } from "./tokenizer.ts";
 
 Deno.test("If input is blank, return only eof token", () => {
