@@ -1,6 +1,6 @@
 {
   "name": "@vcltk/tokenizer",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "exports": "./mod.ts",
   "imports": { "@vcltk/token": "jsr:@vcltk/token@^0.1.0" }
 }
