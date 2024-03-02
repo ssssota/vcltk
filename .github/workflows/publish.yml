@@ -7,8 +7,9 @@ on:
         required: true
         type: choice
         options:
-          - tokenizer
+          - ast
           - token
+          - tokenizer
 
 jobs:
   publish:
