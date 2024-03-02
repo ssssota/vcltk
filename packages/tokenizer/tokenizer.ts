@@ -1,4 +1,4 @@
-import type { Token } from "jsr:@vcltk/token";
+import type { Token } from "@vcltk/token";
 
 const ALPHANUMUNDER_REG = /[_a-zA-Z0-9]/;
 const ALPHA_REG = /[a-zA-Z]/;
