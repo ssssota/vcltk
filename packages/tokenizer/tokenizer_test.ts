@@ -1,656 +1,656 @@
 import { assertEquals } from "https://deno.land/std@0.217.0/assert/mod.ts";
-import type { Token } from "jsr:@vcltk/token@^0.1.0";
-import { Tokenizer } from "./tokenizer.ts";
+import type { Token } from "./deps.ts";
+import { tokenize } from "./tokenizer.ts";
 
 Deno.test("If input is blank, return only eof token", () => {
   assertEquals(
-    Array.from(new Tokenizer("")),
-    [{ token: "eof", start: 0, end: 0 }] satisfies Token[],
+    tokenize(""),
+    [{ kind: "eof", start: 0, end: 0 }] satisfies Token[],
   );
 });
 
-Deno.test("Parse special tokens", () => {
+Deno.test("Tokenize special tokens", () => {
   assertEquals(
-    Array.from(new Tokenizer("\n")),
+    tokenize("\n"),
     [
-      { token: "lf", start: 0, end: 1 },
-      { token: "eof", start: 1, end: 1 },
+      { kind: "lf", start: 0, end: 1 },
+      { kind: "eof", start: 1, end: 1 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer(" ")),
+    tokenize(" "),
     [
-      { token: "ws", start: 0, end: 1 },
-      { token: "eof", start: 1, end: 1 },
-    ] satisfies Token[],
-  );
-});
-
-Deno.test("Parse conditional operators", () => {
-  assertEquals(
-    Array.from(new Tokenizer("==")),
-    [
-      { token: "==", start: 0, end: 2 },
-      { token: "eof", start: 2, end: 2 },
-    ] satisfies Token[],
-  );
-  assertEquals(
-    Array.from(new Tokenizer("!=")),
-    [
-      { token: "!=", start: 0, end: 2 },
-      { token: "eof", start: 2, end: 2 },
-    ] satisfies Token[],
-  );
-  assertEquals(
-    Array.from(new Tokenizer("~")),
-    [
-      { token: "~", start: 0, end: 1 },
-      { token: "eof", start: 1, end: 1 },
-    ] satisfies Token[],
-  );
-  assertEquals(
-    Array.from(new Tokenizer("!~")),
-    [
-      { token: "!~", start: 0, end: 2 },
-      { token: "eof", start: 2, end: 2 },
-    ] satisfies Token[],
-  );
-  assertEquals(
-    Array.from(new Tokenizer(">")),
-    [
-      { token: ">", start: 0, end: 1 },
-      { token: "eof", start: 1, end: 1 },
-    ] satisfies Token[],
-  );
-  assertEquals(
-    Array.from(new Tokenizer("<")),
-    [
-      { token: "<", start: 0, end: 1 },
-      { token: "eof", start: 1, end: 1 },
-    ] satisfies Token[],
-  );
-  assertEquals(
-    Array.from(new Tokenizer(">=")),
-    [
-      { token: ">=", start: 0, end: 2 },
-      { token: "eof", start: 2, end: 2 },
-    ] satisfies Token[],
-  );
-  assertEquals(
-    Array.from(new Tokenizer("<=")),
-    [
-      { token: "<=", start: 0, end: 2 },
-      { token: "eof", start: 2, end: 2 },
+      { kind: "ws", start: 0, end: 1 },
+      { kind: "eof", start: 1, end: 1 },
     ] satisfies Token[],
   );
 });
 
-Deno.test("Parse assignment operators", () => {
+Deno.test("Tokenize conditional operators", () => {
   assertEquals(
-    Array.from(new Tokenizer("=")),
+    tokenize("=="),
     [
-      { token: "=", start: 0, end: 1 },
-      { token: "eof", start: 1, end: 1 },
+      { kind: "==", start: 0, end: 2 },
+      { kind: "eof", start: 2, end: 2 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("+=")),
+    tokenize("!="),
     [
-      { token: "+=", start: 0, end: 2 },
-      { token: "eof", start: 2, end: 2 },
+      { kind: "!=", start: 0, end: 2 },
+      { kind: "eof", start: 2, end: 2 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("-=")),
+    tokenize("~"),
     [
-      { token: "-=", start: 0, end: 2 },
-      { token: "eof", start: 2, end: 2 },
+      { kind: "~", start: 0, end: 1 },
+      { kind: "eof", start: 1, end: 1 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("*=")),
+    tokenize("!~"),
     [
-      { token: "*=", start: 0, end: 2 },
-      { token: "eof", start: 2, end: 2 },
+      { kind: "!~", start: 0, end: 2 },
+      { kind: "eof", start: 2, end: 2 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("/=")),
+    tokenize(">"),
     [
-      { token: "/=", start: 0, end: 2 },
-      { token: "eof", start: 2, end: 2 },
+      { kind: ">", start: 0, end: 1 },
+      { kind: "eof", start: 1, end: 1 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("%=")),
+    tokenize("<"),
     [
-      { token: "%=", start: 0, end: 2 },
-      { token: "eof", start: 2, end: 2 },
+      { kind: "<", start: 0, end: 1 },
+      { kind: "eof", start: 1, end: 1 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("|=")),
+    tokenize(">="),
     [
-      { token: "|=", start: 0, end: 2 },
-      { token: "eof", start: 2, end: 2 },
+      { kind: ">=", start: 0, end: 2 },
+      { kind: "eof", start: 2, end: 2 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("&=")),
+    tokenize("<="),
     [
-      { token: "&=", start: 0, end: 2 },
-      { token: "eof", start: 2, end: 2 },
-    ] satisfies Token[],
-  );
-  assertEquals(
-    Array.from(new Tokenizer("^=")),
-    [
-      { token: "^=", start: 0, end: 2 },
-      { token: "eof", start: 2, end: 2 },
-    ] satisfies Token[],
-  );
-  assertEquals(
-    Array.from(new Tokenizer("<<=")),
-    [
-      { token: "<<=", start: 0, end: 3 },
-      { token: "eof", start: 3, end: 3 },
-    ] satisfies Token[],
-  );
-  assertEquals(
-    Array.from(new Tokenizer(">>=")),
-    [
-      { token: ">>=", start: 0, end: 3 },
-      { token: "eof", start: 3, end: 3 },
-    ] satisfies Token[],
-  );
-  assertEquals(
-    Array.from(new Tokenizer("rol=")),
-    [
-      { token: "rol=", start: 0, end: 4 },
-      { token: "eof", start: 4, end: 4 },
-    ] satisfies Token[],
-  );
-  assertEquals(
-    Array.from(new Tokenizer("ror=")),
-    [
-      { token: "ror=", start: 0, end: 4 },
-      { token: "eof", start: 4, end: 4 },
-    ] satisfies Token[],
-  );
-  assertEquals(
-    Array.from(new Tokenizer("&&=")),
-    [
-      { token: "&&=", start: 0, end: 3 },
-      { token: "eof", start: 3, end: 3 },
-    ] satisfies Token[],
-  );
-  assertEquals(
-    Array.from(new Tokenizer("||=")),
-    [
-      { token: "||=", start: 0, end: 3 },
-      { token: "eof", start: 3, end: 3 },
+      { kind: "<=", start: 0, end: 2 },
+      { kind: "eof", start: 2, end: 2 },
     ] satisfies Token[],
   );
 });
 
-Deno.test("Parse special punctuation", () => {
+Deno.test("Tokenize assignment operators", () => {
   assertEquals(
-    Array.from(new Tokenizer("(")),
+    tokenize("="),
     [
-      { token: "(", start: 0, end: 1 },
-      { token: "eof", start: 1, end: 1 },
+      { kind: "=", start: 0, end: 1 },
+      { kind: "eof", start: 1, end: 1 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer(")")),
+    tokenize("+="),
     [
-      { token: ")", start: 0, end: 1 },
-      { token: "eof", start: 1, end: 1 },
+      { kind: "+=", start: 0, end: 2 },
+      { kind: "eof", start: 2, end: 2 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("{")),
+    tokenize("-="),
     [
-      { token: "{", start: 0, end: 1 },
-      { token: "eof", start: 1, end: 1 },
+      { kind: "-=", start: 0, end: 2 },
+      { kind: "eof", start: 2, end: 2 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("}")),
+    tokenize("*="),
     [
-      { token: "}", start: 0, end: 1 },
-      { token: "eof", start: 1, end: 1 },
+      { kind: "*=", start: 0, end: 2 },
+      { kind: "eof", start: 2, end: 2 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("[")),
+    tokenize("/="),
     [
-      { token: "[", start: 0, end: 1 },
-      { token: "eof", start: 1, end: 1 },
+      { kind: "/=", start: 0, end: 2 },
+      { kind: "eof", start: 2, end: 2 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("]")),
+    tokenize("%="),
     [
-      { token: "]", start: 0, end: 1 },
-      { token: "eof", start: 1, end: 1 },
+      { kind: "%=", start: 0, end: 2 },
+      { kind: "eof", start: 2, end: 2 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer(",")),
+    tokenize("|="),
     [
-      { token: ",", start: 0, end: 1 },
-      { token: "eof", start: 1, end: 1 },
+      { kind: "|=", start: 0, end: 2 },
+      { kind: "eof", start: 2, end: 2 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer(".")),
+    tokenize("&="),
     [
-      { token: ".", start: 0, end: 1 },
-      { token: "eof", start: 1, end: 1 },
+      { kind: "&=", start: 0, end: 2 },
+      { kind: "eof", start: 2, end: 2 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer(";")),
+    tokenize("^="),
     [
-      { token: ";", start: 0, end: 1 },
-      { token: "eof", start: 1, end: 1 },
+      { kind: "^=", start: 0, end: 2 },
+      { kind: "eof", start: 2, end: 2 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer(":")),
+    tokenize("<<="),
     [
-      { token: ":", start: 0, end: 1 },
-      { token: "eof", start: 1, end: 1 },
+      { kind: "<<=", start: 0, end: 3 },
+      { kind: "eof", start: 3, end: 3 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("/")),
+    tokenize(">>="),
     [
-      { token: "/", start: 0, end: 1 },
-      { token: "eof", start: 1, end: 1 },
+      { kind: ">>=", start: 0, end: 3 },
+      { kind: "eof", start: 3, end: 3 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("!")),
+    tokenize("rol="),
     [
-      { token: "!", start: 0, end: 1 },
-      { token: "eof", start: 1, end: 1 },
+      { kind: "rol=", start: 0, end: 4 },
+      { kind: "eof", start: 4, end: 4 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("+")),
+    tokenize("ror="),
     [
-      { token: "+", start: 0, end: 1 },
-      { token: "eof", start: 1, end: 1 },
+      { kind: "ror=", start: 0, end: 4 },
+      { kind: "eof", start: 4, end: 4 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("-")),
+    tokenize("&&="),
     [
-      { token: "-", start: 0, end: 1 },
-      { token: "eof", start: 1, end: 1 },
+      { kind: "&&=", start: 0, end: 3 },
+      { kind: "eof", start: 3, end: 3 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("*")),
+    tokenize("||="),
     [
-      { token: "*", start: 0, end: 1 },
-      { token: "eof", start: 1, end: 1 },
-    ] satisfies Token[],
-  );
-  assertEquals(
-    Array.from(new Tokenizer("%")),
-    [
-      { token: "%", start: 0, end: 1 },
-      { token: "eof", start: 1, end: 1 },
-    ] satisfies Token[],
-  );
-  assertEquals(
-    Array.from(new Tokenizer("|")),
-    [
-      { token: "|", start: 0, end: 1 },
-      { token: "eof", start: 1, end: 1 },
-    ] satisfies Token[],
-  );
-  assertEquals(
-    Array.from(new Tokenizer("&")),
-    [
-      { token: "&", start: 0, end: 1 },
-      { token: "eof", start: 1, end: 1 },
-    ] satisfies Token[],
-  );
-  assertEquals(
-    Array.from(new Tokenizer("<<")),
-    [
-      { token: "<<", start: 0, end: 2 },
-      { token: "eof", start: 2, end: 2 },
-    ] satisfies Token[],
-  );
-  assertEquals(
-    Array.from(new Tokenizer(">>")),
-    [
-      { token: ">>", start: 0, end: 2 },
-      { token: "eof", start: 2, end: 2 },
-    ] satisfies Token[],
-  );
-  assertEquals(
-    Array.from(new Tokenizer("++")),
-    [
-      { token: "++", start: 0, end: 2 },
-      { token: "eof", start: 2, end: 2 },
-    ] satisfies Token[],
-  );
-  assertEquals(
-    Array.from(new Tokenizer("--")),
-    [
-      { token: "--", start: 0, end: 2 },
-      { token: "eof", start: 2, end: 2 },
+      { kind: "||=", start: 0, end: 3 },
+      { kind: "eof", start: 3, end: 3 },
     ] satisfies Token[],
   );
 });
 
-Deno.test("Parse special keywords", () => {
+Deno.test("Tokenize special punctuation", () => {
   assertEquals(
-    Array.from(new Tokenizer("acl")),
+    tokenize("("),
     [
-      { token: "acl", start: 0, end: 3 },
-      { token: "eof", start: 3, end: 3 },
+      { kind: "(", start: 0, end: 1 },
+      { kind: "eof", start: 1, end: 1 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("backend")),
+    tokenize(")"),
     [
-      { token: "backend", start: 0, end: 7 },
-      { token: "eof", start: 7, end: 7 },
+      { kind: ")", start: 0, end: 1 },
+      { kind: "eof", start: 1, end: 1 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("declare")),
+    tokenize("{"),
     [
-      { token: "declare", start: 0, end: 7 },
-      { token: "eof", start: 7, end: 7 },
+      { kind: "{", start: 0, end: 1 },
+      { kind: "eof", start: 1, end: 1 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("director")),
+    tokenize("}"),
     [
-      { token: "director", start: 0, end: 8 },
-      { token: "eof", start: 8, end: 8 },
+      { kind: "}", start: 0, end: 1 },
+      { kind: "eof", start: 1, end: 1 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("import")),
+    tokenize("["),
     [
-      { token: "import", start: 0, end: 6 },
-      { token: "eof", start: 6, end: 6 },
+      { kind: "[", start: 0, end: 1 },
+      { kind: "eof", start: 1, end: 1 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("include")),
+    tokenize("]"),
     [
-      { token: "include", start: 0, end: 7 },
-      { token: "eof", start: 7, end: 7 },
+      { kind: "]", start: 0, end: 1 },
+      { kind: "eof", start: 1, end: 1 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("table")),
+    tokenize(","),
     [
-      { token: "table", start: 0, end: 5 },
-      { token: "eof", start: 5, end: 5 },
+      { kind: ",", start: 0, end: 1 },
+      { kind: "eof", start: 1, end: 1 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("add")),
+    tokenize("."),
     [
-      { token: "add", start: 0, end: 3 },
-      { token: "eof", start: 3, end: 3 },
+      { kind: ".", start: 0, end: 1 },
+      { kind: "eof", start: 1, end: 1 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("call")),
+    tokenize(";"),
     [
-      { token: "call", start: 0, end: 4 },
-      { token: "eof", start: 4, end: 4 },
+      { kind: ";", start: 0, end: 1 },
+      { kind: "eof", start: 1, end: 1 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("sub")),
+    tokenize(":"),
     [
-      { token: "sub", start: 0, end: 3 },
-      { token: "eof", start: 3, end: 3 },
+      { kind: ":", start: 0, end: 1 },
+      { kind: "eof", start: 1, end: 1 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("error")),
+    tokenize("/"),
     [
-      { token: "error", start: 0, end: 5 },
-      { token: "eof", start: 5, end: 5 },
+      { kind: "/", start: 0, end: 1 },
+      { kind: "eof", start: 1, end: 1 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("return")),
+    tokenize("!"),
     [
-      { token: "return", start: 0, end: 6 },
-      { token: "eof", start: 6, end: 6 },
+      { kind: "!", start: 0, end: 1 },
+      { kind: "eof", start: 1, end: 1 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("set")),
+    tokenize("+"),
     [
-      { token: "set", start: 0, end: 3 },
-      { token: "eof", start: 3, end: 3 },
+      { kind: "+", start: 0, end: 1 },
+      { kind: "eof", start: 1, end: 1 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("unset")),
+    tokenize("-"),
     [
-      { token: "unset", start: 0, end: 5 },
-      { token: "eof", start: 5, end: 5 },
+      { kind: "-", start: 0, end: 1 },
+      { kind: "eof", start: 1, end: 1 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("log")),
+    tokenize("*"),
     [
-      { token: "log", start: 0, end: 3 },
-      { token: "eof", start: 3, end: 3 },
+      { kind: "*", start: 0, end: 1 },
+      { kind: "eof", start: 1, end: 1 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("esi")),
+    tokenize("%"),
     [
-      { token: "esi", start: 0, end: 3 },
-      { token: "eof", start: 3, end: 3 },
+      { kind: "%", start: 0, end: 1 },
+      { kind: "eof", start: 1, end: 1 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("synthetic")),
+    tokenize("|"),
     [
-      { token: "synthetic", start: 0, end: 9 },
-      { token: "eof", start: 9, end: 9 },
+      { kind: "|", start: 0, end: 1 },
+      { kind: "eof", start: 1, end: 1 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("if")),
+    tokenize("&"),
     [
-      { token: "if", start: 0, end: 2 },
-      { token: "eof", start: 2, end: 2 },
+      { kind: "&", start: 0, end: 1 },
+      { kind: "eof", start: 1, end: 1 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("else")),
+    tokenize("<<"),
     [
-      { token: "else", start: 0, end: 4 },
-      { token: "eof", start: 4, end: 4 },
+      { kind: "<<", start: 0, end: 2 },
+      { kind: "eof", start: 2, end: 2 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("elsif")),
+    tokenize(">>"),
     [
-      { token: "elsif", start: 0, end: 5 },
-      { token: "eof", start: 5, end: 5 },
+      { kind: ">>", start: 0, end: 2 },
+      { kind: "eof", start: 2, end: 2 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("elseif")),
+    tokenize("++"),
     [
-      { token: "elseif", start: 0, end: 6 },
-      { token: "eof", start: 6, end: 6 },
+      { kind: "++", start: 0, end: 2 },
+      { kind: "eof", start: 2, end: 2 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("penaltybox")),
+    tokenize("--"),
     [
-      { token: "penaltybox", start: 0, end: 10 },
-      { token: "eof", start: 10, end: 10 },
-    ] satisfies Token[],
-  );
-  assertEquals(
-    Array.from(new Tokenizer("ratecounter")),
-    [
-      { token: "ratecounter", start: 0, end: 11 },
-      { token: "eof", start: 11, end: 11 },
+      { kind: "--", start: 0, end: 2 },
+      { kind: "eof", start: 2, end: 2 },
     ] satisfies Token[],
   );
 });
 
-Deno.test("Parse identities", () => {
+Deno.test("Tokenize special keywords", () => {
   assertEquals(
-    Array.from(new Tokenizer("ident")),
+    tokenize("acl"),
     [
-      { token: "ident", start: 0, end: 5 },
-      { token: "eof", start: 5, end: 5 },
+      { kind: "keyword", value: "acl", start: 0, end: 3 },
+      { kind: "eof", start: 3, end: 3 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("ident123")),
+    tokenize("backend"),
     [
-      { token: "ident", start: 0, end: 8 },
-      { token: "eof", start: 8, end: 8 },
+      { kind: "keyword", value: "backend", start: 0, end: 7 },
+      { kind: "eof", start: 7, end: 7 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("ide.nt_12:3-")),
+    tokenize("declare"),
     [
-      { token: "ident", start: 0, end: 12 },
-      { token: "eof", start: 12, end: 12 },
+      { kind: "keyword", value: "declare", start: 0, end: 7 },
+      { kind: "eof", start: 7, end: 7 },
+    ] satisfies Token[],
+  );
+  assertEquals(
+    tokenize("director"),
+    [
+      { kind: "keyword", value: "director", start: 0, end: 8 },
+      { kind: "eof", start: 8, end: 8 },
+    ] satisfies Token[],
+  );
+  assertEquals(
+    tokenize("import"),
+    [
+      { kind: "keyword", value: "import", start: 0, end: 6 },
+      { kind: "eof", start: 6, end: 6 },
+    ] satisfies Token[],
+  );
+  assertEquals(
+    tokenize("include"),
+    [
+      { kind: "keyword", value: "include", start: 0, end: 7 },
+      { kind: "eof", start: 7, end: 7 },
+    ] satisfies Token[],
+  );
+  assertEquals(
+    tokenize("table"),
+    [
+      { kind: "keyword", value: "table", start: 0, end: 5 },
+      { kind: "eof", start: 5, end: 5 },
+    ] satisfies Token[],
+  );
+  assertEquals(
+    tokenize("add"),
+    [
+      { kind: "keyword", value: "add", start: 0, end: 3 },
+      { kind: "eof", start: 3, end: 3 },
+    ] satisfies Token[],
+  );
+  assertEquals(
+    tokenize("call"),
+    [
+      { kind: "keyword", value: "call", start: 0, end: 4 },
+      { kind: "eof", start: 4, end: 4 },
+    ] satisfies Token[],
+  );
+  assertEquals(
+    tokenize("sub"),
+    [
+      { kind: "keyword", value: "sub", start: 0, end: 3 },
+      { kind: "eof", start: 3, end: 3 },
+    ] satisfies Token[],
+  );
+  assertEquals(
+    tokenize("error"),
+    [
+      { kind: "keyword", value: "error", start: 0, end: 5 },
+      { kind: "eof", start: 5, end: 5 },
+    ] satisfies Token[],
+  );
+  assertEquals(
+    tokenize("return"),
+    [
+      { kind: "keyword", value: "return", start: 0, end: 6 },
+      { kind: "eof", start: 6, end: 6 },
+    ] satisfies Token[],
+  );
+  assertEquals(
+    tokenize("set"),
+    [
+      { kind: "keyword", value: "set", start: 0, end: 3 },
+      { kind: "eof", start: 3, end: 3 },
+    ] satisfies Token[],
+  );
+  assertEquals(
+    tokenize("unset"),
+    [
+      { kind: "keyword", value: "unset", start: 0, end: 5 },
+      { kind: "eof", start: 5, end: 5 },
+    ] satisfies Token[],
+  );
+  assertEquals(
+    tokenize("log"),
+    [
+      { kind: "keyword", value: "log", start: 0, end: 3 },
+      { kind: "eof", start: 3, end: 3 },
+    ] satisfies Token[],
+  );
+  assertEquals(
+    tokenize("esi"),
+    [
+      { kind: "keyword", value: "esi", start: 0, end: 3 },
+      { kind: "eof", start: 3, end: 3 },
+    ] satisfies Token[],
+  );
+  assertEquals(
+    tokenize("synthetic"),
+    [
+      { kind: "keyword", value: "synthetic", start: 0, end: 9 },
+      { kind: "eof", start: 9, end: 9 },
+    ] satisfies Token[],
+  );
+  assertEquals(
+    tokenize("if"),
+    [
+      { kind: "keyword", value: "if", start: 0, end: 2 },
+      { kind: "eof", start: 2, end: 2 },
+    ] satisfies Token[],
+  );
+  assertEquals(
+    tokenize("else"),
+    [
+      { kind: "keyword", value: "else", start: 0, end: 4 },
+      { kind: "eof", start: 4, end: 4 },
+    ] satisfies Token[],
+  );
+  assertEquals(
+    tokenize("elsif"),
+    [
+      { kind: "keyword", value: "elsif", start: 0, end: 5 },
+      { kind: "eof", start: 5, end: 5 },
+    ] satisfies Token[],
+  );
+  assertEquals(
+    tokenize("elseif"),
+    [
+      { kind: "keyword", value: "elseif", start: 0, end: 6 },
+      { kind: "eof", start: 6, end: 6 },
+    ] satisfies Token[],
+  );
+  assertEquals(
+    tokenize("penaltybox"),
+    [
+      { kind: "keyword", value: "penaltybox", start: 0, end: 10 },
+      { kind: "eof", start: 10, end: 10 },
+    ] satisfies Token[],
+  );
+  assertEquals(
+    tokenize("ratecounter"),
+    [
+      { kind: "keyword", value: "ratecounter", start: 0, end: 11 },
+      { kind: "eof", start: 11, end: 11 },
     ] satisfies Token[],
   );
 });
 
-Deno.test("Parse literals (numbers)", () => {
+Deno.test("Tokenize identities", () => {
   assertEquals(
-    Array.from(new Tokenizer("200")),
+    tokenize("ident"),
     [
-      { token: "number", start: 0, end: 3 },
-      { token: "eof", start: 3, end: 3 },
+      { kind: "keyword", value: "ident", start: 0, end: 5 },
+      { kind: "eof", start: 5, end: 5 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("0xDeadBeef")),
+    tokenize("ident123"),
     [
-      { token: "number", start: 0, end: 10 },
-      { token: "eof", start: 10, end: 10 },
+      { kind: "keyword", value: "ident123", start: 0, end: 8 },
+      { kind: "eof", start: 8, end: 8 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("-134")),
+    tokenize("ide.nt_12:3-"),
     [
-      { token: "number", start: 0, end: 4 },
-      { token: "eof", start: 4, end: 4 },
-    ] satisfies Token[],
-  );
-  assertEquals(
-    Array.from(new Tokenizer("0.2e3")),
-    [
-      { token: "number", start: 0, end: 5 },
-      { token: "eof", start: 5, end: 5 },
-    ] satisfies Token[],
-  );
-  assertEquals(
-    Array.from(new Tokenizer("01.5e-10")),
-    [
-      { token: "number", start: 0, end: 8 },
-      { token: "eof", start: 8, end: 8 },
-    ] satisfies Token[],
-  );
-  assertEquals(
-    Array.from(new Tokenizer("0x101.ABCp2")),
-    [
-      { token: "number", start: 0, end: 11 },
-      { token: "eof", start: 11, end: 11 },
+      { kind: "keyword", value: "ide.nt_12:3-", start: 0, end: 12 },
+      { kind: "eof", start: 12, end: 12 },
     ] satisfies Token[],
   );
 });
 
-Deno.test("Parse literals (strings)", () => {
+Deno.test("Tokenize literals (numbers)", () => {
   assertEquals(
-    Array.from(new Tokenizer(`""`)),
+    tokenize("200"),
     [
-      { token: "string", start: 0, end: 2 },
-      { token: "eof", start: 2, end: 2 },
+      { kind: "number", start: 0, end: 3 },
+      { kind: "eof", start: 3, end: 3 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer(`"string"`)),
+    tokenize("0xDeadBeef"),
     [
-      { token: "string", start: 0, end: 8 },
-      { token: "eof", start: 8, end: 8 },
+      { kind: "number", start: 0, end: 10 },
+      { kind: "eof", start: 10, end: 10 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer(`{""}`)),
+    tokenize("-134"),
     [
-      { token: "string", start: 0, end: 4 },
-      { token: "eof", start: 4, end: 4 },
+      { kind: "number", start: 0, end: 4 },
+      { kind: "eof", start: 4, end: 4 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer(`{a"a"a}`)),
+    tokenize("0.2e3"),
     [
-      { token: "string", start: 0, end: 7 },
-      { token: "eof", start: 7, end: 7 },
+      { kind: "number", start: 0, end: 5 },
+      { kind: "eof", start: 5, end: 5 },
+    ] satisfies Token[],
+  );
+  assertEquals(
+    tokenize("01.5e-10"),
+    [
+      { kind: "number", start: 0, end: 8 },
+      { kind: "eof", start: 8, end: 8 },
+    ] satisfies Token[],
+  );
+  assertEquals(
+    tokenize("0x101.ABCp2"),
+    [
+      { kind: "number", start: 0, end: 11 },
+      { kind: "eof", start: 11, end: 11 },
     ] satisfies Token[],
   );
 });
 
-Deno.test("Parse comments", () => {
+Deno.test("Tokenize literals (strings)", () => {
   assertEquals(
-    Array.from(new Tokenizer("// comment")),
+    tokenize(`""`),
     [
-      { token: "comment", start: 0, end: 10 },
-      { token: "eof", start: 10, end: 10 },
+      { kind: "string", start: 0, end: 2 },
+      { kind: "eof", start: 2, end: 2 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("// comment\n")),
+    tokenize(`"string"`),
     [
-      { token: "comment", start: 0, end: 10 },
-      { token: "lf", start: 10, end: 11 },
-      { token: "eof", start: 11, end: 11 },
+      { kind: "string", start: 0, end: 8 },
+      { kind: "eof", start: 8, end: 8 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("/*\n  comment\n */\n")),
+    tokenize(`{""}`),
     [
-      { token: "comment", start: 0, end: 16 },
-      { token: "lf", start: 16, end: 17 },
-      { token: "eof", start: 17, end: 17 },
+      { kind: "string", start: 0, end: 4 },
+      { kind: "eof", start: 4, end: 4 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("#")),
+    tokenize(`{a"a"a}`),
     [
-      { token: "comment", start: 0, end: 1 },
-      { token: "eof", start: 1, end: 1 },
+      { kind: "string", start: 0, end: 7 },
+      { kind: "eof", start: 7, end: 7 },
+    ] satisfies Token[],
+  );
+});
+
+Deno.test("Tokenize comments", () => {
+  assertEquals(
+    tokenize("// comment"),
+    [
+      { kind: "comment", start: 0, end: 10 },
+      { kind: "eof", start: 10, end: 10 },
     ] satisfies Token[],
   );
   assertEquals(
-    Array.from(new Tokenizer("# comment\n")),
+    tokenize("// comment\n"),
     [
-      { token: "comment", start: 0, end: 9 },
-      { token: "lf", start: 9, end: 10 },
-      { token: "eof", start: 10, end: 10 },
+      { kind: "comment", start: 0, end: 10 },
+      { kind: "lf", start: 10, end: 11 },
+      { kind: "eof", start: 11, end: 11 },
+    ] satisfies Token[],
+  );
+  assertEquals(
+    tokenize("/*\n  comment\n */\n"),
+    [
+      { kind: "comment", start: 0, end: 16 },
+      { kind: "lf", start: 16, end: 17 },
+      { kind: "eof", start: 17, end: 17 },
+    ] satisfies Token[],
+  );
+  assertEquals(
+    tokenize("#"),
+    [
+      { kind: "comment", start: 0, end: 1 },
+      { kind: "eof", start: 1, end: 1 },
+    ] satisfies Token[],
+  );
+  assertEquals(
+    tokenize("# comment\n"),
+    [
+      { kind: "comment", start: 0, end: 9 },
+      { kind: "lf", start: 9, end: 10 },
+      { kind: "eof", start: 10, end: 10 },
     ] satisfies Token[],
   );
 });
