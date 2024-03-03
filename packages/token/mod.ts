@@ -91,6 +91,7 @@ export namespace Token {
   export type Restart = TokenFor<"restart">;
   export type Set = TokenFor<"set">;
   export type Unset = TokenFor<"unset">;
+  export type Remove = TokenFor<"remove">;
   export type Log = TokenFor<"log">;
   export type Esi = TokenFor<"esi">;
   export type Synthetic = TokenFor<"synthetic">;
@@ -179,6 +180,7 @@ export type Token =
   | Token.Restart
   | Token.Set
   | Token.Unset
+  | Token.Remove
   | Token.Log
   | Token.Esi
   | Token.Synthetic
