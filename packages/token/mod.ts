@@ -88,6 +88,7 @@ export namespace Token {
   export type Sub = TokenFor<"sub">;
   export type Error = TokenFor<"error">;
   export type Return = TokenFor<"return">;
+  export type Restart = TokenFor<"restart">;
   export type Set = TokenFor<"set">;
   export type Unset = TokenFor<"unset">;
   export type Log = TokenFor<"log">;
@@ -175,6 +176,7 @@ export type Token =
   | Token.Sub
   | Token.Error
   | Token.Return
+  | Token.Restart
   | Token.Set
   | Token.Unset
   | Token.Log
