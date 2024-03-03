@@ -3,23 +3,24 @@
  */
 // deno-lint-ignore no-namespace
 export namespace Token {
-  type TokenFor<T> = {
-    readonly token: T;
+  type TokenFor<
+    T extends string,
+    U extends Record<string, unknown> = Record<string, unknown>,
+  > = {
+    readonly kind: T;
     readonly start: number;
     readonly end: number;
-  };
+  } & U;
   // Special
   export type Illegal = TokenFor<"illegal">;
   export type LF = TokenFor<"lf">;
   export type WS = TokenFor<"ws">;
   export type EOF = TokenFor<"eof">;
   // Identifiers
-  export type Ident = TokenFor<"ident">;
   export type Number = TokenFor<"number">;
   export type String = TokenFor<"string">;
   export type Comment = TokenFor<"comment">;
-  export type True = TokenFor<"true">;
-  export type False = TokenFor<"false">;
+  export type Bool = TokenFor<"bool", { value: boolean }>;
 
   // Operators
   // Conditional operators (https://www.fastly.com/documentation/reference/vcl/operators/#conditional-operators)
@@ -76,32 +77,7 @@ export namespace Token {
   export type MinusMinus = TokenFor<"--">;
 
   // Keywords
-  export type Acl = TokenFor<"acl">;
-  export type Backend = TokenFor<"backend">;
-  export type Declare = TokenFor<"declare">;
-  export type Director = TokenFor<"director">;
-  export type Import = TokenFor<"import">;
-  export type Include = TokenFor<"include">;
-  export type Table = TokenFor<"table">;
-  export type Add = TokenFor<"add">;
-  export type Call = TokenFor<"call">;
-  export type Sub = TokenFor<"sub">;
-  export type Error = TokenFor<"error">;
-  export type Return = TokenFor<"return">;
-  export type Restart = TokenFor<"restart">;
-  export type Set = TokenFor<"set">;
-  export type Unset = TokenFor<"unset">;
-  export type Remove = TokenFor<"remove">;
-  export type Log = TokenFor<"log">;
-  export type Esi = TokenFor<"esi">;
-  export type Synthetic = TokenFor<"synthetic">;
-  export type SyntheticBase64 = TokenFor<"synthetic.base64">;
-  export type If = TokenFor<"if">;
-  export type Else = TokenFor<"else">;
-  export type Elsif = TokenFor<"elsif">;
-  export type Elseif = TokenFor<"elseif">;
-  export type Penaltybox = TokenFor<"penaltybox">;
-  export type Ratecounter = TokenFor<"ratecounter">;
+  export type Keyword = TokenFor<"keyword", { value: string }>;
 }
 
 /**
@@ -112,12 +88,10 @@ export type Token =
   | Token.LF
   | Token.WS
   | Token.EOF
-  | Token.Ident
   | Token.Number
   | Token.String
   | Token.Comment
-  | Token.True
-  | Token.False
+  | Token.Bool
   | Token.LogicalAnd
   | Token.LogicalOr
   | Token.Equal
@@ -165,29 +139,4 @@ export type Token =
   | Token.ShiftRight
   | Token.PlusPlus
   | Token.MinusMinus
-  | Token.Acl
-  | Token.Backend
-  | Token.Declare
-  | Token.Director
-  | Token.Import
-  | Token.Include
-  | Token.Table
-  | Token.Add
-  | Token.Call
-  | Token.Sub
-  | Token.Error
-  | Token.Return
-  | Token.Restart
-  | Token.Set
-  | Token.Unset
-  | Token.Remove
-  | Token.Log
-  | Token.Esi
-  | Token.Synthetic
-  | Token.SyntheticBase64
-  | Token.If
-  | Token.Else
-  | Token.Elsif
-  | Token.Elseif
-  | Token.Penaltybox
-  | Token.Ratecounter;
+  | Token.Keyword;
