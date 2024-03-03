@@ -1,6 +1,5 @@
 import type { Node } from "./base.ts";
-import type { DirectorType } from "./director_type.ts";
-import type { Literal } from "./literal.ts";
+import type { Literal, ObjectProperty } from "./literal.ts";
 import type { Stmt } from "./stmt.ts";
 import type { Type } from "./type.ts";
 import type { Variable } from "./variable.ts";
@@ -31,19 +30,24 @@ export namespace Declaration {
   }>;
   export type BackendDeclaration = Node<"backend", {
     name: string;
-    config: Literal.Object;
+    properties: ObjectProperty[];
   }>;
   export type DirectorDeclaration = Node<"director", {
     name: string;
-    type: DirectorType;
-    config?: Literal.Object;
+    type:
+      | "random"
+      | "fallback"
+      | "content"
+      | "client"
+      | "consistent_hashing";
+    properties: ObjectProperty[];
     directions: Literal.Object[];
   }>;
-  export type PenaltyBoxDeclaration = Node<"penaltybox", { name: string }>;
-  export type RateCounterDeclaration = Node<"ratecounter", { name: string }>;
+  export type PenaltyboxDeclaration = Node<"penaltybox", { name: string }>;
+  export type RatecounterDeclaration = Node<"ratecounter", { name: string }>;
   export type TableDeclaration = Node<"table", {
     name: string;
-    type: Type;
+    type?: Type;
     entries: TableEntry[];
   }>;
 }
@@ -55,6 +59,6 @@ export type Declaration =
   | Declaration.AclDeclaration
   | Declaration.BackendDeclaration
   | Declaration.DirectorDeclaration
-  | Declaration.PenaltyBoxDeclaration
-  | Declaration.RateCounterDeclaration
+  | Declaration.PenaltyboxDeclaration
+  | Declaration.RatecounterDeclaration
   | Declaration.TableDeclaration;

@@ -5,25 +5,25 @@ import type { UnaryOperator } from "./unary_operator.ts";
 import type { Variable } from "./variable.ts";
 
 // deno-lint-ignore no-namespace
-export namespace Expression {
+export namespace Expr {
   export type Call = Node<"call", {
     target: Variable;
-    arguments: Expression[];
+    arguments: Expr[];
   }>;
   export type Binary = Node<"binary", {
-    lhs: Expression;
+    lhs: Expr;
     operator: BinaryOperator;
-    rhs: Expression;
+    rhs: Expr;
   }>;
   export type Unary = Node<"unary", {
     operator: UnaryOperator;
-    rhs: Expression;
+    rhs: Expr;
   }>;
 }
 
-export type Expression =
-  | Expression.Binary
-  | Expression.Unary
-  | Expression.Call
+export type Expr =
+  | Expr.Binary
+  | Expr.Unary
+  | Expr.Call
   | Variable
   | Literal;
