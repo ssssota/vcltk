@@ -190,19 +190,19 @@ Deno.test("Backend", () => {
               key: "between_bytes_timeout",
               kind: "object-property",
               span: [370, 398],
-              value: { kind: "rtime", ns: 10000000000n, span: [395, 398] },
+              value: { kind: "rtime", value: 10n, unit: "s", span: [395, 398] },
             },
             {
               key: "connect_timeout",
               kind: "object-property",
               span: [402, 423],
-              value: { kind: "rtime", ns: 1000000000n, span: [421, 423] },
+              value: { kind: "rtime", value: 1n, unit: "s", span: [421, 423] },
             },
             {
               key: "first_byte_timeout",
               kind: "object-property",
               span: [427, 452],
-              value: { kind: "rtime", ns: 15000000000n, span: [449, 452] },
+              value: { kind: "rtime", value: 15n, unit: "s", span: [449, 452] },
             },
             {
               key: "max_connections",
@@ -267,14 +267,20 @@ Deno.test("Backend", () => {
                   span: [1001, 1016],
                   value: {
                     kind: "rtime",
-                    ns: 60000000000n,
+                    value: 60n,
+                    unit: "s",
                     span: [1013, 1016],
                   },
                 }, {
                   key: "timeout",
                   kind: "object-property",
                   span: [1049, 1062],
-                  value: { kind: "rtime", ns: 2000000000n, span: [1060, 1062] },
+                  value: {
+                    kind: "rtime",
+                    value: 2n,
+                    unit: "s",
+                    span: [1060, 1062],
+                  },
                 }, {
                   key: "window",
                   kind: "object-property",

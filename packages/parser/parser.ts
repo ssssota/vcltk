@@ -933,7 +933,6 @@ export class Parser {
         rhs: right as Expr,
         span: [left.span[0], right.span[1]],
       });
-      console.log(candidates);
     }
   }
 
