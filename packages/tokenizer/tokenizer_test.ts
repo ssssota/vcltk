@@ -583,6 +583,26 @@ Deno.test("Tokenize literals (numbers)", () => {
   );
 });
 
+Deno.test("Tokenize literals (number+units)", () => {
+  assertEquals(
+    tokenize("200 ms"),
+    [
+      { kind: "number", start: 0, end: 3 },
+      { kind: "ws", start: 3, end: 4 },
+      { kind: "keyword", value: "ms", start: 4, end: 6 },
+      { kind: "eof", start: 6, end: 6 },
+    ] satisfies Token[],
+  );
+  assertEquals(
+    tokenize("20%"),
+    [
+      { kind: "number", start: 0, end: 2 },
+      { kind: "%", start: 2, end: 3 },
+      { kind: "eof", start: 3, end: 3 },
+    ] satisfies Token[],
+  );
+});
+
 Deno.test("Tokenize literals (strings)", () => {
   assertEquals(
     tokenize(`""`),

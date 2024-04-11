@@ -16,6 +16,11 @@ export type ReturnState =
   | "fetch"
   | "deliver_stale";
 
+export type Case = Node<"case", {
+  expr: Expr;
+  fallthrough: boolean;
+}>;
+
 // deno-lint-ignore no-namespace
 export namespace Stmt {
   export type If = Node<"if", {
@@ -24,6 +29,10 @@ export namespace Stmt {
     else?: Else;
   }>;
   export type Else = If | Node<"else", { body: Stmt[] }>;
+  export type Switch = Node<"switch", {
+    value: Expr;
+    cases: Case[];
+  }>;
   export type Set = Node<"set", {
     target: Variable;
     operator: AssignmentOperator;

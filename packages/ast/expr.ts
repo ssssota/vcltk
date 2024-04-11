@@ -19,11 +19,15 @@ export namespace Expr {
     operator: UnaryOperator;
     rhs: Expr;
   }>;
+  export type StringConcat = Node<"string_concat", {
+    tokens: Expr[];
+  }>;
 }
 
 export type Expr =
   | Expr.Binary
   | Expr.Unary
   | Expr.Call
+  | Expr.StringConcat
   | Variable
   | Literal;

@@ -1,6 +1,7 @@
 import type {
   AclEntry,
   AssignmentOperator,
+  BinaryOperator,
   Declaration,
   Expr,
   Literal,
@@ -10,6 +11,7 @@ import type {
   TableEntry,
   Token,
   Type,
+  UnaryOperator,
   Variable,
   VCL,
 } from "./deps.ts";
@@ -313,6 +315,21 @@ export class Parser {
     };
   }
 
+  parseIdentAsExpr(): Expr.Call | Variable {
+    const variable = this.parseIdentAsVariable();
+    this.skipWhitespacesAndComments();
+    const token = this.peekToken();
+    if (token.kind === "(") {
+      return {
+        kind: "call",
+        target: variable,
+        arguments: this.parseArguments(),
+        span: [variable.span[0], this.tokens[this.cursor - 1].end],
+      };
+    }
+    return variable;
+  }
+
   parseIdentAsType(): Type {
     this.skipWhitespacesAndComments();
     const token = this.peekToken();
@@ -522,6 +539,7 @@ export class Parser {
   parseIfConditionAndBody(start: number): Stmt.If {
     const condition = this.parseIfCondition();
     const body = this.parseBlock();
+    this.skipWhitespacesAndComments();
     let token = this.peekToken();
     Parser.assertToken(token, "keyword");
     switch (token.value) {
@@ -543,6 +561,7 @@ export class Parser {
           };
         }
         Parser.assertKeywordToken(token, "if");
+        this.cursor++;
       /* falls through */
       case "elsif":
       case "elseif": {
@@ -794,9 +813,155 @@ export class Parser {
   }
 
   parseExpr(): Expr {
+    const candidates: (BinaryOperator | UnaryOperator | Expr)[] = [];
+
+    while (this.cursor < this.tokens.length) {
+      this.skipWhitespacesAndComments();
+      const token = this.peekToken();
+      if (token.kind === ";") break;
+      if (token.kind === "}") break;
+      if (token.kind === ")") break;
+      if (token.kind === ",") break;
+      switch (token.kind) {
+        case "keyword":
+          candidates.push(this.parseIdentAsExpr());
+          break;
+        case "!":
+        case "!=":
+        case "!~":
+        case "&&":
+        case "||":
+        case "<":
+        case "<=":
+        case "==":
+        case ">=":
+        case ">":
+        case "~":
+          candidates.push({ kind: token.kind, span: [token.start, token.end] });
+          this.cursor++;
+          break;
+        case "(":
+          candidates.push(this.parseParenthesizedExpr());
+          break;
+        case "number":
+        case "string":
+        case "bool":
+        case "-":
+          candidates.push(this.parseLiteral());
+          break;
+        default:
+          throw new Error(`Unexpected token: ${token.kind}`);
+      }
+    }
+
+    this.processOperatorsInPlace(candidates);
+    const expressions: Expr[] = [];
+    for (const candidate of candidates) {
+      switch (candidate.kind) {
+        case "variable":
+        case "call":
+        case "unary":
+        case "binary":
+        case "integer":
+        case "float":
+        case "bool":
+        case "string":
+        case "rtime":
+          expressions.push(candidate);
+          break;
+        default:
+          throw new Error(`Unexpected expression: ${candidate.kind}`);
+      }
+    }
+    if (expressions.length === 1) return expressions[0];
+    return {
+      kind: "string_concat",
+      tokens: expressions,
+      span: [
+        expressions[0].span[0],
+        expressions[expressions.length - 1].span[1],
+      ],
+    };
+  }
+
+  private processOperatorsInPlace(
+    candidates: (BinaryOperator | UnaryOperator | Expr)[],
+  ) {
+    let i = 0;
+    // Process unary operators
+    const unaryOperators = ["!"];
+    while (
+      (i = candidates.findIndex((c) => unaryOperators.includes(c.kind))) !== -1
+    ) {
+      const operator = candidates[i];
+      const operand = candidates[i + 1];
+      candidates.splice(i, 2, {
+        kind: "unary",
+        operator: {
+          kind: operator.kind as UnaryOperator["kind"],
+          span: [operator.span[0], operator.span[1]],
+        },
+        rhs: operand as Expr,
+        span: [operator.span[0], operand.span[1]],
+      });
+    }
+    // Process binary operators
+    const binaryOperators = [
+      "&&",
+      "||",
+      "<",
+      "<=",
+      "==",
+      ">=",
+      ">",
+      "!=",
+      "!~",
+      "~",
+    ];
+    while (
+      (i = candidates.findIndex((c) => binaryOperators.includes(c.kind))) !== -1
+    ) {
+      const left = candidates[i - 1];
+      const operator = candidates[i];
+      const right = candidates[i + 1];
+      candidates.splice(i - 1, 3, {
+        kind: "binary",
+        operator: {
+          kind: operator.kind as BinaryOperator["kind"],
+          span: [operator.span[0], operator.span[1]],
+        },
+        lhs: left as Expr,
+        rhs: right as Expr,
+        span: [left.span[0], right.span[1]],
+      });
+      console.log(candidates);
+    }
+  }
+
+  parseParenthesizedExpr(): Expr {
     this.skipWhitespacesAndComments();
-    // TODO: implement
-    throw new Error("Not implemented");
+    Parser.assertToken(this.nextToken(), "(");
+    const expr = this.parseExpr();
+    this.skipWhitespacesAndComments();
+    Parser.assertToken(this.nextToken(), ")");
+    return expr;
+  }
+
+  parseArguments(): Expr[] {
+    this.skipWhitespacesAndComments();
+    if (this.peekToken().kind === ")") {
+      this.cursor++;
+      return [];
+    }
+    const args: Expr[] = [];
+    while (this.cursor < this.tokens.length) {
+      args.push(this.parseExpr());
+      this.skipWhitespacesAndComments();
+      const token = this.nextToken();
+      if (token.kind === ")") break;
+      Parser.assertToken(token, ",");
+    }
+    return args;
   }
 
   parseLiteral(): Literal | Variable {
@@ -924,9 +1089,13 @@ export class Parser {
         return {
           kind: "rtime",
           ns: typeof amount === "bigint"
-            ? sign * clamp(amount, -9223372036854n, 9223372036854n) * 1_000_000n // ms to ns
+            ? sign *
+              clamp(amount, -9223372036854n, 9223372036854n) *
+              1_000_000n // ms to ns
             : sign *
-              BigInt(clamp(amount, -9223372036854, 9223372036854) * 1_000_000), // ms to ns
+              BigInt(
+                clamp(amount, -9223372036854, 9223372036854) * 1_000_000,
+              ), // ms to ns
           span,
         };
       case "s":
@@ -942,7 +1111,9 @@ export class Parser {
         return {
           kind: "rtime",
           ns: typeof amount === "bigint"
-            ? sign * clamp(amount, -153722867n, 153722867n) * 1_000_000_000n *
+            ? sign *
+              clamp(amount, -153722867n, 153722867n) *
+              1_000_000_000n *
               60n // m to ns
             : sign *
               BigInt(clamp(amount, -153722867, 153722867) * 1_000_000_000) *
@@ -953,33 +1124,51 @@ export class Parser {
         return {
           kind: "rtime",
           ns: typeof amount === "bigint"
-            ? sign * clamp(amount, -2562047n, 2562047n) * 1_000_000_000n *
-              60n * 60n // h to ns
+            ? sign *
+              clamp(amount, -2562047n, 2562047n) *
+              1_000_000_000n *
+              60n *
+              60n // h to ns
             : sign *
               BigInt(clamp(amount, -2562047, 2562047) * 10_000_000_000) *
-              60n * 60n, // h to ns
+              60n *
+              60n, // h to ns
           span,
         };
       case "d":
         return {
           kind: "rtime",
           ns: typeof amount === "bigint"
-            ? sign * clamp(amount, -106751n, 106751n) * 1_000_000_000n *
-              60n * 60n * 24n // d to ns
+            ? sign *
+              clamp(amount, -106751n, 106751n) *
+              1_000_000_000n *
+              60n *
+              60n *
+              24n // d to ns
             : sign *
               BigInt(clamp(amount, -106751, 106751) * 1_000_000_000) *
-              60n * 60n * 24n, // d to ns
+              60n *
+              60n *
+              24n, // d to ns
           span,
         };
       case "y":
         return {
           kind: "rtime",
           ns: typeof amount === "bigint"
-            ? sign * clamp(amount, -292n, 292n) * 1_000_000_000n *
-              60n * 60n * 24n * 365n // y to ns
+            ? sign *
+              clamp(amount, -292n, 292n) *
+              1_000_000_000n *
+              60n *
+              60n *
+              24n *
+              365n // y to ns
             : sign *
               BigInt(clamp(amount, -292, 292) * 1_000_000_000) *
-              60n * 60n * 24n * 365n, // y to ns
+              60n *
+              60n *
+              24n *
+              365n, // y to ns
           span,
         };
     }
@@ -1020,7 +1209,10 @@ export class Parser {
     const key = this.parseIdent();
     this.skipWhitespacesAndComments();
     Parser.assertToken(this.nextToken(), "=");
-    const value = this.parseLiteral();
+    this.skipWhitespacesAndComments();
+    const value = this.peekToken().kind === "keyword"
+      ? this.parseIdentAsVariable()
+      : this.parseLiteral();
     return {
       kind: "object-property",
       key,
@@ -1034,7 +1226,11 @@ export class Parser {
     expected: T,
   ): asserts actual is Token & { kind: T } {
     if (actual.kind !== expected) {
-      throw new Error(`Expected ${expected}, got ${actual.kind}`);
+      throw new Error(
+        `Expected ${expected}, got ${
+          actual.kind === "keyword" ? actual.value : actual.kind
+        }`,
+      );
     }
   }
 

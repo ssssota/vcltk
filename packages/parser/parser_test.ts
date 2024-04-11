@@ -65,7 +65,6 @@ Deno.test("ACL", () => {
 });
 
 Deno.test("Backend", () => {
-  // TODO: handle always keyword
   const source = `backend backend_name {
 
   # Required to be set for all VCL defined backends
@@ -337,86 +336,65 @@ Deno.test("Director", () => {
           directions: [
             {
               kind: "object",
-              properties: [
-                {
-                  key: "backend",
-                  kind: "object-property",
-                  span: [48, 67],
-                  value: {
-                    kind: "variable",
-                    name: "F_origin_0",
-                    properties: [],
-                    span: [57, 67],
-                    subField: undefined,
-                  },
+              properties: [{
+                key: "backend",
+                kind: "object-property",
+                span: [48, 67],
+                value: {
+                  kind: "variable",
+                  name: "F_origin_0",
+                  properties: [],
+                  span: [57, 67],
+                  subField: undefined,
                 },
-                {
-                  key: "weight",
-                  kind: "object-property",
-                  span: [69, 78],
-                  value: {
-                    kind: "integer",
-                    span: [77, 78],
-                    value: 1n,
-                  },
-                },
-              ],
+              }, {
+                key: "weight",
+                kind: "object-property",
+                span: [69, 78],
+                value: { kind: "integer", span: [77, 78], value: 1n },
+              }],
               span: [46, 81],
             },
             {
               kind: "object",
-              properties: [
-                {
-                  key: "backend",
-                  kind: "object-property",
-                  span: [86, 105],
-                  value: {
-                    kind: "variable",
-                    name: "F_origin_1",
-                    properties: [],
-                    span: [95, 105],
-                    subField: undefined,
-                  },
+              properties: [{
+                key: "backend",
+                kind: "object-property",
+                span: [86, 105],
+                value: {
+                  kind: "variable",
+                  name: "F_origin_1",
+                  properties: [],
+                  span: [95, 105],
+                  subField: undefined,
                 },
-                {
-                  key: "weight",
-                  kind: "object-property",
-                  span: [107, 116],
-                  value: {
-                    kind: "integer",
-                    span: [115, 116],
-                    value: 1n,
-                  },
-                },
-              ],
+              }, {
+                key: "weight",
+                kind: "object-property",
+                span: [107, 116],
+                value: { kind: "integer", span: [115, 116], value: 1n },
+              }],
               span: [84, 119],
             },
             {
               kind: "object",
-              properties: [
-                {
-                  key: "backend",
-                  kind: "object-property",
-                  span: [124, 143],
-                  value: {
-                    kind: "variable",
-                    name: "F_origin_2",
-                    properties: [],
-                    span: [133, 143],
-                    subField: undefined,
-                  },
+              properties: [{
+                key: "backend",
+                kind: "object-property",
+                span: [124, 143],
+                value: {
+                  kind: "variable",
+                  name: "F_origin_2",
+                  properties: [],
+                  span: [133, 143],
+                  subField: undefined,
                 },
-                {
-                  key: "weight",
-                  kind: "object-property",
-                  span: [145, 154],
-                  value: {
-                    kind: "integer",
-                    span: [153, 154],
-                    value: 1n,
-                  },
-                },
-              ],
+              }, {
+                key: "weight",
+                kind: "object-property",
+                span: [145, 154],
+                value: { kind: "integer", span: [153, 154], value: 1n },
+              }],
               span: [122, 157],
             },
           ],
@@ -427,11 +405,7 @@ Deno.test("Director", () => {
               key: "quorum",
               kind: "object-property",
               span: [31, 42],
-              value: {
-                kind: "parcent",
-                span: [39, 42],
-                value: 20n,
-              },
+              value: { kind: "parcent", span: [39, 42], value: 20n },
             },
           ],
           span: [0, 159],
@@ -506,7 +480,98 @@ Deno.test("Subroutine", () => {
     parser.parse(),
     {
       kind: "vcl",
-      declarations: [],
+      declarations: [{
+        body: [{
+          body: [{
+            kind: "set",
+            operator: { kind: "=", span: [163, 164] },
+            span: [147, 176],
+            target: {
+              kind: "variable",
+              name: "req",
+              properties: ["backend"],
+              span: [151, 162],
+              subField: undefined,
+            },
+            value: {
+              kind: "variable",
+              name: "F_origin_0",
+              properties: [],
+              span: [165, 175],
+              subField: undefined,
+            },
+          }],
+          condition: {
+            kind: "binary",
+            lhs: {
+              kind: "variable",
+              name: "req",
+              properties: ["url"],
+              span: [103, 110],
+              subField: undefined,
+            },
+            operator: { kind: "~", span: [111, 112] },
+            rhs: {
+              kind: "string",
+              span: [113, 139],
+              tokens: ["^/status(/[^?]*)?(?.*)?$"],
+            },
+            span: [103, 139],
+          },
+          else: {
+            body: [{
+              kind: "set",
+              operator: { kind: "=", span: [300, 301] },
+              span: [284, 313],
+              target: {
+                kind: "variable",
+                name: "req",
+                properties: ["backend"],
+                span: [288, 299],
+                subField: undefined,
+              },
+              value: {
+                kind: "variable",
+                name: "F_origin_1",
+                properties: [],
+                span: [302, 312],
+                subField: undefined,
+              },
+            }],
+            condition: {
+              kind: "binary",
+              lhs: {
+                kind: "variable",
+                name: "req",
+                properties: ["url"],
+                span: [262, 269],
+                subField: undefined,
+              },
+              operator: { kind: "==", span: [270, 272] },
+              rhs: { kind: "string", span: [273, 276], tokens: ["/"] },
+              span: [262, 276],
+            },
+            else: {
+              body: [{
+                kind: "error",
+                message: undefined,
+                span: [376, 386],
+                status: 601,
+              }],
+              kind: "else",
+              span: [370, 390],
+            },
+            kind: "if",
+            span: [258, 390],
+          },
+          kind: "if",
+          span: [99, 390],
+        }],
+        kind: "sub",
+        name: "vcl_recv",
+        returnType: undefined,
+        span: [13, 392],
+      }],
       span: [0, 0],
     },
   );

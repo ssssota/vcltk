@@ -24,5 +24,5 @@ export type Literal =
   | Literal.Float
   | Literal.Bool
   | Literal.RTime
-  | Literal.Object
-  | Literal.Parcent;
+  | Literal.Parcent
+  | Literal.Object;
