@@ -13,9 +13,20 @@ import type {
   Variable,
   VCL,
 } from "./deps.ts";
+import { tokenize } from "./deps.ts";
 import { clamp } from "./utils/clamp.ts";
 import { parseNumber } from "./utils/parse_number.ts";
 import { unescape } from "./utils/unescape.ts";
+
+/**
+ * Parse Fastly VCL source code
+ * @param input Fastly VCL source code
+ * @returns AST
+ */
+export function parse(source: string): VCL {
+  const tokens = tokenize(source);
+  return new Parser(source, tokens).parse();
+}
 
 export class Parser {
   private cursor = 0;
