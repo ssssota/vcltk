@@ -16,7 +16,6 @@ import type {
   VCL,
 } from "./deps.ts";
 import { tokenize } from "./deps.ts";
-import { clamp } from "./utils/clamp.ts";
 import { parseNumber } from "./utils/parse_number.ts";
 import { unescape } from "./utils/unescape.ts";
 
@@ -1086,89 +1085,17 @@ export class Parser {
     const span: Literal["span"] = this.getSpanWithLastToken(start);
     switch (unit) {
       case "ms":
-        return {
-          kind: "rtime",
-          ns: typeof amount === "bigint"
-            ? sign *
-              clamp(amount, -9223372036854n, 9223372036854n) *
-              1_000_000n // ms to ns
-            : sign *
-              BigInt(
-                clamp(amount, -9223372036854, 9223372036854) * 1_000_000,
-              ), // ms to ns
-          span,
-        };
       case "s":
-        return {
-          kind: "rtime",
-          ns: typeof amount === "bigint"
-            ? sign * clamp(amount, -9223372036n, 9223372036n) * 1_000_000_000n // s to ns
-            : sign *
-              BigInt(clamp(amount, -9223372036, 9223372036) * 1_000_000_000), // s to ns
-          span,
-        };
       case "m":
-        return {
-          kind: "rtime",
-          ns: typeof amount === "bigint"
-            ? sign *
-              clamp(amount, -153722867n, 153722867n) *
-              1_000_000_000n *
-              60n // m to ns
-            : sign *
-              BigInt(clamp(amount, -153722867, 153722867) * 1_000_000_000) *
-              60n, // m to ns
-          span,
-        };
       case "h":
-        return {
-          kind: "rtime",
-          ns: typeof amount === "bigint"
-            ? sign *
-              clamp(amount, -2562047n, 2562047n) *
-              1_000_000_000n *
-              60n *
-              60n // h to ns
-            : sign *
-              BigInt(clamp(amount, -2562047, 2562047) * 10_000_000_000) *
-              60n *
-              60n, // h to ns
-          span,
-        };
       case "d":
-        return {
-          kind: "rtime",
-          ns: typeof amount === "bigint"
-            ? sign *
-              clamp(amount, -106751n, 106751n) *
-              1_000_000_000n *
-              60n *
-              60n *
-              24n // d to ns
-            : sign *
-              BigInt(clamp(amount, -106751, 106751) * 1_000_000_000) *
-              60n *
-              60n *
-              24n, // d to ns
-          span,
-        };
       case "y":
         return {
           kind: "rtime",
-          ns: typeof amount === "bigint"
-            ? sign *
-              clamp(amount, -292n, 292n) *
-              1_000_000_000n *
-              60n *
-              60n *
-              24n *
-              365n // y to ns
-            : sign *
-              BigInt(clamp(amount, -292, 292) * 1_000_000_000) *
-              60n *
-              60n *
-              24n *
-              365n, // y to ns
+          value: typeof amount === "bigint"
+            ? sign * amount
+            : Number(sign) * amount,
+          unit,
           span,
         };
     }
