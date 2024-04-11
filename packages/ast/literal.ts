@@ -1,8 +1,9 @@
 import type { Node } from "./base.ts";
+import { Variable } from "./variable.ts";
 
 export type ObjectProperty = Node<"object-property", {
   key: string;
-  value: Literal;
+  value: Literal | Variable;
 }>;
 
 // deno-lint-ignore no-namespace
@@ -13,6 +14,8 @@ export namespace Literal {
   export type Bool = Node<"bool", { value: boolean }>;
   export type RTime = Node<"rtime", { ns: bigint }>;
   export type Object = Node<"object", { properties: ObjectProperty[] }>;
+  // parcent literal is used in the director declaration
+  export type Parcent = Node<"parcent", { value: bigint }>;
 }
 
 export type Literal =
@@ -21,4 +24,5 @@ export type Literal =
   | Literal.Float
   | Literal.Bool
   | Literal.RTime
-  | Literal.Object;
+  | Literal.Object
+  | Literal.Parcent;

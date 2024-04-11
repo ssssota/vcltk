@@ -252,10 +252,14 @@ export class Parser {
 
   parseSubroutine(): Declaration.SubroutineDeclaration {
     this.skipWhitespacesAndComments();
-    const token = this.nextToken();
+    let token = this.nextToken();
     Parser.assertKeywordToken(token, "sub");
     const name = this.parseIdent();
-    const returnType = this.parseIdentAsType();
+    this.skipWhitespacesAndComments();
+    token = this.peekToken();
+    const returnType = token.kind === "keyword"
+      ? this.parseIdentAsType()
+      : undefined;
     this.skipWhitespacesAndComments();
     const body = this.parseBlock();
     return {
@@ -795,10 +799,12 @@ export class Parser {
     throw new Error("Not implemented");
   }
 
-  parseLiteral(): Literal {
+  parseLiteral(): Literal | Variable {
     this.skipWhitespacesAndComments();
     const token = this.peekToken();
     switch (token.kind) {
+      case "keyword":
+        return this.parseIdentAsVariable();
       case "string":
         return this.parseStringLiteral();
       case "number":
@@ -808,7 +814,7 @@ export class Parser {
       case "-":
         return this.parseRtimeLiteral();
       case "{":
-        throw new Error("Not implemented");
+        return this.parseObjectLiteral();
     }
     throw new Error(`Unexpected token: ${token.kind}`);
   }
@@ -844,7 +850,11 @@ export class Parser {
     return quoted.slice(opening.length, -opening.length);
   }
 
-  parseNumberLiteral(): Literal.Integer | Literal.Float | Literal.RTime {
+  parseNumberLiteral():
+    | Literal.Integer
+    | Literal.Float
+    | Literal.RTime
+    | Literal.Parcent {
     this.skipWhitespacesAndComments();
     const start = this.peekToken().start;
     const value = this.parseNumber();
@@ -852,7 +862,20 @@ export class Parser {
     const literal = typeof value === "bigint"
       ? { kind: "integer", value, span } as const
       : { kind: "float", value, span } as const;
-    switch (this.peekToken().value) {
+    this.skipWhitespacesAndComments();
+    const token = this.peekToken();
+    if (token.kind === "%") {
+      if (typeof value === "bigint") {
+        this.cursor++;
+        return {
+          kind: "parcent",
+          value,
+          span: this.getSpanWithLastToken(start),
+        } as const;
+      }
+      throw new Error("Unexpected % token");
+    }
+    switch (token.kind === "keyword" && token.value) {
       case "ms":
       case "s":
       case "m":

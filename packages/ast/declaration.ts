@@ -21,7 +21,7 @@ export namespace Declaration {
   export type ImportDeclaration = Node<"import", { ident: string }>;
   export type SubroutineDeclaration = Node<"sub", {
     name: string;
-    returnType: Type;
+    returnType?: Type;
     body: Stmt[];
   }>;
   export type AclDeclaration = Node<"acl", {

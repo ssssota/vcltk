@@ -77,7 +77,7 @@ Deno.test("Backend", () => {
   .port = "443";
   .ssl = true;
   .ssl_cert_hostname = "storage.googleapis.com";
-  // .ssl_check_cert = always;
+  .ssl_check_cert = always;
   .ssl_sni_hostname = "storage.googleapis.com";
 
   # Timeouts and limits
@@ -86,26 +86,26 @@ Deno.test("Backend", () => {
   .first_byte_timeout = 15s;
   .max_connections = 200;
 
-  // # Host header override
-  // .host_header = "storage.googleapis.com";
-  // .always_use_host_header = true;
+  # Host header override
+  .host_header = "storage.googleapis.com";
+  .always_use_host_header = true;
 
-  // # Protected properties
-  // .bypass_local_route_table = true;
+  # Protected properties
+  .bypass_local_route_table = true;
 
-  // # Health check
-  // .probe = {
-  //   .dummy = false; # Boolean value determines the behavior of the probe.
-  //                   # \`true\` performs DNS lookups only.
-  //                   # \`false\` performs DNS lookups and HTTP health checks.
-  //   .request = "HEAD / HTTP/1.1"  "Host: storage.googleapis.com" "Connection: close";
-  //   .expected_response = 200;
-  //   .interval = 60s;   # Send a check every 60s
-  //   .timeout = 2s;     # Allow up to 2s for the backend to respond to the check
-  //   .window = 5;       # Keep a history of 5 checks
-  //   .initial = 4;      # Start with 4 successful checks in the history
-  //   .threshold = 4;    # 4 of the recent checks must be successful for backend to be healthy
-  // }
+  # Health check
+  .probe = {
+    .dummy = false; # Boolean value determines the behavior of the probe.
+                    # \`true\` performs DNS lookups only.
+                    # \`false\` performs DNS lookups and HTTP health checks.
+    .request = "HEAD / HTTP/1.1"  "Host: storage.googleapis.com" "Connection: close";
+    .expected_response = 200;
+    .interval = 60s;   # Send a check every 60s
+    .timeout = 2s;     # Allow up to 2s for the backend to respond to the check
+    .window = 5;       # Keep a history of 5 checks
+    .initial = 4;      # Start with 4 successful checks in the history
+    .threshold = 4;    # 4 of the recent checks must be successful for backend to be healthy
+  }
 }`;
   const parser = createParser(source);
   assertEquals(
@@ -166,86 +166,282 @@ Deno.test("Backend", () => {
               },
             },
             {
+              key: "ssl_check_cert",
+              kind: "object-property",
+              span: [269, 293],
+              value: {
+                kind: "variable",
+                name: "always",
+                properties: [],
+                span: [287, 293],
+                subField: undefined,
+              },
+            },
+            {
               key: "ssl_sni_hostname",
               kind: "object-property",
-              span: [300, 344],
+              span: [297, 341],
               value: {
                 kind: "string",
-                span: [320, 344],
+                span: [317, 341],
                 tokens: ["storage.googleapis.com"],
               },
             },
             {
               key: "between_bytes_timeout",
               kind: "object-property",
-              span: [373, 401],
-              value: { kind: "rtime", ns: 10000000000n, span: [398, 401] },
+              span: [370, 398],
+              value: { kind: "rtime", ns: 10000000000n, span: [395, 398] },
             },
             {
               key: "connect_timeout",
               kind: "object-property",
-              span: [405, 426],
-              value: { kind: "rtime", ns: 1000000000n, span: [424, 426] },
+              span: [402, 423],
+              value: { kind: "rtime", ns: 1000000000n, span: [421, 423] },
             },
             {
               key: "first_byte_timeout",
               kind: "object-property",
-              span: [430, 455],
-              value: { kind: "rtime", ns: 15000000000n, span: [452, 455] },
+              span: [427, 452],
+              value: { kind: "rtime", ns: 15000000000n, span: [449, 452] },
             },
             {
               key: "max_connections",
               kind: "object-property",
-              span: [459, 481],
-              value: { kind: "integer", span: [478, 481], value: 200n },
+              span: [456, 478],
+              value: { kind: "integer", span: [475, 478], value: 200n },
+            },
+            {
+              key: "host_header",
+              kind: "object-property",
+              span: [508, 547],
+              value: {
+                kind: "string",
+                span: [523, 547],
+                tokens: ["storage.googleapis.com"],
+              },
+            },
+            {
+              key: "always_use_host_header",
+              kind: "object-property",
+              span: [551, 581],
+              value: { kind: "bool", span: [577, 581], value: true },
+            },
+            {
+              key: "bypass_local_route_table",
+              kind: "object-property",
+              span: [611, 643],
+              value: { kind: "bool", span: [639, 643], value: true },
+            },
+            {
+              key: "probe",
+              kind: "object-property",
+              span: [665, 1344],
+              value: {
+                kind: "object",
+                properties: [{
+                  key: "dummy",
+                  kind: "object-property",
+                  span: [680, 694],
+                  value: { kind: "bool", span: [689, 694], value: false },
+                }, {
+                  key: "request",
+                  kind: "object-property",
+                  span: [885, 965],
+                  value: {
+                    kind: "string",
+                    span: [896, 965],
+                    tokens: [
+                      "HEAD / HTTP/1.1",
+                      "Host: storage.googleapis.com",
+                      "Connection: close",
+                    ],
+                  },
+                }, {
+                  key: "expected_response",
+                  kind: "object-property",
+                  span: [971, 995],
+                  value: { kind: "integer", span: [992, 995], value: 200n },
+                }, {
+                  key: "interval",
+                  kind: "object-property",
+                  span: [1001, 1016],
+                  value: {
+                    kind: "rtime",
+                    ns: 60000000000n,
+                    span: [1013, 1016],
+                  },
+                }, {
+                  key: "timeout",
+                  kind: "object-property",
+                  span: [1049, 1062],
+                  value: { kind: "rtime", ns: 2000000000n, span: [1060, 1062] },
+                }, {
+                  key: "window",
+                  kind: "object-property",
+                  span: [1129, 1140],
+                  value: { kind: "integer", span: [1139, 1140], value: 5n },
+                }, {
+                  key: "initial",
+                  kind: "object-property",
+                  span: [1181, 1193],
+                  value: { kind: "integer", span: [1192, 1193], value: 4n },
+                }, {
+                  key: "threshold",
+                  kind: "object-property",
+                  span: [1252, 1266],
+                  value: { kind: "integer", span: [1265, 1266], value: 4n },
+                }],
+                span: [674, 1344],
+              },
             },
           ],
-          span: [0, 1403],
+          span: [0, 1346],
         },
       ],
-      span: [0, 1403],
+      span: [0, 1346],
     },
   );
   assertEquals(parser.comments, [
     "# Required to be set for all VCL defined backends",
     "# Server location",
-    "// .ssl_check_cert = always;",
     "# Timeouts and limits",
-    "// # Host header override",
-    '// .host_header = "storage.googleapis.com";',
-    "// .always_use_host_header = true;",
-    "// # Protected properties",
-    "// .bypass_local_route_table = true;",
-    "// # Health check",
-    "// .probe = {",
-    "//   .dummy = false; # Boolean value determines the behavior of the probe.",
-    "//                   # `true` performs DNS lookups only.",
-    "//                   # `false` performs DNS lookups and HTTP health checks.",
-    '//   .request = "HEAD / HTTP/1.1"  "Host: storage.googleapis.com" "Connection: close";',
-    "//   .expected_response = 200;",
-    "//   .interval = 60s;   # Send a check every 60s",
-    "//   .timeout = 2s;     # Allow up to 2s for the backend to respond to the check",
-    "//   .window = 5;       # Keep a history of 5 checks",
-    "//   .initial = 4;      # Start with 4 successful checks in the history",
-    "//   .threshold = 4;    # 4 of the recent checks must be successful for backend to be healthy",
-    "// }",
+    "# Host header override",
+    "# Protected properties",
+    "# Health check",
+    "# Boolean value determines the behavior of the probe.",
+    "# `true` performs DNS lookups only.",
+    "# `false` performs DNS lookups and HTTP health checks.",
+    "# Send a check every 60s",
+    "# Allow up to 2s for the backend to respond to the check",
+    "# Keep a history of 5 checks",
+    "# Start with 4 successful checks in the history",
+    "# 4 of the recent checks must be successful for backend to be healthy",
   ]);
 });
 
-// TODO: handle director
-// Deno.test("Director", () => {
-//   const source = `director the_hash_dir hash {
-//   .quorum=20%;
-//   { .backend=F_origin_0; .weight=1; }
-//   { .backend=F_origin_1; .weight=1; }
-//   { .backend=F_origin_2; .weight=1; }
-// }`;
-//   const parser = createParser(source);
-//   assertEquals(
-//     parser.parse(),
-//     { kind: "vcl", declarations: [], span: [0, 0] },
-//   );
-// });
+Deno.test("Director", () => {
+  const source = `director the_hash_dir hash {
+  .quorum=20%;
+  { .backend=F_origin_0; .weight=1; }
+  { .backend=F_origin_1; .weight=1; }
+  { .backend=F_origin_2; .weight=1; }
+}`;
+  const parser = createParser(source);
+  assertEquals(
+    parser.parse(),
+    {
+      kind: "vcl",
+      declarations: [
+        {
+          directions: [
+            {
+              kind: "object",
+              properties: [
+                {
+                  key: "backend",
+                  kind: "object-property",
+                  span: [48, 67],
+                  value: {
+                    kind: "variable",
+                    name: "F_origin_0",
+                    properties: [],
+                    span: [57, 67],
+                    subField: undefined,
+                  },
+                },
+                {
+                  key: "weight",
+                  kind: "object-property",
+                  span: [69, 78],
+                  value: {
+                    kind: "integer",
+                    span: [77, 78],
+                    value: 1n,
+                  },
+                },
+              ],
+              span: [46, 81],
+            },
+            {
+              kind: "object",
+              properties: [
+                {
+                  key: "backend",
+                  kind: "object-property",
+                  span: [86, 105],
+                  value: {
+                    kind: "variable",
+                    name: "F_origin_1",
+                    properties: [],
+                    span: [95, 105],
+                    subField: undefined,
+                  },
+                },
+                {
+                  key: "weight",
+                  kind: "object-property",
+                  span: [107, 116],
+                  value: {
+                    kind: "integer",
+                    span: [115, 116],
+                    value: 1n,
+                  },
+                },
+              ],
+              span: [84, 119],
+            },
+            {
+              kind: "object",
+              properties: [
+                {
+                  key: "backend",
+                  kind: "object-property",
+                  span: [124, 143],
+                  value: {
+                    kind: "variable",
+                    name: "F_origin_2",
+                    properties: [],
+                    span: [133, 143],
+                    subField: undefined,
+                  },
+                },
+                {
+                  key: "weight",
+                  kind: "object-property",
+                  span: [145, 154],
+                  value: {
+                    kind: "integer",
+                    span: [153, 154],
+                    value: 1n,
+                  },
+                },
+              ],
+              span: [122, 157],
+            },
+          ],
+          kind: "director",
+          name: "the_hash_dir",
+          properties: [
+            {
+              key: "quorum",
+              kind: "object-property",
+              span: [31, 42],
+              value: {
+                kind: "parcent",
+                span: [39, 42],
+                value: 20n,
+              },
+            },
+          ],
+          span: [0, 159],
+          type: "content",
+        },
+      ],
+      span: [0, 159],
+    },
+  );
+});
 
 Deno.test("Penaltybox", () => {
   const source = `penaltybox banned_users {
@@ -288,7 +484,33 @@ Deno.test("Ratecounter", () => {
 });
 
 // TODO: handle subroutine
-Deno.test("Subroutine", () => {});
+Deno.test("Subroutine", () => {
+  const source = `sub vcl_recv {
+  # Requests for /status and all subpaths => origin 0
+  # (query strings allowed)
+  if (req.url ~ "^/status(/[^?]*)?(\?.*)?$") {
+    set req.backend = F_origin_0;
+
+  # Requests for exactly / => origin 1
+  # (query strings not allowed)
+  } else if (req.url == "/") {
+    set req.backend = F_origin_1;
+
+  # Unrecognised path => synthethic 404 error
+  } else {
+    error 601;
+  }
+}`;
+  const parser = createParser(source);
+  assertEquals(
+    parser.parse(),
+    {
+      kind: "vcl",
+      declarations: [],
+      span: [0, 0],
+    },
+  );
+});
 
 Deno.test("Table", () => {
   const source = `table redirects {
