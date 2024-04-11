@@ -572,7 +572,7 @@ Deno.test("Subroutine", () => {
         returnType: undefined,
         span: [13, 392],
       }],
-      span: [0, 0],
+      span: [0, 392],
     },
   );
 });
