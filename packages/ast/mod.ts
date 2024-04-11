@@ -1,4 +1,5 @@
 export * from "./assignment_operator.ts";
+export * from "./base.ts";
 export * from "./binary_operator.ts";
 export * from "./declaration.ts";
 export * from "./expr.ts";
