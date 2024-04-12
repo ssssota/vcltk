@@ -1,6 +1,5 @@
 import type { Node } from "./base.js";
 
-// deno-lint-ignore no-namespace
 export namespace BinaryOperator {
 	export type Eq = Node<"==">;
 	export type Ne = Node<"!=">;

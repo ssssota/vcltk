@@ -1,0 +1,2814 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ACL 1`] = `
+{
+  "comments": [
+    {
+      "kind": "comment_hash",
+      "span": {
+        "end": {
+          "column": 67,
+          "index": 90,
+          "line": 1,
+        },
+        "start": {
+          "column": 47,
+          "index": 70,
+          "line": 1,
+        },
+      },
+      "text": " internal office...",
+    },
+    {
+      "kind": "comment_hash",
+      "span": {
+        "end": {
+          "column": 83,
+          "index": 174,
+          "line": 2,
+        },
+        "start": {
+          "column": 47,
+          "index": 138,
+          "line": 2,
+        },
+      },
+      "text": " ... except for the vending machine",
+    },
+    {
+      "kind": "comment_hash",
+      "span": {
+        "end": {
+          "column": 66,
+          "index": 241,
+          "line": 3,
+        },
+        "start": {
+          "column": 47,
+          "index": 222,
+          "line": 3,
+        },
+      },
+      "text": " remote VPN office",
+    },
+    {
+      "kind": "comment_hash",
+      "span": {
+        "end": {
+          "column": 68,
+          "index": 310,
+          "line": 4,
+        },
+        "start": {
+          "column": 47,
+          "index": 289,
+          "line": 4,
+        },
+      },
+      "text": " ipv6 address remote",
+    },
+  ],
+  "declarations": [
+    {
+      "entries": [
+        {
+          "address": {
+            "kind": "quoted-string",
+            "raw": ""192.0.2.0"",
+            "span": {
+              "end": {
+                "column": 13,
+                "index": 36,
+                "line": 1,
+              },
+              "start": {
+                "column": 2,
+                "index": 25,
+                "line": 1,
+              },
+            },
+            "value": "192.0.2.0",
+          },
+          "cidr": 24,
+          "kind": "acl-entry",
+          "negated": false,
+          "span": {
+            "end": {
+              "column": 16,
+              "index": 39,
+              "line": 1,
+            },
+            "start": {
+              "column": 2,
+              "index": 25,
+              "line": 1,
+            },
+          },
+        },
+        {
+          "address": {
+            "kind": "quoted-string",
+            "raw": ""192.0.2.12"",
+            "span": {
+              "end": {
+                "column": 16,
+                "index": 107,
+                "line": 2,
+              },
+              "start": {
+                "column": 4,
+                "index": 95,
+                "line": 2,
+              },
+            },
+            "value": "192.0.2.12",
+          },
+          "cidr": 0,
+          "kind": "acl-entry",
+          "negated": true,
+          "span": {
+            "end": {
+              "column": 16,
+              "index": 107,
+              "line": 2,
+            },
+            "start": {
+              "column": 2,
+              "index": 93,
+              "line": 2,
+            },
+          },
+        },
+        {
+          "address": {
+            "kind": "quoted-string",
+            "raw": ""198.51.100.4"",
+            "span": {
+              "end": {
+                "column": 16,
+                "index": 191,
+                "line": 3,
+              },
+              "start": {
+                "column": 2,
+                "index": 177,
+                "line": 3,
+              },
+            },
+            "value": "198.51.100.4",
+          },
+          "cidr": 0,
+          "kind": "acl-entry",
+          "negated": false,
+          "span": {
+            "end": {
+              "column": 16,
+              "index": 191,
+              "line": 3,
+            },
+            "start": {
+              "column": 2,
+              "index": 177,
+              "line": 3,
+            },
+          },
+        },
+        {
+          "address": {
+            "kind": "quoted-string",
+            "raw": ""2001:db8:ffff:ffff:ffff:ffff:ffff:ffff"",
+            "span": {
+              "end": {
+                "column": 42,
+                "index": 284,
+                "line": 4,
+              },
+              "start": {
+                "column": 2,
+                "index": 244,
+                "line": 4,
+              },
+            },
+            "value": "2001:db8:ffff:ffff:ffff:ffff:ffff:ffff",
+          },
+          "cidr": 0,
+          "kind": "acl-entry",
+          "negated": false,
+          "span": {
+            "end": {
+              "column": 42,
+              "index": 284,
+              "line": 4,
+            },
+            "start": {
+              "column": 2,
+              "index": 244,
+              "line": 4,
+            },
+          },
+        },
+      ],
+      "kind": "acl",
+      "name": "office_ip_ranges",
+      "span": {
+        "end": {
+          "column": 1,
+          "index": 312,
+          "line": 5,
+        },
+        "start": {
+          "column": 0,
+          "index": 0,
+          "line": 0,
+        },
+      },
+    },
+  ],
+  "kind": "vcl",
+  "span": {
+    "end": {
+      "column": 1,
+      "index": 312,
+      "line": 5,
+    },
+    "start": {
+      "column": 0,
+      "index": 0,
+      "line": 0,
+    },
+  },
+}
+`;
+
+exports[`Backend 1`] = `
+{
+  "comments": [
+    {
+      "kind": "comment_hash",
+      "span": {
+        "end": {
+          "column": 51,
+          "index": 75,
+          "line": 2,
+        },
+        "start": {
+          "column": 2,
+          "index": 26,
+          "line": 2,
+        },
+      },
+      "text": " Required to be set for all VCL defined backends",
+    },
+    {
+      "kind": "comment_hash",
+      "span": {
+        "end": {
+          "column": 19,
+          "index": 149,
+          "line": 6,
+        },
+        "start": {
+          "column": 2,
+          "index": 132,
+          "line": 6,
+        },
+      },
+      "text": " Server location",
+    },
+    {
+      "kind": "comment_hash",
+      "span": {
+        "end": {
+          "column": 23,
+          "index": 367,
+          "line": 14,
+        },
+        "start": {
+          "column": 2,
+          "index": 346,
+          "line": 14,
+        },
+      },
+      "text": " Timeouts and limits",
+    },
+    {
+      "kind": "comment_hash",
+      "span": {
+        "end": {
+          "column": 24,
+          "index": 505,
+          "line": 20,
+        },
+        "start": {
+          "column": 2,
+          "index": 483,
+          "line": 20,
+        },
+      },
+      "text": " Host header override",
+    },
+    {
+      "kind": "comment_hash",
+      "span": {
+        "end": {
+          "column": 24,
+          "index": 608,
+          "line": 24,
+        },
+        "start": {
+          "column": 2,
+          "index": 586,
+          "line": 24,
+        },
+      },
+      "text": " Protected properties",
+    },
+    {
+      "kind": "comment_hash",
+      "span": {
+        "end": {
+          "column": 16,
+          "index": 662,
+          "line": 27,
+        },
+        "start": {
+          "column": 2,
+          "index": 648,
+          "line": 27,
+        },
+      },
+      "text": " Health check",
+    },
+    {
+      "kind": "comment_hash",
+      "span": {
+        "end": {
+          "column": 73,
+          "index": 749,
+          "line": 29,
+        },
+        "start": {
+          "column": 20,
+          "index": 696,
+          "line": 29,
+        },
+      },
+      "text": " Boolean value determines the behavior of the probe.",
+    },
+    {
+      "kind": "comment_hash",
+      "span": {
+        "end": {
+          "column": 55,
+          "index": 805,
+          "line": 30,
+        },
+        "start": {
+          "column": 20,
+          "index": 770,
+          "line": 30,
+        },
+      },
+      "text": " \`true\` performs DNS lookups only.",
+    },
+    {
+      "kind": "comment_hash",
+      "span": {
+        "end": {
+          "column": 74,
+          "index": 880,
+          "line": 31,
+        },
+        "start": {
+          "column": 20,
+          "index": 826,
+          "line": 31,
+        },
+      },
+      "text": " \`false\` performs DNS lookups and HTTP health checks.",
+    },
+    {
+      "kind": "comment_hash",
+      "span": {
+        "end": {
+          "column": 47,
+          "index": 1044,
+          "line": 34,
+        },
+        "start": {
+          "column": 23,
+          "index": 1020,
+          "line": 34,
+        },
+      },
+      "text": " Send a check every 60s",
+    },
+    {
+      "kind": "comment_hash",
+      "span": {
+        "end": {
+          "column": 79,
+          "index": 1124,
+          "line": 35,
+        },
+        "start": {
+          "column": 23,
+          "index": 1068,
+          "line": 35,
+        },
+      },
+      "text": " Allow up to 2s for the backend to respond to the check",
+    },
+    {
+      "kind": "comment_hash",
+      "span": {
+        "end": {
+          "column": 51,
+          "index": 1176,
+          "line": 36,
+        },
+        "start": {
+          "column": 23,
+          "index": 1148,
+          "line": 36,
+        },
+      },
+      "text": " Keep a history of 5 checks",
+    },
+    {
+      "kind": "comment_hash",
+      "span": {
+        "end": {
+          "column": 70,
+          "index": 1247,
+          "line": 37,
+        },
+        "start": {
+          "column": 23,
+          "index": 1200,
+          "line": 37,
+        },
+      },
+      "text": " Start with 4 successful checks in the history",
+    },
+    {
+      "kind": "comment_hash",
+      "span": {
+        "end": {
+          "column": 92,
+          "index": 1340,
+          "line": 38,
+        },
+        "start": {
+          "column": 23,
+          "index": 1271,
+          "line": 38,
+        },
+      },
+      "text": " 4 of the recent checks must be successful for backend to be healthy",
+    },
+  ],
+  "declarations": [
+    {
+      "kind": "backend",
+      "name": "backend_name",
+      "properties": [
+        {
+          "key": "dynamic",
+          "kind": "object-property",
+          "span": {
+            "end": {
+              "column": 17,
+              "index": 93,
+              "line": 3,
+            },
+            "start": {
+              "column": 2,
+              "index": 78,
+              "line": 3,
+            },
+          },
+          "value": {
+            "kind": "bool",
+            "span": {
+              "end": {
+                "column": 17,
+                "index": 93,
+                "line": 3,
+              },
+              "start": {
+                "column": 13,
+                "index": 89,
+                "line": 3,
+              },
+            },
+            "value": true,
+          },
+        },
+        {
+          "key": "share_key",
+          "kind": "object-property",
+          "span": {
+            "end": {
+              "column": 32,
+              "index": 127,
+              "line": 4,
+            },
+            "start": {
+              "column": 2,
+              "index": 97,
+              "line": 4,
+            },
+          },
+          "value": {
+            "kind": "string",
+            "span": {
+              "end": {
+                "column": 32,
+                "index": 127,
+                "line": 4,
+              },
+              "start": {
+                "column": 15,
+                "index": 110,
+                "line": 4,
+              },
+            },
+            "tokens": [
+              {
+                "kind": "quoted-string",
+                "raw": ""YOUR_SERVICE_ID"",
+                "span": {
+                  "end": {
+                    "column": 32,
+                    "index": 127,
+                    "line": 4,
+                  },
+                  "start": {
+                    "column": 15,
+                    "index": 110,
+                    "line": 4,
+                  },
+                },
+                "value": "YOUR_SERVICE_ID",
+              },
+            ],
+          },
+        },
+        {
+          "key": "host",
+          "kind": "object-property",
+          "span": {
+            "end": {
+              "column": 34,
+              "index": 184,
+              "line": 7,
+            },
+            "start": {
+              "column": 2,
+              "index": 152,
+              "line": 7,
+            },
+          },
+          "value": {
+            "kind": "string",
+            "span": {
+              "end": {
+                "column": 34,
+                "index": 184,
+                "line": 7,
+              },
+              "start": {
+                "column": 10,
+                "index": 160,
+                "line": 7,
+              },
+            },
+            "tokens": [
+              {
+                "kind": "quoted-string",
+                "raw": ""storage.googleapis.com"",
+                "span": {
+                  "end": {
+                    "column": 34,
+                    "index": 184,
+                    "line": 7,
+                  },
+                  "start": {
+                    "column": 10,
+                    "index": 160,
+                    "line": 7,
+                  },
+                },
+                "value": "storage.googleapis.com",
+              },
+            ],
+          },
+        },
+        {
+          "key": "port",
+          "kind": "object-property",
+          "span": {
+            "end": {
+              "column": 15,
+              "index": 201,
+              "line": 8,
+            },
+            "start": {
+              "column": 2,
+              "index": 188,
+              "line": 8,
+            },
+          },
+          "value": {
+            "kind": "string",
+            "span": {
+              "end": {
+                "column": 15,
+                "index": 201,
+                "line": 8,
+              },
+              "start": {
+                "column": 10,
+                "index": 196,
+                "line": 8,
+              },
+            },
+            "tokens": [
+              {
+                "kind": "quoted-string",
+                "raw": ""443"",
+                "span": {
+                  "end": {
+                    "column": 15,
+                    "index": 201,
+                    "line": 8,
+                  },
+                  "start": {
+                    "column": 10,
+                    "index": 196,
+                    "line": 8,
+                  },
+                },
+                "value": "443",
+              },
+            ],
+          },
+        },
+        {
+          "key": "ssl",
+          "kind": "object-property",
+          "span": {
+            "end": {
+              "column": 13,
+              "index": 216,
+              "line": 9,
+            },
+            "start": {
+              "column": 2,
+              "index": 205,
+              "line": 9,
+            },
+          },
+          "value": {
+            "kind": "bool",
+            "span": {
+              "end": {
+                "column": 13,
+                "index": 216,
+                "line": 9,
+              },
+              "start": {
+                "column": 9,
+                "index": 212,
+                "line": 9,
+              },
+            },
+            "value": true,
+          },
+        },
+        {
+          "key": "ssl_cert_hostname",
+          "kind": "object-property",
+          "span": {
+            "end": {
+              "column": 47,
+              "index": 265,
+              "line": 10,
+            },
+            "start": {
+              "column": 2,
+              "index": 220,
+              "line": 10,
+            },
+          },
+          "value": {
+            "kind": "string",
+            "span": {
+              "end": {
+                "column": 47,
+                "index": 265,
+                "line": 10,
+              },
+              "start": {
+                "column": 23,
+                "index": 241,
+                "line": 10,
+              },
+            },
+            "tokens": [
+              {
+                "kind": "quoted-string",
+                "raw": ""storage.googleapis.com"",
+                "span": {
+                  "end": {
+                    "column": 47,
+                    "index": 265,
+                    "line": 10,
+                  },
+                  "start": {
+                    "column": 23,
+                    "index": 241,
+                    "line": 10,
+                  },
+                },
+                "value": "storage.googleapis.com",
+              },
+            ],
+          },
+        },
+        {
+          "key": "ssl_check_cert",
+          "kind": "object-property",
+          "span": {
+            "end": {
+              "column": 26,
+              "index": 293,
+              "line": 11,
+            },
+            "start": {
+              "column": 2,
+              "index": 269,
+              "line": 11,
+            },
+          },
+          "value": {
+            "kind": "variable",
+            "name": "always",
+            "properties": [],
+            "span": {
+              "end": {
+                "column": 26,
+                "index": 293,
+                "line": 11,
+              },
+              "start": {
+                "column": 20,
+                "index": 287,
+                "line": 11,
+              },
+            },
+            "subField": undefined,
+          },
+        },
+        {
+          "key": "ssl_sni_hostname",
+          "kind": "object-property",
+          "span": {
+            "end": {
+              "column": 46,
+              "index": 341,
+              "line": 12,
+            },
+            "start": {
+              "column": 2,
+              "index": 297,
+              "line": 12,
+            },
+          },
+          "value": {
+            "kind": "string",
+            "span": {
+              "end": {
+                "column": 46,
+                "index": 341,
+                "line": 12,
+              },
+              "start": {
+                "column": 22,
+                "index": 317,
+                "line": 12,
+              },
+            },
+            "tokens": [
+              {
+                "kind": "quoted-string",
+                "raw": ""storage.googleapis.com"",
+                "span": {
+                  "end": {
+                    "column": 46,
+                    "index": 341,
+                    "line": 12,
+                  },
+                  "start": {
+                    "column": 22,
+                    "index": 317,
+                    "line": 12,
+                  },
+                },
+                "value": "storage.googleapis.com",
+              },
+            ],
+          },
+        },
+        {
+          "key": "between_bytes_timeout",
+          "kind": "object-property",
+          "span": {
+            "end": {
+              "column": 30,
+              "index": 398,
+              "line": 15,
+            },
+            "start": {
+              "column": 2,
+              "index": 370,
+              "line": 15,
+            },
+          },
+          "value": {
+            "kind": "rtime",
+            "span": {
+              "end": {
+                "column": 30,
+                "index": 398,
+                "line": 15,
+              },
+              "start": {
+                "column": 27,
+                "index": 395,
+                "line": 15,
+              },
+            },
+            "unit": "s",
+            "value": 10n,
+          },
+        },
+        {
+          "key": "connect_timeout",
+          "kind": "object-property",
+          "span": {
+            "end": {
+              "column": 23,
+              "index": 423,
+              "line": 16,
+            },
+            "start": {
+              "column": 2,
+              "index": 402,
+              "line": 16,
+            },
+          },
+          "value": {
+            "kind": "rtime",
+            "span": {
+              "end": {
+                "column": 23,
+                "index": 423,
+                "line": 16,
+              },
+              "start": {
+                "column": 21,
+                "index": 421,
+                "line": 16,
+              },
+            },
+            "unit": "s",
+            "value": 1n,
+          },
+        },
+        {
+          "key": "first_byte_timeout",
+          "kind": "object-property",
+          "span": {
+            "end": {
+              "column": 27,
+              "index": 452,
+              "line": 17,
+            },
+            "start": {
+              "column": 2,
+              "index": 427,
+              "line": 17,
+            },
+          },
+          "value": {
+            "kind": "rtime",
+            "span": {
+              "end": {
+                "column": 27,
+                "index": 452,
+                "line": 17,
+              },
+              "start": {
+                "column": 24,
+                "index": 449,
+                "line": 17,
+              },
+            },
+            "unit": "s",
+            "value": 15n,
+          },
+        },
+        {
+          "key": "max_connections",
+          "kind": "object-property",
+          "span": {
+            "end": {
+              "column": 24,
+              "index": 478,
+              "line": 18,
+            },
+            "start": {
+              "column": 2,
+              "index": 456,
+              "line": 18,
+            },
+          },
+          "value": {
+            "kind": "integer",
+            "raw": "200",
+            "span": {
+              "end": {
+                "column": 24,
+                "index": 478,
+                "line": 18,
+              },
+              "start": {
+                "column": 21,
+                "index": 475,
+                "line": 18,
+              },
+            },
+            "value": 200n,
+          },
+        },
+        {
+          "key": "host_header",
+          "kind": "object-property",
+          "span": {
+            "end": {
+              "column": 41,
+              "index": 547,
+              "line": 21,
+            },
+            "start": {
+              "column": 2,
+              "index": 508,
+              "line": 21,
+            },
+          },
+          "value": {
+            "kind": "string",
+            "span": {
+              "end": {
+                "column": 41,
+                "index": 547,
+                "line": 21,
+              },
+              "start": {
+                "column": 17,
+                "index": 523,
+                "line": 21,
+              },
+            },
+            "tokens": [
+              {
+                "kind": "quoted-string",
+                "raw": ""storage.googleapis.com"",
+                "span": {
+                  "end": {
+                    "column": 41,
+                    "index": 547,
+                    "line": 21,
+                  },
+                  "start": {
+                    "column": 17,
+                    "index": 523,
+                    "line": 21,
+                  },
+                },
+                "value": "storage.googleapis.com",
+              },
+            ],
+          },
+        },
+        {
+          "key": "always_use_host_header",
+          "kind": "object-property",
+          "span": {
+            "end": {
+              "column": 32,
+              "index": 581,
+              "line": 22,
+            },
+            "start": {
+              "column": 2,
+              "index": 551,
+              "line": 22,
+            },
+          },
+          "value": {
+            "kind": "bool",
+            "span": {
+              "end": {
+                "column": 32,
+                "index": 581,
+                "line": 22,
+              },
+              "start": {
+                "column": 28,
+                "index": 577,
+                "line": 22,
+              },
+            },
+            "value": true,
+          },
+        },
+        {
+          "key": "bypass_local_route_table",
+          "kind": "object-property",
+          "span": {
+            "end": {
+              "column": 34,
+              "index": 643,
+              "line": 25,
+            },
+            "start": {
+              "column": 2,
+              "index": 611,
+              "line": 25,
+            },
+          },
+          "value": {
+            "kind": "bool",
+            "span": {
+              "end": {
+                "column": 34,
+                "index": 643,
+                "line": 25,
+              },
+              "start": {
+                "column": 30,
+                "index": 639,
+                "line": 25,
+              },
+            },
+            "value": true,
+          },
+        },
+        {
+          "key": "probe",
+          "kind": "object-property",
+          "span": {
+            "end": {
+              "column": 3,
+              "index": 1344,
+              "line": 39,
+            },
+            "start": {
+              "column": 2,
+              "index": 665,
+              "line": 28,
+            },
+          },
+          "value": {
+            "kind": "object",
+            "properties": [
+              {
+                "key": "dummy",
+                "kind": "object-property",
+                "span": {
+                  "end": {
+                    "column": 18,
+                    "index": 694,
+                    "line": 29,
+                  },
+                  "start": {
+                    "column": 4,
+                    "index": 680,
+                    "line": 29,
+                  },
+                },
+                "value": {
+                  "kind": "bool",
+                  "span": {
+                    "end": {
+                      "column": 18,
+                      "index": 694,
+                      "line": 29,
+                    },
+                    "start": {
+                      "column": 13,
+                      "index": 689,
+                      "line": 29,
+                    },
+                  },
+                  "value": false,
+                },
+              },
+              {
+                "key": "request",
+                "kind": "object-property",
+                "span": {
+                  "end": {
+                    "column": 84,
+                    "index": 965,
+                    "line": 32,
+                  },
+                  "start": {
+                    "column": 4,
+                    "index": 885,
+                    "line": 32,
+                  },
+                },
+                "value": {
+                  "kind": "string",
+                  "span": {
+                    "end": {
+                      "column": 84,
+                      "index": 965,
+                      "line": 32,
+                    },
+                    "start": {
+                      "column": 15,
+                      "index": 896,
+                      "line": 32,
+                    },
+                  },
+                  "tokens": [
+                    {
+                      "kind": "quoted-string",
+                      "raw": ""HEAD / HTTP/1.1"",
+                      "span": {
+                        "end": {
+                          "column": 32,
+                          "index": 913,
+                          "line": 32,
+                        },
+                        "start": {
+                          "column": 15,
+                          "index": 896,
+                          "line": 32,
+                        },
+                      },
+                      "value": "HEAD / HTTP/1.1",
+                    },
+                    {
+                      "kind": "quoted-string",
+                      "raw": ""Host: storage.googleapis.com"",
+                      "span": {
+                        "end": {
+                          "column": 64,
+                          "index": 945,
+                          "line": 32,
+                        },
+                        "start": {
+                          "column": 34,
+                          "index": 915,
+                          "line": 32,
+                        },
+                      },
+                      "value": "Host: storage.googleapis.com",
+                    },
+                    {
+                      "kind": "quoted-string",
+                      "raw": ""Connection: close"",
+                      "span": {
+                        "end": {
+                          "column": 84,
+                          "index": 965,
+                          "line": 32,
+                        },
+                        "start": {
+                          "column": 65,
+                          "index": 946,
+                          "line": 32,
+                        },
+                      },
+                      "value": "Connection: close",
+                    },
+                  ],
+                },
+              },
+              {
+                "key": "expected_response",
+                "kind": "object-property",
+                "span": {
+                  "end": {
+                    "column": 28,
+                    "index": 995,
+                    "line": 33,
+                  },
+                  "start": {
+                    "column": 4,
+                    "index": 971,
+                    "line": 33,
+                  },
+                },
+                "value": {
+                  "kind": "integer",
+                  "raw": "200",
+                  "span": {
+                    "end": {
+                      "column": 28,
+                      "index": 995,
+                      "line": 33,
+                    },
+                    "start": {
+                      "column": 25,
+                      "index": 992,
+                      "line": 33,
+                    },
+                  },
+                  "value": 200n,
+                },
+              },
+              {
+                "key": "interval",
+                "kind": "object-property",
+                "span": {
+                  "end": {
+                    "column": 19,
+                    "index": 1016,
+                    "line": 34,
+                  },
+                  "start": {
+                    "column": 4,
+                    "index": 1001,
+                    "line": 34,
+                  },
+                },
+                "value": {
+                  "kind": "rtime",
+                  "span": {
+                    "end": {
+                      "column": 19,
+                      "index": 1016,
+                      "line": 34,
+                    },
+                    "start": {
+                      "column": 16,
+                      "index": 1013,
+                      "line": 34,
+                    },
+                  },
+                  "unit": "s",
+                  "value": 60n,
+                },
+              },
+              {
+                "key": "timeout",
+                "kind": "object-property",
+                "span": {
+                  "end": {
+                    "column": 17,
+                    "index": 1062,
+                    "line": 35,
+                  },
+                  "start": {
+                    "column": 4,
+                    "index": 1049,
+                    "line": 35,
+                  },
+                },
+                "value": {
+                  "kind": "rtime",
+                  "span": {
+                    "end": {
+                      "column": 17,
+                      "index": 1062,
+                      "line": 35,
+                    },
+                    "start": {
+                      "column": 15,
+                      "index": 1060,
+                      "line": 35,
+                    },
+                  },
+                  "unit": "s",
+                  "value": 2n,
+                },
+              },
+              {
+                "key": "window",
+                "kind": "object-property",
+                "span": {
+                  "end": {
+                    "column": 15,
+                    "index": 1140,
+                    "line": 36,
+                  },
+                  "start": {
+                    "column": 4,
+                    "index": 1129,
+                    "line": 36,
+                  },
+                },
+                "value": {
+                  "kind": "integer",
+                  "raw": "5",
+                  "span": {
+                    "end": {
+                      "column": 15,
+                      "index": 1140,
+                      "line": 36,
+                    },
+                    "start": {
+                      "column": 14,
+                      "index": 1139,
+                      "line": 36,
+                    },
+                  },
+                  "value": 5n,
+                },
+              },
+              {
+                "key": "initial",
+                "kind": "object-property",
+                "span": {
+                  "end": {
+                    "column": 16,
+                    "index": 1193,
+                    "line": 37,
+                  },
+                  "start": {
+                    "column": 4,
+                    "index": 1181,
+                    "line": 37,
+                  },
+                },
+                "value": {
+                  "kind": "integer",
+                  "raw": "4",
+                  "span": {
+                    "end": {
+                      "column": 16,
+                      "index": 1193,
+                      "line": 37,
+                    },
+                    "start": {
+                      "column": 15,
+                      "index": 1192,
+                      "line": 37,
+                    },
+                  },
+                  "value": 4n,
+                },
+              },
+              {
+                "key": "threshold",
+                "kind": "object-property",
+                "span": {
+                  "end": {
+                    "column": 18,
+                    "index": 1266,
+                    "line": 38,
+                  },
+                  "start": {
+                    "column": 4,
+                    "index": 1252,
+                    "line": 38,
+                  },
+                },
+                "value": {
+                  "kind": "integer",
+                  "raw": "4",
+                  "span": {
+                    "end": {
+                      "column": 18,
+                      "index": 1266,
+                      "line": 38,
+                    },
+                    "start": {
+                      "column": 17,
+                      "index": 1265,
+                      "line": 38,
+                    },
+                  },
+                  "value": 4n,
+                },
+              },
+            ],
+            "span": {
+              "end": {
+                "column": 3,
+                "index": 1344,
+                "line": 39,
+              },
+              "start": {
+                "column": 11,
+                "index": 674,
+                "line": 28,
+              },
+            },
+          },
+        },
+      ],
+      "span": {
+        "end": {
+          "column": 1,
+          "index": 1346,
+          "line": 40,
+        },
+        "start": {
+          "column": 0,
+          "index": 0,
+          "line": 0,
+        },
+      },
+    },
+  ],
+  "kind": "vcl",
+  "span": {
+    "end": {
+      "column": 1,
+      "index": 1346,
+      "line": 40,
+    },
+    "start": {
+      "column": 0,
+      "index": 0,
+      "line": 0,
+    },
+  },
+}
+`;
+
+exports[`Director 1`] = `
+{
+  "comments": [],
+  "declarations": [
+    {
+      "directions": [
+        {
+          "kind": "object",
+          "properties": [
+            {
+              "key": "backend",
+              "kind": "object-property",
+              "span": {
+                "end": {
+                  "column": 23,
+                  "index": 67,
+                  "line": 2,
+                },
+                "start": {
+                  "column": 4,
+                  "index": 48,
+                  "line": 2,
+                },
+              },
+              "value": {
+                "kind": "variable",
+                "name": "F_origin_0",
+                "properties": [],
+                "span": {
+                  "end": {
+                    "column": 23,
+                    "index": 67,
+                    "line": 2,
+                  },
+                  "start": {
+                    "column": 13,
+                    "index": 57,
+                    "line": 2,
+                  },
+                },
+                "subField": undefined,
+              },
+            },
+            {
+              "key": "weight",
+              "kind": "object-property",
+              "span": {
+                "end": {
+                  "column": 34,
+                  "index": 78,
+                  "line": 2,
+                },
+                "start": {
+                  "column": 25,
+                  "index": 69,
+                  "line": 2,
+                },
+              },
+              "value": {
+                "kind": "integer",
+                "raw": "1",
+                "span": {
+                  "end": {
+                    "column": 34,
+                    "index": 78,
+                    "line": 2,
+                  },
+                  "start": {
+                    "column": 33,
+                    "index": 77,
+                    "line": 2,
+                  },
+                },
+                "value": 1n,
+              },
+            },
+          ],
+          "span": {
+            "end": {
+              "column": 37,
+              "index": 81,
+              "line": 2,
+            },
+            "start": {
+              "column": 2,
+              "index": 46,
+              "line": 2,
+            },
+          },
+        },
+        {
+          "kind": "object",
+          "properties": [
+            {
+              "key": "backend",
+              "kind": "object-property",
+              "span": {
+                "end": {
+                  "column": 23,
+                  "index": 105,
+                  "line": 3,
+                },
+                "start": {
+                  "column": 4,
+                  "index": 86,
+                  "line": 3,
+                },
+              },
+              "value": {
+                "kind": "variable",
+                "name": "F_origin_1",
+                "properties": [],
+                "span": {
+                  "end": {
+                    "column": 23,
+                    "index": 105,
+                    "line": 3,
+                  },
+                  "start": {
+                    "column": 13,
+                    "index": 95,
+                    "line": 3,
+                  },
+                },
+                "subField": undefined,
+              },
+            },
+            {
+              "key": "weight",
+              "kind": "object-property",
+              "span": {
+                "end": {
+                  "column": 34,
+                  "index": 116,
+                  "line": 3,
+                },
+                "start": {
+                  "column": 25,
+                  "index": 107,
+                  "line": 3,
+                },
+              },
+              "value": {
+                "kind": "integer",
+                "raw": "1",
+                "span": {
+                  "end": {
+                    "column": 34,
+                    "index": 116,
+                    "line": 3,
+                  },
+                  "start": {
+                    "column": 33,
+                    "index": 115,
+                    "line": 3,
+                  },
+                },
+                "value": 1n,
+              },
+            },
+          ],
+          "span": {
+            "end": {
+              "column": 37,
+              "index": 119,
+              "line": 3,
+            },
+            "start": {
+              "column": 2,
+              "index": 84,
+              "line": 3,
+            },
+          },
+        },
+        {
+          "kind": "object",
+          "properties": [
+            {
+              "key": "backend",
+              "kind": "object-property",
+              "span": {
+                "end": {
+                  "column": 23,
+                  "index": 143,
+                  "line": 4,
+                },
+                "start": {
+                  "column": 4,
+                  "index": 124,
+                  "line": 4,
+                },
+              },
+              "value": {
+                "kind": "variable",
+                "name": "F_origin_2",
+                "properties": [],
+                "span": {
+                  "end": {
+                    "column": 23,
+                    "index": 143,
+                    "line": 4,
+                  },
+                  "start": {
+                    "column": 13,
+                    "index": 133,
+                    "line": 4,
+                  },
+                },
+                "subField": undefined,
+              },
+            },
+            {
+              "key": "weight",
+              "kind": "object-property",
+              "span": {
+                "end": {
+                  "column": 34,
+                  "index": 154,
+                  "line": 4,
+                },
+                "start": {
+                  "column": 25,
+                  "index": 145,
+                  "line": 4,
+                },
+              },
+              "value": {
+                "kind": "integer",
+                "raw": "1",
+                "span": {
+                  "end": {
+                    "column": 34,
+                    "index": 154,
+                    "line": 4,
+                  },
+                  "start": {
+                    "column": 33,
+                    "index": 153,
+                    "line": 4,
+                  },
+                },
+                "value": 1n,
+              },
+            },
+          ],
+          "span": {
+            "end": {
+              "column": 37,
+              "index": 157,
+              "line": 4,
+            },
+            "start": {
+              "column": 2,
+              "index": 122,
+              "line": 4,
+            },
+          },
+        },
+      ],
+      "kind": "director",
+      "name": "the_hash_dir",
+      "properties": [
+        {
+          "key": "quorum",
+          "kind": "object-property",
+          "span": {
+            "end": {
+              "column": 13,
+              "index": 42,
+              "line": 1,
+            },
+            "start": {
+              "column": 2,
+              "index": 31,
+              "line": 1,
+            },
+          },
+          "value": {
+            "kind": "parcent",
+            "span": {
+              "end": {
+                "column": 13,
+                "index": 42,
+                "line": 1,
+              },
+              "start": {
+                "column": 10,
+                "index": 39,
+                "line": 1,
+              },
+            },
+            "value": 20n,
+          },
+        },
+      ],
+      "span": {
+        "end": {
+          "column": 1,
+          "index": 159,
+          "line": 5,
+        },
+        "start": {
+          "column": 0,
+          "index": 0,
+          "line": 0,
+        },
+      },
+      "type": "content",
+    },
+  ],
+  "kind": "vcl",
+  "span": {
+    "end": {
+      "column": 1,
+      "index": 159,
+      "line": 5,
+    },
+    "start": {
+      "column": 0,
+      "index": 0,
+      "line": 0,
+    },
+  },
+}
+`;
+
+exports[`Penaltybox 1`] = `
+{
+  "comments": [
+    {
+      "kind": "comment_hash",
+      "span": {
+        "end": {
+          "column": 17,
+          "index": 43,
+          "line": 1,
+        },
+        "start": {
+          "column": 2,
+          "index": 28,
+          "line": 1,
+        },
+      },
+      "text": " no properties",
+    },
+  ],
+  "declarations": [
+    {
+      "kind": "penaltybox",
+      "name": "banned_users",
+      "span": {
+        "end": {
+          "column": 1,
+          "index": 45,
+          "line": 2,
+        },
+        "start": {
+          "column": 0,
+          "index": 0,
+          "line": 0,
+        },
+      },
+    },
+  ],
+  "kind": "vcl",
+  "span": {
+    "end": {
+      "column": 1,
+      "index": 45,
+      "line": 2,
+    },
+    "start": {
+      "column": 0,
+      "index": 0,
+      "line": 0,
+    },
+  },
+}
+`;
+
+exports[`Ratecounter 1`] = `
+{
+  "comments": [
+    {
+      "kind": "comment_hash",
+      "span": {
+        "end": {
+          "column": 17,
+          "index": 45,
+          "line": 1,
+        },
+        "start": {
+          "column": 2,
+          "index": 30,
+          "line": 1,
+        },
+      },
+      "text": " no properties",
+    },
+  ],
+  "declarations": [
+    {
+      "kind": "ratecounter",
+      "name": "requests_rate",
+      "span": {
+        "end": {
+          "column": 1,
+          "index": 47,
+          "line": 2,
+        },
+        "start": {
+          "column": 0,
+          "index": 0,
+          "line": 0,
+        },
+      },
+    },
+  ],
+  "kind": "vcl",
+  "span": {
+    "end": {
+      "column": 1,
+      "index": 47,
+      "line": 2,
+    },
+    "start": {
+      "column": 0,
+      "index": 0,
+      "line": 0,
+    },
+  },
+}
+`;
+
+exports[`Subroutine 1`] = `
+{
+  "comments": [
+    {
+      "kind": "comment_hash",
+      "span": {
+        "end": {
+          "column": 53,
+          "index": 68,
+          "line": 1,
+        },
+        "start": {
+          "column": 2,
+          "index": 17,
+          "line": 1,
+        },
+      },
+      "text": " Requests for /status and all subpaths => origin 0",
+    },
+    {
+      "kind": "comment_hash",
+      "span": {
+        "end": {
+          "column": 27,
+          "index": 96,
+          "line": 2,
+        },
+        "start": {
+          "column": 2,
+          "index": 71,
+          "line": 2,
+        },
+      },
+      "text": " (query strings allowed)",
+    },
+    {
+      "kind": "comment_hash",
+      "span": {
+        "end": {
+          "column": 38,
+          "index": 216,
+          "line": 6,
+        },
+        "start": {
+          "column": 2,
+          "index": 180,
+          "line": 6,
+        },
+      },
+      "text": " Requests for exactly / => origin 1",
+    },
+    {
+      "kind": "comment_hash",
+      "span": {
+        "end": {
+          "column": 31,
+          "index": 248,
+          "line": 7,
+        },
+        "start": {
+          "column": 2,
+          "index": 219,
+          "line": 7,
+        },
+      },
+      "text": " (query strings not allowed)",
+    },
+    {
+      "kind": "comment_hash",
+      "span": {
+        "end": {
+          "column": 45,
+          "index": 360,
+          "line": 11,
+        },
+        "start": {
+          "column": 2,
+          "index": 317,
+          "line": 11,
+        },
+      },
+      "text": " Unrecognised path => synthethic 404 error",
+    },
+  ],
+  "declarations": [
+    {
+      "body": [
+        {
+          "body": [
+            {
+              "kind": "set",
+              "operator": {
+                "kind": "=",
+                "span": {
+                  "end": {
+                    "column": 21,
+                    "index": 164,
+                    "line": 4,
+                  },
+                  "start": {
+                    "column": 20,
+                    "index": 163,
+                    "line": 4,
+                  },
+                },
+              },
+              "span": {
+                "end": {
+                  "column": 33,
+                  "index": 176,
+                  "line": 4,
+                },
+                "start": {
+                  "column": 4,
+                  "index": 147,
+                  "line": 4,
+                },
+              },
+              "target": {
+                "kind": "variable",
+                "name": "req",
+                "properties": [
+                  "backend",
+                ],
+                "span": {
+                  "end": {
+                    "column": 19,
+                    "index": 162,
+                    "line": 4,
+                  },
+                  "start": {
+                    "column": 8,
+                    "index": 151,
+                    "line": 4,
+                  },
+                },
+                "subField": undefined,
+              },
+              "value": {
+                "kind": "variable",
+                "name": "F_origin_0",
+                "properties": [],
+                "span": {
+                  "end": {
+                    "column": 32,
+                    "index": 175,
+                    "line": 4,
+                  },
+                  "start": {
+                    "column": 22,
+                    "index": 165,
+                    "line": 4,
+                  },
+                },
+                "subField": undefined,
+              },
+            },
+          ],
+          "condition": {
+            "kind": "binary",
+            "lhs": {
+              "kind": "variable",
+              "name": "req",
+              "properties": [
+                "url",
+              ],
+              "span": {
+                "end": {
+                  "column": 13,
+                  "index": 110,
+                  "line": 3,
+                },
+                "start": {
+                  "column": 6,
+                  "index": 103,
+                  "line": 3,
+                },
+              },
+              "subField": undefined,
+            },
+            "operator": {
+              "kind": "~",
+              "span": {
+                "end": {
+                  "column": 15,
+                  "index": 112,
+                  "line": 3,
+                },
+                "start": {
+                  "column": 14,
+                  "index": 111,
+                  "line": 3,
+                },
+              },
+            },
+            "rhs": {
+              "kind": "string",
+              "span": {
+                "end": {
+                  "column": 42,
+                  "index": 139,
+                  "line": 3,
+                },
+                "start": {
+                  "column": 16,
+                  "index": 113,
+                  "line": 3,
+                },
+              },
+              "tokens": [
+                {
+                  "kind": "quoted-string",
+                  "raw": ""^/status(/[^?]*)?(?.*)?$"",
+                  "span": {
+                    "end": {
+                      "column": 42,
+                      "index": 139,
+                      "line": 3,
+                    },
+                    "start": {
+                      "column": 16,
+                      "index": 113,
+                      "line": 3,
+                    },
+                  },
+                  "value": "^/status(/[^?]*)?(?.*)?$",
+                },
+              ],
+            },
+            "span": {
+              "end": {
+                "column": 42,
+                "index": 139,
+                "line": 3,
+              },
+              "start": {
+                "column": 6,
+                "index": 103,
+                "line": 3,
+              },
+            },
+          },
+          "else": {
+            "body": [
+              {
+                "kind": "set",
+                "operator": {
+                  "kind": "=",
+                  "span": {
+                    "end": {
+                      "column": 21,
+                      "index": 301,
+                      "line": 9,
+                    },
+                    "start": {
+                      "column": 20,
+                      "index": 300,
+                      "line": 9,
+                    },
+                  },
+                },
+                "span": {
+                  "end": {
+                    "column": 33,
+                    "index": 313,
+                    "line": 9,
+                  },
+                  "start": {
+                    "column": 4,
+                    "index": 284,
+                    "line": 9,
+                  },
+                },
+                "target": {
+                  "kind": "variable",
+                  "name": "req",
+                  "properties": [
+                    "backend",
+                  ],
+                  "span": {
+                    "end": {
+                      "column": 19,
+                      "index": 299,
+                      "line": 9,
+                    },
+                    "start": {
+                      "column": 8,
+                      "index": 288,
+                      "line": 9,
+                    },
+                  },
+                  "subField": undefined,
+                },
+                "value": {
+                  "kind": "variable",
+                  "name": "F_origin_1",
+                  "properties": [],
+                  "span": {
+                    "end": {
+                      "column": 32,
+                      "index": 312,
+                      "line": 9,
+                    },
+                    "start": {
+                      "column": 22,
+                      "index": 302,
+                      "line": 9,
+                    },
+                  },
+                  "subField": undefined,
+                },
+              },
+            ],
+            "condition": {
+              "kind": "binary",
+              "lhs": {
+                "kind": "variable",
+                "name": "req",
+                "properties": [
+                  "url",
+                ],
+                "span": {
+                  "end": {
+                    "column": 20,
+                    "index": 269,
+                    "line": 8,
+                  },
+                  "start": {
+                    "column": 13,
+                    "index": 262,
+                    "line": 8,
+                  },
+                },
+                "subField": undefined,
+              },
+              "operator": {
+                "kind": "==",
+                "span": {
+                  "end": {
+                    "column": 23,
+                    "index": 272,
+                    "line": 8,
+                  },
+                  "start": {
+                    "column": 21,
+                    "index": 270,
+                    "line": 8,
+                  },
+                },
+              },
+              "rhs": {
+                "kind": "string",
+                "span": {
+                  "end": {
+                    "column": 27,
+                    "index": 276,
+                    "line": 8,
+                  },
+                  "start": {
+                    "column": 24,
+                    "index": 273,
+                    "line": 8,
+                  },
+                },
+                "tokens": [
+                  {
+                    "kind": "quoted-string",
+                    "raw": ""/"",
+                    "span": {
+                      "end": {
+                        "column": 27,
+                        "index": 276,
+                        "line": 8,
+                      },
+                      "start": {
+                        "column": 24,
+                        "index": 273,
+                        "line": 8,
+                      },
+                    },
+                    "value": "/",
+                  },
+                ],
+              },
+              "span": {
+                "end": {
+                  "column": 27,
+                  "index": 276,
+                  "line": 8,
+                },
+                "start": {
+                  "column": 13,
+                  "index": 262,
+                  "line": 8,
+                },
+              },
+            },
+            "else": {
+              "body": [
+                {
+                  "kind": "error",
+                  "message": undefined,
+                  "span": {
+                    "end": {
+                      "column": 14,
+                      "index": 386,
+                      "line": 13,
+                    },
+                    "start": {
+                      "column": 4,
+                      "index": 376,
+                      "line": 13,
+                    },
+                  },
+                  "status": 601,
+                },
+              ],
+              "kind": "else",
+              "span": {
+                "end": {
+                  "column": 3,
+                  "index": 390,
+                  "line": 14,
+                },
+                "start": {
+                  "column": 9,
+                  "index": 370,
+                  "line": 12,
+                },
+              },
+            },
+            "kind": "if",
+            "span": {
+              "end": {
+                "column": 3,
+                "index": 390,
+                "line": 14,
+              },
+              "start": {
+                "column": 9,
+                "index": 258,
+                "line": 8,
+              },
+            },
+          },
+          "kind": "if",
+          "span": {
+            "end": {
+              "column": 3,
+              "index": 390,
+              "line": 14,
+            },
+            "start": {
+              "column": 2,
+              "index": 99,
+              "line": 3,
+            },
+          },
+        },
+      ],
+      "kind": "sub",
+      "name": "vcl_recv",
+      "returnType": undefined,
+      "span": {
+        "end": {
+          "column": 1,
+          "index": 392,
+          "line": 15,
+        },
+        "start": {
+          "column": 13,
+          "index": 13,
+          "line": 0,
+        },
+      },
+    },
+  ],
+  "kind": "vcl",
+  "span": {
+    "end": {
+      "column": 1,
+      "index": 392,
+      "line": 15,
+    },
+    "start": {
+      "column": 0,
+      "index": 0,
+      "line": 0,
+    },
+  },
+}
+`;
+
+exports[`Table 1`] = `
+{
+  "comments": [],
+  "declarations": [
+    {
+      "entries": [
+        {
+          "key": {
+            "kind": "string",
+            "span": {
+              "end": {
+                "column": 13,
+                "index": 31,
+                "line": 1,
+              },
+              "start": {
+                "column": 2,
+                "index": 20,
+                "line": 1,
+              },
+            },
+            "tokens": [
+              {
+                "kind": "quoted-string",
+                "raw": ""/old/path"",
+                "span": {
+                  "end": {
+                    "column": 13,
+                    "index": 31,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 2,
+                    "index": 20,
+                    "line": 1,
+                  },
+                },
+                "value": "/old/path",
+              },
+            ],
+          },
+          "kind": "table-entry",
+          "span": {
+            "end": {
+              "column": 48,
+              "index": 66,
+              "line": 1,
+            },
+            "start": {
+              "column": 2,
+              "index": 20,
+              "line": 1,
+            },
+          },
+          "value": {
+            "kind": "string",
+            "span": {
+              "end": {
+                "column": 48,
+                "index": 66,
+                "line": 1,
+              },
+              "start": {
+                "column": 15,
+                "index": 33,
+                "line": 1,
+              },
+            },
+            "tokens": [
+              {
+                "kind": "quoted-string",
+                "raw": ""https://other.hostname/new/path"",
+                "span": {
+                  "end": {
+                    "column": 48,
+                    "index": 66,
+                    "line": 1,
+                  },
+                  "start": {
+                    "column": 15,
+                    "index": 33,
+                    "line": 1,
+                  },
+                },
+                "value": "https://other.hostname/new/path",
+              },
+            ],
+          },
+        },
+        {
+          "key": {
+            "kind": "string",
+            "span": {
+              "end": {
+                "column": 17,
+                "index": 85,
+                "line": 2,
+              },
+              "start": {
+                "column": 2,
+                "index": 70,
+                "line": 2,
+              },
+            },
+            "tokens": [
+              {
+                "kind": "quoted-string",
+                "raw": ""/another/path"",
+                "span": {
+                  "end": {
+                    "column": 17,
+                    "index": 85,
+                    "line": 2,
+                  },
+                  "start": {
+                    "column": 2,
+                    "index": 70,
+                    "line": 2,
+                  },
+                },
+                "value": "/another/path",
+              },
+            ],
+          },
+          "kind": "table-entry",
+          "span": {
+            "end": {
+              "column": 30,
+              "index": 98,
+              "line": 2,
+            },
+            "start": {
+              "column": 2,
+              "index": 70,
+              "line": 2,
+            },
+          },
+          "value": {
+            "kind": "string",
+            "span": {
+              "end": {
+                "column": 30,
+                "index": 98,
+                "line": 2,
+              },
+              "start": {
+                "column": 19,
+                "index": 87,
+                "line": 2,
+              },
+            },
+            "tokens": [
+              {
+                "kind": "quoted-string",
+                "raw": ""/new/path"",
+                "span": {
+                  "end": {
+                    "column": 30,
+                    "index": 98,
+                    "line": 2,
+                  },
+                  "start": {
+                    "column": 19,
+                    "index": 87,
+                    "line": 2,
+                  },
+                },
+                "value": "/new/path",
+              },
+            ],
+          },
+        },
+      ],
+      "kind": "table",
+      "name": "redirects",
+      "span": {
+        "end": {
+          "column": 1,
+          "index": 101,
+          "line": 3,
+        },
+        "start": {
+          "column": 0,
+          "index": 0,
+          "line": 0,
+        },
+      },
+      "type": undefined,
+    },
+    {
+      "entries": [
+        {
+          "key": {
+            "kind": "string",
+            "span": {
+              "end": {
+                "column": 17,
+                "index": 149,
+                "line": 5,
+              },
+              "start": {
+                "column": 2,
+                "index": 134,
+                "line": 5,
+              },
+            },
+            "tokens": [
+              {
+                "kind": "quoted-string",
+                "raw": ""a.example.com"",
+                "span": {
+                  "end": {
+                    "column": 17,
+                    "index": 149,
+                    "line": 5,
+                  },
+                  "start": {
+                    "column": 2,
+                    "index": 134,
+                    "line": 5,
+                  },
+                },
+                "value": "a.example.com",
+              },
+            ],
+          },
+          "kind": "table-entry",
+          "span": {
+            "end": {
+              "column": 21,
+              "index": 153,
+              "line": 5,
+            },
+            "start": {
+              "column": 2,
+              "index": 134,
+              "line": 5,
+            },
+          },
+          "value": {
+            "kind": "variable",
+            "name": "b0",
+            "properties": [],
+            "span": {
+              "end": {
+                "column": 21,
+                "index": 153,
+                "line": 5,
+              },
+              "start": {
+                "column": 19,
+                "index": 151,
+                "line": 5,
+              },
+            },
+            "subField": undefined,
+          },
+        },
+        {
+          "key": {
+            "kind": "string",
+            "span": {
+              "end": {
+                "column": 17,
+                "index": 172,
+                "line": 6,
+              },
+              "start": {
+                "column": 2,
+                "index": 157,
+                "line": 6,
+              },
+            },
+            "tokens": [
+              {
+                "kind": "quoted-string",
+                "raw": ""b.example.com"",
+                "span": {
+                  "end": {
+                    "column": 17,
+                    "index": 172,
+                    "line": 6,
+                  },
+                  "start": {
+                    "column": 2,
+                    "index": 157,
+                    "line": 6,
+                  },
+                },
+                "value": "b.example.com",
+              },
+            ],
+          },
+          "kind": "table-entry",
+          "span": {
+            "end": {
+              "column": 21,
+              "index": 176,
+              "line": 6,
+            },
+            "start": {
+              "column": 2,
+              "index": 157,
+              "line": 6,
+            },
+          },
+          "value": {
+            "kind": "variable",
+            "name": "b1",
+            "properties": [],
+            "span": {
+              "end": {
+                "column": 21,
+                "index": 176,
+                "line": 6,
+              },
+              "start": {
+                "column": 19,
+                "index": 174,
+                "line": 6,
+              },
+            },
+            "subField": undefined,
+          },
+        },
+        {
+          "key": {
+            "kind": "string",
+            "span": {
+              "end": {
+                "column": 17,
+                "index": 195,
+                "line": 7,
+              },
+              "start": {
+                "column": 2,
+                "index": 180,
+                "line": 7,
+              },
+            },
+            "tokens": [
+              {
+                "kind": "quoted-string",
+                "raw": ""c.example.com"",
+                "span": {
+                  "end": {
+                    "column": 17,
+                    "index": 195,
+                    "line": 7,
+                  },
+                  "start": {
+                    "column": 2,
+                    "index": 180,
+                    "line": 7,
+                  },
+                },
+                "value": "c.example.com",
+              },
+            ],
+          },
+          "kind": "table-entry",
+          "span": {
+            "end": {
+              "column": 21,
+              "index": 199,
+              "line": 7,
+            },
+            "start": {
+              "column": 2,
+              "index": 180,
+              "line": 7,
+            },
+          },
+          "value": {
+            "kind": "variable",
+            "name": "b2",
+            "properties": [],
+            "span": {
+              "end": {
+                "column": 21,
+                "index": 199,
+                "line": 7,
+              },
+              "start": {
+                "column": 19,
+                "index": 197,
+                "line": 7,
+              },
+            },
+            "subField": undefined,
+          },
+        },
+      ],
+      "kind": "table",
+      "name": "routing_table",
+      "span": {
+        "end": {
+          "column": 1,
+          "index": 202,
+          "line": 8,
+        },
+        "start": {
+          "column": 0,
+          "index": 102,
+          "line": 4,
+        },
+      },
+      "type": {
+        "kind": "type",
+        "name": "BACKEND",
+        "span": {
+          "end": {
+            "column": 27,
+            "index": 129,
+            "line": 4,
+          },
+          "start": {
+            "column": 20,
+            "index": 122,
+            "line": 4,
+          },
+        },
+      },
+    },
+  ],
+  "kind": "vcl",
+  "span": {
+    "end": {
+      "column": 1,
+      "index": 202,
+      "line": 8,
+    },
+    "start": {
+      "column": 0,
+      "index": 0,
+      "line": 0,
+    },
+  },
+}
+`;

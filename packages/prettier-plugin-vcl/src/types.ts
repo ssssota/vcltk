@@ -3,11 +3,13 @@ import type {
 	AssignmentOperator,
 	BinaryOperator,
 	Case,
+	Comment,
 	Declaration,
 	Expr,
 	Literal,
 	ObjectProperty,
 	Stmt,
+	StringToken,
 	TableEntry,
 	Type,
 	UnaryOperator,
@@ -20,11 +22,13 @@ export type FastlyVclNode =
 	| AssignmentOperator
 	| BinaryOperator
 	| Case
+	| Comment
 	| Declaration
 	| Expr
 	| Literal
 	| ObjectProperty
 	| Stmt
+	| StringToken
 	| TableEntry
 	| Type
 	| UnaryOperator

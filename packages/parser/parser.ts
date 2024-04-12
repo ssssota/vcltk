@@ -2,12 +2,15 @@ import type {
 	AclEntry,
 	AssignmentOperator,
 	BinaryOperator,
+	Comment,
 	Declaration,
 	Expr,
 	Literal,
 	ObjectProperty,
 	ReturnState,
+	Span,
 	Stmt,
+	StringToken,
 	TableEntry,
 	Type,
 	UnaryOperator,
@@ -17,6 +20,7 @@ import type {
 import type { Token } from "@vcltk/token";
 import { tokenize } from "@vcltk/tokenizer";
 import { parseNumber } from "./utils/parse_number.js";
+import { getSpan } from "./utils/span.js";
 import { unescapeString } from "./utils/unescape.js";
 
 /**
@@ -31,20 +35,20 @@ export function parse(source: string): VCL {
 
 export class Parser {
 	private cursor = 0;
-	private _comments: string[] = [];
-	get comments(): readonly string[] {
-		return this._comments;
-	}
+	private comments: Comment[] = [];
 	constructor(
 		private source: string,
 		private tokens: Token[],
 	) {}
 
 	parse(): VCL {
+		const declarations = this.parseDeclarations();
+		this.skipWhitespacesAndComments();
 		return {
 			kind: "vcl",
-			declarations: this.parseDeclarations(),
-			span: [0, this.source.length],
+			declarations,
+			comments: this.comments,
+			span: getSpan(this.source, 0, this.source.length),
 		};
 	}
 
@@ -64,14 +68,33 @@ export class Parser {
 			token.kind === "comment"
 		) {
 			if (token.kind === "comment") {
-				this._comments.push(this.source.slice(token.start, token.end));
+				const comment = this.source.slice(token.start, token.end);
+				if (comment.startsWith("/*")) {
+					this.comments.push({
+						kind: "comment_block",
+						text: comment.slice(2, -2),
+						span: getSpan(this.source, token.start, token.end),
+					});
+				} else if (comment.startsWith("//")) {
+					this.comments.push({
+						kind: "comment_line",
+						text: comment.slice(2),
+						span: getSpan(this.source, token.start, token.end),
+					});
+				} else {
+					this.comments.push({
+						kind: "comment_hash",
+						text: comment.slice(1),
+						span: getSpan(this.source, token.start, token.end),
+					});
+				}
 			}
 			token = this.tokens[++this.cursor];
 		}
 	}
 
-	private getSpanWithLastToken(start: number): [number, number] {
-		return [start, this.tokens[this.cursor - 1].end];
+	private getSpanWithLastToken(start: number): Span {
+		return getSpan(this.source, start, this.tokens[this.cursor - 1].end);
 	}
 
 	parseDeclarations(): Declaration[] {
@@ -309,7 +332,7 @@ export class Parser {
 			name,
 			properties,
 			subField,
-			span: [token.start, token.end],
+			span: getSpan(this.source, token.start, token.end),
 		};
 	}
 
@@ -322,7 +345,11 @@ export class Parser {
 				kind: "call",
 				target: variable,
 				arguments: this.parseArguments(),
-				span: [variable.span[0], this.tokens[this.cursor - 1].end],
+				span: getSpan(
+					this.source,
+					variable.span.start.index,
+					this.tokens[this.cursor - 1].end,
+				),
 			};
 		}
 		return variable;
@@ -331,23 +358,9 @@ export class Parser {
 	parseIdentAsType(): Type {
 		this.skipWhitespacesAndComments();
 		const token = this.peekToken();
-		const span: Type["span"] = [token.start, token.end];
+		const span = getSpan(this.source, token.start, token.end);
 		const ident = this.parseIdent();
-		switch (ident) {
-			case "ACL":
-			case "BACKEND":
-			case "BOOL":
-			case "FLOAT":
-			case "ID":
-			case "INTEGER":
-			case "IP":
-			case "RTIME":
-			case "STRING":
-			case "TIME":
-			case "VOID":
-				return { kind: ident, span };
-		}
-		return { kind: "UNKNOWN", span, value: ident };
+		return { kind: "type", name: ident, span };
 	}
 
 	parseIdentAsDirectorType(): Declaration.DirectorDeclaration["type"] {
@@ -461,7 +474,7 @@ export class Parser {
 			kind: "table-entry",
 			key,
 			value,
-			span: [key.span[0], value.span[1]],
+			span: getSpan(this.source, key.span.start.index, value.span.end.index),
 		};
 	}
 
@@ -732,7 +745,10 @@ export class Parser {
 		token = this.peekToken();
 		if (token.kind === ";") {
 			this.cursor++;
-			return { kind: "return", span: [token.start, token.end] };
+			return {
+				kind: "return",
+				span: getSpan(this.source, token.start, token.end),
+			};
 		}
 		if (token.kind === "(") {
 			this.cursor++;
@@ -806,7 +822,7 @@ export class Parser {
 			case "ror=":
 				return {
 					kind: token.kind,
-					span: [token.start, token.end],
+					span: getSpan(this.source, token.start, token.end),
 				};
 		}
 		throw new Error(`Unexpected token: ${token.kind}`);
@@ -837,7 +853,10 @@ export class Parser {
 				case ">=":
 				case ">":
 				case "~":
-					candidates.push({ kind: token.kind, span: [token.start, token.end] });
+					candidates.push({
+						kind: token.kind,
+						span: getSpan(this.source, token.start, token.end),
+					});
 					this.cursor++;
 					break;
 				case "(":
@@ -877,10 +896,11 @@ export class Parser {
 		return {
 			kind: "string_concat",
 			tokens: expressions,
-			span: [
-				expressions[0].span[0],
-				expressions[expressions.length - 1].span[1],
-			],
+			span: getSpan(
+				this.source,
+				expressions[0].span.start.index,
+				expressions[expressions.length - 1].span.end.index,
+			),
 		};
 	}
 
@@ -897,10 +917,18 @@ export class Parser {
 				kind: "unary",
 				operator: {
 					kind: operator.kind as UnaryOperator["kind"],
-					span: [operator.span[0], operator.span[1]],
+					span: getSpan(
+						this.source,
+						operator.span.start.index,
+						operator.span.end.index,
+					),
 				},
 				rhs: operand as Expr,
-				span: [operator.span[0], operand.span[1]],
+				span: getSpan(
+					this.source,
+					operator.span.start.index,
+					operand.span.end.index,
+				),
 			});
 			i = candidates.findIndex((c) => unaryOperators.includes(c.kind));
 		}
@@ -926,11 +954,15 @@ export class Parser {
 				kind: "binary",
 				operator: {
 					kind: operator.kind as BinaryOperator["kind"],
-					span: [operator.span[0], operator.span[1]],
+					span: getSpan(
+						this.source,
+						operator.span.start.index,
+						operator.span.end.index,
+					),
 				},
 				lhs: left as Expr,
 				rhs: right as Expr,
-				span: [left.span[0], right.span[1]],
+				span: getSpan(this.source, left.span.start.index, right.span.end.index),
 			});
 			i = candidates.findIndex((c) => binaryOperators.includes(c.kind));
 		}
@@ -984,7 +1016,7 @@ export class Parser {
 
 	parseStringLiteral(): Literal.String {
 		this.skipWhitespacesAndComments();
-		const tokens: string[] = [];
+		const tokens: StringToken[] = [];
 		let token = this.peekToken();
 		Parser.assertToken(token, "string");
 		const start = token.start;
@@ -1000,17 +1032,28 @@ export class Parser {
 		};
 	}
 
-	parseStringToken(): string {
+	parseStringToken(): StringToken {
 		this.skipWhitespacesAndComments();
 		const token = this.nextToken();
 		Parser.assertToken(token, "string");
+		const span = getSpan(this.source, token.start, token.end);
 		const quoted = this.source.slice(token.start, token.end);
 		if (quoted.startsWith('"') && quoted.endsWith('"')) {
-			return unescapeString(quoted.slice(1, -1));
+			return {
+				kind: "quoted-string",
+				value: unescapeString(quoted.slice(1, -1)),
+				raw: quoted,
+				span,
+			};
 		}
 		const opening = quoted.match(/^{.*?"/)?.[0];
 		if (!opening) throw new Error(`Invalid string: ${quoted}`);
-		return quoted.slice(opening.length, -opening.length);
+		return {
+			kind: "heredoc",
+			value: quoted.slice(opening.length, -opening.length),
+			raw: quoted,
+			span,
+		};
 	}
 
 	parseNumberLiteral():
@@ -1021,11 +1064,12 @@ export class Parser {
 		this.skipWhitespacesAndComments();
 		const start = this.peekToken().start;
 		const value = this.parseNumber();
-		const span: Literal["span"] = this.getSpanWithLastToken(start);
+		const span = this.getSpanWithLastToken(start);
+		const raw = this.source.slice(span.start.index, span.end.index);
 		const literal =
 			typeof value === "bigint"
-				? ({ kind: "integer", value, span } as const)
-				: ({ kind: "float", value, span } as const);
+				? ({ kind: "integer", value, raw, span } as const)
+				: ({ kind: "float", value, raw, span } as const);
 		this.skipWhitespacesAndComments();
 		const token = this.peekToken();
 		if (token.kind === "%") {
@@ -1065,14 +1109,14 @@ export class Parser {
 		return {
 			kind: "bool",
 			value: token.value,
-			span: [token.start, token.end],
+			span: getSpan(this.source, token.start, token.end),
 		};
 	}
 
 	parseRtimeLiteral(
 		numberLiteral?: Literal.Float | Literal.Integer,
 	): Literal.RTime {
-		const start = numberLiteral?.span[0] ?? this.peekToken().start;
+		const start = numberLiteral?.span.start.index ?? this.peekToken().start;
 		let sign = 1n;
 		if (!numberLiteral) {
 			if (this.peekToken().kind === "-") {

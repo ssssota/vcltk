@@ -1,7 +1,6 @@
 /**
  * Fastly VCL token types
  */
-// deno-lint-ignore no-namespace
 export namespace Token {
 	type TokenFor<
 		T extends string,

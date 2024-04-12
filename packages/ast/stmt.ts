@@ -2,6 +2,7 @@ import type { AssignmentOperator } from "./assignment_operator.js";
 import type { Node } from "./base.js";
 import type { Expr } from "./expr.js";
 import type { Literal } from "./literal.js";
+import type { StringToken } from "./string_token.js";
 import type { Type } from "./type.js";
 import type { Variable } from "./variable.js";
 
@@ -16,39 +17,15 @@ export type ReturnState =
 	| "fetch"
 	| "deliver_stale";
 
-export type Case = Node<
-	"case",
-	{
-		expr: Expr;
-		fallthrough: boolean;
-	}
->;
+export type Case = Node<"case", { expr: Expr; fallthrough: boolean }>;
 
-// deno-lint-ignore no-namespace
 export namespace Stmt {
-	export type If = Node<
-		"if",
-		{
-			condition: Expr;
-			body: Stmt[];
-			else?: Else;
-		}
-	>;
+	export type If = Node<"if", { condition: Expr; body: Stmt[]; else?: Else }>;
 	export type Else = If | Node<"else", { body: Stmt[] }>;
-	export type Switch = Node<
-		"switch",
-		{
-			value: Expr;
-			cases: Case[];
-		}
-	>;
+	export type Switch = Node<"switch", { value: Expr; cases: Case[] }>;
 	export type Set = Node<
 		"set",
-		{
-			target: Variable;
-			operator: AssignmentOperator;
-			value: Expr;
-		}
+		{ target: Variable; operator: AssignmentOperator; value: Expr }
 	>;
 	export type Unset = Node<"unset", { target: Variable }>;
 	export type Add = Node<"add", { target: Variable; value: Expr }>;
@@ -56,26 +33,17 @@ export namespace Stmt {
 	export type Declare = Node<"declare", { target: Variable; type: Type }>;
 	export type Error = Node<
 		"error",
-		{
-			status?: number;
-			message?: Literal.String;
-		}
+		{ status?: number; message?: Literal.String }
 	>;
 	export type Esi = Node<"esi">;
-	export type Include = Node<"include", { path: string }>;
+	export type Include = Node<"include", { path: StringToken }>;
 	export type Log = Node<"log", { message: Expr }>;
 	export type Restart = Node<"restart">;
 	export type Return = Node<
 		"return",
 		{ value?: Expr } | { state?: ReturnState }
 	>;
-	export type Synthetic = Node<
-		"synthetic",
-		{
-			value: Expr;
-			base64: boolean;
-		}
-	>;
+	export type Synthetic = Node<"synthetic", { value: Expr; base64: boolean }>;
 }
 
 export type Stmt =

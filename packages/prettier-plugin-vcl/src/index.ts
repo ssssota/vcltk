@@ -1,13 +1,13 @@
 import type { Plugin } from "prettier";
-import { languages } from "./languages.js";
+import { language } from "./languages.js";
 import { parser } from "./parser.js";
 import { printer } from "./printer.js";
 import type { FastlyVclNode } from "./types.js";
 
 export const plugin: Plugin<FastlyVclNode | undefined> = {
-	languages,
-	parsers: { "fastly-vcl": parser },
-	printers: { "fastly-vcl-ast": printer },
+	languages: [language],
+	parsers: { [language.parsers[0]]: parser },
+	printers: { [parser.astFormat]: printer },
 };
 
-export { languages, parser, printer };
+export { language, parser, printer };

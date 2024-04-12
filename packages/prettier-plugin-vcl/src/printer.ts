@@ -4,7 +4,7 @@ import type { FastlyVclNode } from "./types.js";
 
 const { group, indent, join, line, softline, hardline } = doc.builders;
 
-export const printer: Printer<FastlyVclNode | undefined> = {
+export const printer = {
 	print(path, _options, print) {
 		const node = path.node;
 		if (node === undefined) return "";
@@ -46,7 +46,7 @@ export const printer: Printer<FastlyVclNode | undefined> = {
 				return group([
 					node.negated ? "! " : "",
 					'"',
-					node.address,
+					node.address.value,
 					'"',
 					node.cidr ? `/${node.cidr}` : "",
 					";",
@@ -54,7 +54,7 @@ export const printer: Printer<FastlyVclNode | undefined> = {
 			case "import":
 				return group(["import ", node.ident, ";"]);
 			case "include":
-				return group(['include "', node.path, '";']);
+				return group(['include "', node.path.value, '";']);
 			case "penaltybox":
 			case "ratecounter":
 				return group([node.kind, " ", node.name, " {", "}"]);
@@ -64,6 +64,7 @@ export const printer: Printer<FastlyVclNode | undefined> = {
 					node.name,
 					" ",
 					(path as AstPath<typeof node>).call(print, "type"),
+					node.type === undefined ? "" : " ",
 					"{",
 					indent([
 						line,
@@ -244,10 +245,10 @@ export const printer: Printer<FastlyVclNode | undefined> = {
 					node.subField ? [":", node.subField] : [],
 				];
 			case "string":
-				return join(
-					" ",
-					node.tokens.map((t) => `"${t}"`),
-				);
+				return join(" ", (path as AstPath<typeof node>).map(print, "tokens"));
+			case "quoted-string":
+			case "heredoc":
+				return node.raw;
 			case "rtime":
 				return [node.value.toString(), node.unit];
 			case "integer":
@@ -260,20 +261,8 @@ export const printer: Printer<FastlyVclNode | undefined> = {
 				return `${node.value}%`;
 
 			// types
-			case "ACL":
-			case "BACKEND":
-			case "BOOL":
-			case "FLOAT":
-			case "ID":
-			case "INTEGER":
-			case "IP":
-			case "RTIME":
-			case "STRING":
-			case "TIME":
-			case "VOID":
-				return node.kind;
-			case "UNKNOWN":
-				return node.value;
+			case "type":
+				return node.name;
 
 			// operators
 			case "!":
@@ -308,6 +297,14 @@ export const printer: Printer<FastlyVclNode | undefined> = {
 			case "!~":
 				return node.kind;
 
+			// comments
+			case "comment_block":
+				return `/* ${node.text.replace(/^ +/, "").replace(/ +$/, "")} */`;
+			case "comment_line":
+				return `// ${node.text.trim()}`;
+			case "comment_hash":
+				return `#${node.text.replace(/ +$/, "")}`;
+
 			case "case":
 				throw new Error(`${node.kind} is not supported yet.`);
 			default:
@@ -316,4 +313,8 @@ export const printer: Printer<FastlyVclNode | undefined> = {
 				);
 		}
 	},
-};
+	isBlockComment(node) {
+		return node?.kind === "comment_block";
+	},
+	handleComments: {},
+} as const satisfies Printer<FastlyVclNode | undefined>;
