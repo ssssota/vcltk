@@ -1,5 +1,5 @@
+import { tokenize } from "@vcltk/tokenizer";
 import { assert, test } from "vitest";
-import { tokenize } from "../tokenizer/mod.js";
 import { Parser } from "./parser.js";
 
 const createParser = (source: string) => new Parser(source, tokenize(source));
