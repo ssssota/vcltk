@@ -1,7 +1,7 @@
 {
 	"name": "@vcltk/ast",
 	"description": "Fastly VCL AST",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"type": "module",
 	"types": "mod.ts",
 	"repository": {
@@ -9,7 +9,12 @@
 		"url": "https://github.com/ssssota/vcltk.git"
 	},
 	"homepage": "https://github.com/ssssota/vcltk",
-	"keywords": ["Fastly", "VCL", "toolkit", "ast"],
+	"keywords": [
+		"Fastly",
+		"VCL",
+		"toolkit",
+		"ast"
+	],
 	"author": "TOMIKAWA Sotaro <tommysouta@gmail.com>",
 	"license": "MIT",
 	"packageManager": "pnpm@8.15.6"
