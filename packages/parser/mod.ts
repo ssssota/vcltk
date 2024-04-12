@@ -1,2 +1,1 @@
-export type { Token } from "./deps.ts";
-export { parse, Parser } from "./parser.ts";
+export { Parser, parse } from "./parser.js";

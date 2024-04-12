@@ -1,0 +1,27 @@
+{
+	"name": "@vcltk/tokenizer",
+	"description": "Fastly VCL tokenizer",
+	"version": "0.0.1",
+	"type": "module",
+	"main": "dist/mod.js",
+	"types": "dist/mod.d.ts",
+	"scripts": {
+		"build": "tsup"
+	},
+	"dependencies": {
+		"@vcltk/token": "workspace:*"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ssssota/vcltk.git"
+	},
+	"homepage": "https://github.com/ssssota/vcltk",
+	"keywords": ["Fastly", "VCL", "toolkit", "tokenizer", "lexer"],
+	"author": "TOMIKAWA Sotaro <tommysouta@gmail.com>",
+	"license": "MIT",
+	"packageManager": "pnpm@8.15.6",
+	"devDependencies": {
+		"tsup": "^8.0.2",
+		"typescript": "^5.4.5"
+	}
+}

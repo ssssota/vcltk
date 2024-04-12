@@ -1,0 +1,28 @@
+{
+	"name": "vcltk",
+	"description": "Fastly VCL toolkit",
+	"scripts": {
+		"build": "pnpm run -r build",
+		"test": "vitest",
+		"check": "biome check .",
+		"fmt": "biome check --apply .",
+		"changeset": "changeset",
+		"release": "pnpm build && changeset publish"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.6.4",
+		"@changesets/changelog-github": "^0.5.0",
+		"@changesets/cli": "^2.27.1",
+		"typescript": "^5.4.5",
+		"vitest": "^1.5.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ssssota/vcltk.git"
+	},
+	"homepage": "https://github.com/ssssota/vcltk",
+	"keywords": ["Fastly", "VCL", "toolkit"],
+	"author": "TOMIKAWA Sotaro <tommysouta@gmail.com>",
+	"license": "MIT",
+	"packageManager": "pnpm@8.15.6"
+}
