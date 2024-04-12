@@ -1,0 +1,33 @@
+{
+	"name": "prettier-plugin-vcl",
+	"description": "Prettier plugin for Fastly VCL",
+	"version": "0.0.1",
+	"type": "module",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"scripts": {
+		"build": "tsup"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ssssota/vcltk.git"
+	},
+	"homepage": "https://github.com/ssssota/vcltk",
+	"keywords": ["Fastly", "VCL", "toolkit", "prettier", "plugin"],
+	"license": "MIT",
+	"author": "TOMIKAWA Sotaro <tommysouta@gmail.com>",
+	"peerDependencies": {
+		"prettier": ">=2.0.0"
+	},
+	"devDependencies": {
+		"prettier": "^3.2.5",
+		"tsup": "^8.0.2",
+		"typescript": "^5.4.5",
+		"vitest": "^1.4.0"
+	},
+	"dependencies": {
+		"@vcltk/ast": "workspace:*",
+		"@vcltk/parser": "workspace:*"
+	},
+	"files": ["dist"]
+}

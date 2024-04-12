@@ -45,6 +45,28 @@ importers:
         specifier: ^5.4.5
         version: 5.4.5
 
+  packages/prettier-plugin-vcl:
+    dependencies:
+      '@vcltk/ast':
+        specifier: workspace:*
+        version: link:../ast
+      '@vcltk/parser':
+        specifier: workspace:*
+        version: link:../parser
+    devDependencies:
+      prettier:
+        specifier: ^3.2.5
+        version: 3.2.5
+      tsup:
+        specifier: ^8.0.2
+        version: 8.0.2(typescript@5.4.5)
+      typescript:
+        specifier: ^5.4.5
+        version: 5.4.5
+      vitest:
+        specifier: ^1.4.0
+        version: 1.5.0
+
   packages/token: {}
 
   packages/tokenizer:
@@ -2752,6 +2774,12 @@ packages:
   /prettier@2.8.8:
     resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
     engines: {node: '>=10.13.0'}
+    hasBin: true
+    dev: true
+
+  /prettier@3.2.5:
+    resolution: {integrity: sha512-3/GWa9aOC0YeD7LUfvOG2NiDyhOWRvt1k+rcKhOuYnMY24iiCphgneUfJDyFXd6rZCAnuLBv6UeAULtrhT/F4A==}
+    engines: {node: '>=14'}
     hasBin: true
     dev: true
 
