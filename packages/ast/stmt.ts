@@ -80,6 +80,7 @@ export namespace Stmt {
 
 export type Stmt =
 	| Stmt.If
+	| Stmt.Else
 	| Stmt.Set
 	| Stmt.Unset
 	| Stmt.Add
