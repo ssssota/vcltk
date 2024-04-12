@@ -1,5 +1,0 @@
-{
-  "name": "@vcltk/parser",
-  "version": "0.2.0",
-  "exports": "./mod.ts"
-}

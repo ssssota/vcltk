@@ -1,0 +1,16 @@
+{
+	"name": "@vcltk/token",
+	"description": "Token types for Fastly VCL",
+	"version": "0.0.1",
+	"type": "module",
+	"types": "mod.ts",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ssssota/vcltk.git"
+	},
+	"homepage": "https://github.com/ssssota/vcltk",
+	"keywords": ["Fastly", "VCL", "toolkit", "token"],
+	"author": "TOMIKAWA Sotaro <tommysouta@gmail.com>",
+	"license": "MIT",
+	"packageManager": "pnpm@8.15.6"
+}
