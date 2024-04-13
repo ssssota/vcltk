@@ -110,7 +110,7 @@ export class Parser {
 	parseDeclaration(): Declaration {
 		this.skipWhitespacesAndComments();
 		const token = this.peekToken();
-		Parser.assertToken(token, "keyword");
+		this.assertToken(token, "keyword");
 
 		switch (token.value) {
 			case "acl":
@@ -141,11 +141,11 @@ export class Parser {
 		const start = this.nextToken().start; // acl
 		const name = this.parseIdent();
 		this.skipWhitespacesAndComments();
-		Parser.assertToken(this.nextToken(), "{");
+		this.assertToken(this.nextToken(), "{");
 		this.skipWhitespacesAndComments();
 		const entries = this.parseAclEntries();
 		this.skipWhitespacesAndComments();
-		Parser.assertToken(this.nextToken(), "}");
+		this.assertToken(this.nextToken(), "}");
 		return {
 			kind: "acl",
 			name,
@@ -157,10 +157,10 @@ export class Parser {
 	parseBackend(): Declaration.BackendDeclaration {
 		this.skipWhitespacesAndComments();
 		const token = this.nextToken();
-		Parser.assertKeywordToken(token, "backend");
+		this.assertKeywordToken(token, "backend");
 		const name = this.parseIdent();
 		this.skipWhitespacesAndComments();
-		Parser.assertToken(this.nextToken(), "{");
+		this.assertToken(this.nextToken(), "{");
 		return {
 			kind: "backend",
 			name,
@@ -172,13 +172,13 @@ export class Parser {
 	parseDirector(): Declaration.DirectorDeclaration {
 		this.skipWhitespacesAndComments();
 		let token = this.nextToken();
-		Parser.assertKeywordToken(token, "director");
+		this.assertKeywordToken(token, "director");
 		const start = token.start;
 		const name = this.parseIdent();
 		this.skipWhitespacesAndComments();
 		const type = this.parseIdentAsDirectorType();
 		this.skipWhitespacesAndComments();
-		Parser.assertToken(this.nextToken(), "{");
+		this.assertToken(this.nextToken(), "{");
 		this.skipWhitespacesAndComments();
 		const properties: ObjectProperty[] = [];
 		const directions: Literal.Object[] = [];
@@ -189,7 +189,7 @@ export class Parser {
 			if (token.kind === ".") {
 				properties.push(this.parseObjectProperty());
 				this.skipWhitespacesAndComments();
-				Parser.assertToken(this.nextToken(), ";");
+				this.assertToken(this.nextToken(), ";");
 				this.skipWhitespacesAndComments();
 				token = this.peekToken();
 			}
@@ -218,10 +218,10 @@ export class Parser {
 	parseImport(): Declaration.ImportDeclaration {
 		this.skipWhitespacesAndComments();
 		const token = this.nextToken();
-		Parser.assertKeywordToken(token, "import");
+		this.assertKeywordToken(token, "import");
 		const ident = this.parseIdent();
 		this.skipWhitespacesAndComments();
-		Parser.assertToken(this.nextToken(), ";");
+		this.assertToken(this.nextToken(), ";");
 		return {
 			kind: "import",
 			ident,
@@ -232,10 +232,10 @@ export class Parser {
 	parseInclude(): Declaration.IncludeDeclaration | Stmt.Include {
 		this.skipWhitespacesAndComments();
 		const token = this.nextToken();
-		Parser.assertKeywordToken(token, "include");
+		this.assertKeywordToken(token, "include");
 		const path = this.parseStringToken();
 		this.skipWhitespacesAndComments();
-		Parser.assertToken(this.nextToken(), ";");
+		this.assertToken(this.nextToken(), ";");
 		return {
 			kind: "include",
 			path,
@@ -246,12 +246,12 @@ export class Parser {
 	parsePenaltybox(): Declaration.PenaltyboxDeclaration {
 		this.skipWhitespacesAndComments();
 		const token = this.nextToken();
-		Parser.assertKeywordToken(token, "penaltybox");
+		this.assertKeywordToken(token, "penaltybox");
 		const name = this.parseIdent();
 		this.skipWhitespacesAndComments();
-		Parser.assertToken(this.nextToken(), "{");
+		this.assertToken(this.nextToken(), "{");
 		this.skipWhitespacesAndComments();
-		Parser.assertToken(this.nextToken(), "}");
+		this.assertToken(this.nextToken(), "}");
 		return {
 			kind: "penaltybox",
 			name,
@@ -262,12 +262,12 @@ export class Parser {
 	parseRatecounter(): Declaration.RatecounterDeclaration {
 		this.skipWhitespacesAndComments();
 		const token = this.nextToken();
-		Parser.assertKeywordToken(token, "ratecounter");
+		this.assertKeywordToken(token, "ratecounter");
 		const name = this.parseIdent();
 		this.skipWhitespacesAndComments();
-		Parser.assertToken(this.nextToken(), "{");
+		this.assertToken(this.nextToken(), "{");
 		this.skipWhitespacesAndComments();
-		Parser.assertToken(this.nextToken(), "}");
+		this.assertToken(this.nextToken(), "}");
 		return {
 			kind: "ratecounter",
 			name,
@@ -278,7 +278,7 @@ export class Parser {
 	parseSubroutine(): Declaration.SubroutineDeclaration {
 		this.skipWhitespacesAndComments();
 		let token = this.nextToken();
-		Parser.assertKeywordToken(token, "sub");
+		this.assertKeywordToken(token, "sub");
 		const name = this.parseIdent();
 		this.skipWhitespacesAndComments();
 		token = this.peekToken();
@@ -298,13 +298,13 @@ export class Parser {
 	parseTable(): Declaration.TableDeclaration {
 		this.skipWhitespacesAndComments();
 		const token = this.nextToken();
-		Parser.assertKeywordToken(token, "table");
+		this.assertKeywordToken(token, "table");
 		const name = this.parseIdent();
 		this.skipWhitespacesAndComments();
 		const type =
 			this.peekToken().kind === "keyword" ? this.parseIdentAsType() : undefined;
 		this.skipWhitespacesAndComments();
-		Parser.assertToken(this.nextToken(), "{");
+		this.assertToken(this.nextToken(), "{");
 		const entries = this.parseTableEntries();
 		return {
 			kind: "table",
@@ -318,7 +318,7 @@ export class Parser {
 	parseIdent(): string {
 		this.skipWhitespacesAndComments();
 		const token = this.nextToken();
-		Parser.assertToken(token, "keyword");
+		this.assertToken(token, "keyword");
 		return token.value;
 	}
 
@@ -408,7 +408,7 @@ export class Parser {
 			this.skipWhitespacesAndComments();
 			const token = this.nextToken();
 			if (token.kind === "}") break;
-			Parser.assertToken(token, ";");
+			this.assertToken(token, ";");
 		}
 		return entries;
 	}
@@ -454,7 +454,7 @@ export class Parser {
 			this.skipWhitespacesAndComments();
 			const token = this.nextToken();
 			if (token.kind === "}") break;
-			Parser.assertToken(token, ",");
+			this.assertToken(token, ",");
 		}
 		return entries;
 	}
@@ -463,7 +463,7 @@ export class Parser {
 		this.skipWhitespacesAndComments();
 		const key = this.parseStringLiteral();
 		this.skipWhitespacesAndComments();
-		Parser.assertToken(this.nextToken(), ":");
+		this.assertToken(this.nextToken(), ":");
 		this.skipWhitespacesAndComments();
 		const valueToken = this.peekToken();
 		const value =
@@ -480,9 +480,9 @@ export class Parser {
 
 	parseBlock(): Stmt[] {
 		this.skipWhitespacesAndComments();
-		Parser.assertToken(this.nextToken(), "{");
+		this.assertToken(this.nextToken(), "{");
 		const body = this.parseStatements();
-		Parser.assertToken(this.nextToken(), "}");
+		this.assertToken(this.nextToken(), "}");
 		return body;
 	}
 
@@ -492,7 +492,7 @@ export class Parser {
 			this.skipWhitespacesAndComments();
 			const token = this.peekToken();
 			if (token.kind === "}") break;
-			Parser.assertToken(token, "keyword");
+			this.assertToken(token, "keyword");
 			switch (token.value) {
 				case "if":
 					statements.push(this.parseIf());
@@ -531,6 +531,8 @@ export class Parser {
 					statements.push(this.parseRestart());
 					break;
 				case "return":
+					statements.push(this.parseReturn());
+					break;
 				case "synthetic":
 					statements.push(this.parseSynthetic(false));
 					break;
@@ -553,39 +555,40 @@ export class Parser {
 		const body = this.parseBlock();
 		this.skipWhitespacesAndComments();
 		let token = this.peekToken();
-		Parser.assertToken(token, "keyword");
-		switch (token.value) {
-			// biome-ignore lint/suspicious/noFallthroughSwitchClause: handle `else if`
-			case "else":
-				this.cursor++;
-				this.skipWhitespacesAndComments();
-				token = this.peekToken();
-				if (token.kind === "{") {
+		if (token.kind === "keyword") {
+			switch (token.value) {
+				// biome-ignore lint/suspicious/noFallthroughSwitchClause: handle `else if`
+				case "else":
+					this.cursor++;
+					this.skipWhitespacesAndComments();
+					token = this.peekToken();
+					if (token.kind === "{") {
+						return {
+							kind: "if",
+							condition,
+							body,
+							else: {
+								kind: "else",
+								body: this.parseBlock(),
+								span: this.getSpanWithLastToken(token.start),
+							},
+							span: this.getSpanWithLastToken(start),
+						};
+					}
+					this.assertKeywordToken(token, "if");
+				/* falls through */
+				case "elsif":
+				case "elseif": {
+					this.cursor++;
+					this.skipWhitespacesAndComments();
 					return {
 						kind: "if",
 						condition,
 						body,
-						else: {
-							kind: "else",
-							body: this.parseBlock(),
-							span: this.getSpanWithLastToken(token.start),
-						},
+						else: this.parseIfConditionAndBody(token.start),
 						span: this.getSpanWithLastToken(start),
 					};
 				}
-				Parser.assertKeywordToken(token, "if");
-				this.cursor++;
-			/* falls through */
-			case "elsif":
-			case "elseif": {
-				this.skipWhitespacesAndComments();
-				return {
-					kind: "if",
-					condition,
-					body,
-					else: this.parseIfConditionAndBody(token.start),
-					span: this.getSpanWithLastToken(start),
-				};
 			}
 		}
 		return {
@@ -598,21 +601,21 @@ export class Parser {
 
 	parseIfCondition(): Expr {
 		this.skipWhitespacesAndComments();
-		Parser.assertToken(this.nextToken(), "(");
+		this.assertToken(this.nextToken(), "(");
 		const condition = this.parseExpr();
 		this.skipWhitespacesAndComments();
-		Parser.assertToken(this.nextToken(), ")");
+		this.assertToken(this.nextToken(), ")");
 		return condition;
 	}
 
 	parseAdd(): Stmt.Add {
 		this.skipWhitespacesAndComments();
 		const token = this.nextToken();
-		Parser.assertKeywordToken(token, "add");
+		this.assertKeywordToken(token, "add");
 		const target = this.parseIdentAsVariable();
 		const value = this.parseExpr();
 		this.skipWhitespacesAndComments();
-		Parser.assertToken(this.nextToken(), ";");
+		this.assertToken(this.nextToken(), ";");
 		return {
 			kind: "add",
 			target,
@@ -624,10 +627,10 @@ export class Parser {
 	parseCall(): Stmt.Call {
 		this.skipWhitespacesAndComments();
 		const token = this.nextToken();
-		Parser.assertKeywordToken(token, "call");
+		this.assertKeywordToken(token, "call");
 		const target = this.parseIdentAsVariable();
 		this.skipWhitespacesAndComments();
-		Parser.assertToken(this.nextToken(), ";");
+		this.assertToken(this.nextToken(), ";");
 		return {
 			kind: "call",
 			target,
@@ -638,7 +641,7 @@ export class Parser {
 	parseDeclare(): Stmt.Declare {
 		this.skipWhitespacesAndComments();
 		const token = this.nextToken();
-		Parser.assertKeywordToken(token, "declare");
+		this.assertKeywordToken(token, "declare");
 		const scope = this.parseIdent();
 		if (scope !== "local") {
 			throw new Error(`Expected local, got ${scope} (variable scope)`);
@@ -646,7 +649,7 @@ export class Parser {
 		const target = this.parseIdentAsVariable();
 		const type = this.parseIdentAsType();
 		this.skipWhitespacesAndComments();
-		Parser.assertToken(this.nextToken(), ";");
+		this.assertToken(this.nextToken(), ";");
 		return {
 			kind: "declare",
 			target,
@@ -658,7 +661,7 @@ export class Parser {
 	parseError(): Stmt.Error {
 		this.skipWhitespacesAndComments();
 		const token = this.nextToken();
-		Parser.assertKeywordToken(token, "error");
+		this.assertKeywordToken(token, "error");
 		this.skipWhitespacesAndComments();
 		let status: number | undefined = undefined;
 		let message = undefined;
@@ -670,7 +673,7 @@ export class Parser {
 			message = this.parseStringLiteral();
 			this.skipWhitespacesAndComments();
 		}
-		Parser.assertToken(this.nextToken(), ";");
+		this.assertToken(this.nextToken(), ";");
 		return {
 			kind: "error",
 			status,
@@ -682,9 +685,9 @@ export class Parser {
 	parseEsi(): Stmt.Esi {
 		this.skipWhitespacesAndComments();
 		const token = this.nextToken();
-		Parser.assertKeywordToken(token, "esi");
+		this.assertKeywordToken(token, "esi");
 		this.skipWhitespacesAndComments();
-		Parser.assertToken(this.nextToken(), ";");
+		this.assertToken(this.nextToken(), ";");
 		return {
 			kind: "esi",
 			span: this.getSpanWithLastToken(token.start),
@@ -694,10 +697,10 @@ export class Parser {
 	parseLog(): Stmt.Log {
 		this.skipWhitespacesAndComments();
 		const token = this.nextToken();
-		Parser.assertKeywordToken(token, "log");
+		this.assertKeywordToken(token, "log");
 		const message = this.parseExpr();
 		this.skipWhitespacesAndComments();
-		Parser.assertToken(this.nextToken(), ";");
+		this.assertToken(this.nextToken(), ";");
 		return {
 			kind: "log",
 			message,
@@ -708,9 +711,9 @@ export class Parser {
 	parseRestart(): Stmt.Restart {
 		this.skipWhitespacesAndComments();
 		const token = this.nextToken();
-		Parser.assertKeywordToken(token, "restart");
+		this.assertKeywordToken(token, "restart");
 		this.skipWhitespacesAndComments();
-		Parser.assertToken(this.nextToken(), ";");
+		this.assertToken(this.nextToken(), ";");
 		return {
 			kind: "restart",
 			span: this.getSpanWithLastToken(token.start),
@@ -720,13 +723,13 @@ export class Parser {
 	parseSet(): Stmt.Set {
 		this.skipWhitespacesAndComments();
 		const token = this.nextToken();
-		Parser.assertKeywordToken(token, "set");
+		this.assertKeywordToken(token, "set");
 		const target = this.parseIdentAsVariable();
 		this.skipWhitespacesAndComments();
 		const operator = this.parseAssignmentOperator();
 		const value = this.parseExpr();
 		this.skipWhitespacesAndComments();
-		Parser.assertToken(this.nextToken(), ";");
+		this.assertToken(this.nextToken(), ";");
 		return {
 			kind: "set",
 			target,
@@ -739,7 +742,7 @@ export class Parser {
 	parseReturn(): Stmt.Return {
 		this.skipWhitespacesAndComments();
 		let token = this.nextToken();
-		Parser.assertKeywordToken(token, "return");
+		this.assertKeywordToken(token, "return");
 		const start = token.start;
 		this.skipWhitespacesAndComments();
 		token = this.peekToken();
@@ -755,9 +758,9 @@ export class Parser {
 			this.skipWhitespacesAndComments();
 			const state = this.parseIdentAsReturnState();
 			this.skipWhitespacesAndComments();
-			Parser.assertToken(this.nextToken(), ")");
+			this.assertToken(this.nextToken(), ")");
 			this.skipWhitespacesAndComments();
-			Parser.assertToken(this.nextToken(), ";");
+			this.assertToken(this.nextToken(), ";");
 			return {
 				kind: "return",
 				state,
@@ -766,7 +769,7 @@ export class Parser {
 		}
 		const value = this.parseExpr();
 		this.skipWhitespacesAndComments();
-		Parser.assertToken(this.nextToken(), ";");
+		this.assertToken(this.nextToken(), ";");
 		return {
 			kind: "return",
 			value,
@@ -777,10 +780,10 @@ export class Parser {
 	parseSynthetic(base64: boolean): Stmt.Synthetic {
 		this.skipWhitespacesAndComments();
 		const token = this.nextToken();
-		Parser.assertKeywordToken(token, base64 ? "synthetic.base64" : "synthetic");
+		this.assertKeywordToken(token, base64 ? "synthetic.base64" : "synthetic");
 		const value = this.parseExpr();
 		this.skipWhitespacesAndComments();
-		Parser.assertToken(this.nextToken(), ";");
+		this.assertToken(this.nextToken(), ";");
 		return {
 			kind: "synthetic",
 			value,
@@ -792,10 +795,10 @@ export class Parser {
 	parseUnset(remove: boolean): Stmt.Unset {
 		this.skipWhitespacesAndComments();
 		const token = this.nextToken();
-		Parser.assertKeywordToken(token, remove ? "remove" : "unset");
+		this.assertKeywordToken(token, remove ? "remove" : "unset");
 		const target = this.parseIdentAsVariable();
 		this.skipWhitespacesAndComments();
-		Parser.assertToken(this.nextToken(), ";");
+		this.assertToken(this.nextToken(), ";");
 		return {
 			kind: "unset",
 			target,
@@ -853,6 +856,7 @@ export class Parser {
 				case ">=":
 				case ">":
 				case "~":
+				case "+":
 					candidates.push({
 						kind: token.kind,
 						span: getSpan(this.source, token.start, token.end),
@@ -944,6 +948,7 @@ export class Parser {
 			"!=",
 			"!~",
 			"~",
+			"+",
 		];
 		i = candidates.findIndex((c) => binaryOperators.includes(c.kind));
 		while (i !== -1) {
@@ -970,14 +975,15 @@ export class Parser {
 
 	parseParenthesizedExpr(): Expr {
 		this.skipWhitespacesAndComments();
-		Parser.assertToken(this.nextToken(), "(");
+		this.assertToken(this.nextToken(), "(");
 		const expr = this.parseExpr();
 		this.skipWhitespacesAndComments();
-		Parser.assertToken(this.nextToken(), ")");
+		this.assertToken(this.nextToken(), ")");
 		return expr;
 	}
 
 	parseArguments(): Expr[] {
+		this.assertToken(this.nextToken(), "(");
 		this.skipWhitespacesAndComments();
 		if (this.peekToken().kind === ")") {
 			this.cursor++;
@@ -989,7 +995,7 @@ export class Parser {
 			this.skipWhitespacesAndComments();
 			const token = this.nextToken();
 			if (token.kind === ")") break;
-			Parser.assertToken(token, ",");
+			this.assertToken(token, ",");
 		}
 		return args;
 	}
@@ -1018,7 +1024,7 @@ export class Parser {
 		this.skipWhitespacesAndComments();
 		const tokens: StringToken[] = [];
 		let token = this.peekToken();
-		Parser.assertToken(token, "string");
+		this.assertToken(token, "string");
 		const start = token.start;
 		while (token.kind === "string") {
 			tokens.push(this.parseStringToken());
@@ -1035,7 +1041,7 @@ export class Parser {
 	parseStringToken(): StringToken {
 		this.skipWhitespacesAndComments();
 		const token = this.nextToken();
-		Parser.assertToken(token, "string");
+		this.assertToken(token, "string");
 		const span = getSpan(this.source, token.start, token.end);
 		const quoted = this.source.slice(token.start, token.end);
 		if (quoted.startsWith('"') && quoted.endsWith('"')) {
@@ -1098,14 +1104,14 @@ export class Parser {
 	parseNumber(): bigint | number {
 		this.skipWhitespacesAndComments();
 		const token = this.nextToken();
-		Parser.assertToken(token, "number");
+		this.assertToken(token, "number");
 		return parseNumber(this.source.slice(token.start, token.end));
 	}
 
 	parseBoolLiteral(): Literal.Bool {
 		this.skipWhitespacesAndComments();
 		const token = this.nextToken();
-		Parser.assertToken(token, "bool");
+		this.assertToken(token, "bool");
 		return {
 			kind: "bool",
 			value: token.value,
@@ -1147,7 +1153,7 @@ export class Parser {
 
 	parseObjectLiteral(): Literal.Object {
 		const token = this.nextToken();
-		Parser.assertToken(token, "{");
+		this.assertToken(token, "{");
 		return {
 			kind: "object",
 			properties: this.parseObjectProperties(),
@@ -1167,7 +1173,7 @@ export class Parser {
 			this.skipWhitespacesAndComments();
 			const token = this.nextToken();
 			if (token.kind === "}") break;
-			Parser.assertToken(token, ";");
+			this.assertToken(token, ";");
 		}
 		return entries;
 	}
@@ -1175,10 +1181,10 @@ export class Parser {
 	parseObjectProperty(): ObjectProperty {
 		this.skipWhitespacesAndComments();
 		const token = this.nextToken();
-		Parser.assertToken(token, ".");
+		this.assertToken(token, ".");
 		const key = this.parseIdent();
 		this.skipWhitespacesAndComments();
-		Parser.assertToken(this.nextToken(), "=");
+		this.assertToken(this.nextToken(), "=");
 		this.skipWhitespacesAndComments();
 		const value =
 			this.peekToken().kind === "keyword"
@@ -1192,25 +1198,39 @@ export class Parser {
 		};
 	}
 
-	private static assertToken<T extends Token["kind"]>(
+	private assertToken<T extends Token["kind"]>(
 		actual: Token,
 		expected: T,
 	): asserts actual is Token & { kind: T } {
 		if (actual.kind !== expected) {
-			throw new Error(
+			const span = getSpan(this.source, actual.start, actual.end);
+			throw new ParseError(
 				`Expected ${expected}, got ${
 					actual.kind === "keyword" ? actual.value : actual.kind
-				}`,
+				} at ${span.start.line + 1}:${span.start.column + 1}`,
 			);
 		}
 	}
 
-	private static assertKeywordToken<T extends Token.Keyword["value"]>(
+	private assertKeywordToken<T extends Token.Keyword["value"]>(
 		actual: Token,
 		expected: T,
 	): asserts actual is Token & { kind: "keyword"; value: T } {
 		if (actual.kind !== "keyword" || actual.value !== expected) {
-			throw new Error(`Expected keyword ${expected}, got ${actual.value}`);
+			const span = getSpan(this.source, actual.start, actual.end);
+			throw new ParseError(
+				`Expected keyword ${expected}, got ${actual.value} at ${
+					span.start.line + 1
+				}:${span.start.column + 1}`,
+			);
 		}
+	}
+}
+
+const parseErrorSymbol = Symbol("parseError");
+export class ParseError extends Error {
+	[parseErrorSymbol] = true;
+	static isParserError(error: unknown): error is ParseError {
+		return error instanceof ParseError && error[parseErrorSymbol] === true;
 	}
 }
