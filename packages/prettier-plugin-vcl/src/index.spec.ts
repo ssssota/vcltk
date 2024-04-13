@@ -39,6 +39,34 @@ ratecounter requests_per_second {}
 	await expect(formatVcl(source)).resolves.toBe(expected);
 });
 
+it("should format backend declaration", async () => {
+	const source = `backend F_backend {
+  . host = "storage.googleapis.com";
+  .port="443" ;
+  .ssl
+  =
+true;
+}`;
+	const expected = `backend F_backend {
+  .host = "storage.googleapis.com";
+  .port = "443";
+  .ssl = true;
+}
+`;
+	await expect(formatVcl(source)).resolves.toBe(expected);
+});
+
+it("should format director declaration", async () => {
+	const source = `director round_robin_director client{
+  { .backend = F_backend; .weight = 1; }
+  }`;
+	const expected = `director round_robin_director client {
+  { .backend = F_backend; .weight = 1; }
+}
+`;
+	await expect(formatVcl(source)).resolves.toBe(expected);
+});
+
 it("should format table declarations", async () => {
 	const source = `table redirects {
     "/old/path" : "https://other.hostname/new/path",
@@ -112,13 +140,14 @@ it("should format subroutine declaration", async () => {
 #FASTLY recv
 set req.http.X-Forwarded-For = client.ip;
 if(table.contains(deny_list, client.ip)){ error 403 "Forbidden"
-; }}`;
+; }return ( lookup );}`;
 	const expected = `sub vcl_recv {
   #FASTLY recv
   set req.http.X-Forwarded-For = client.ip;
   if (table.contains(deny_list, client.ip)) {
     error 403 "Forbidden";
   }
+  return(lookup);
 }
 `;
 	await expect(formatVcl(source)).resolves.toBe(expected);

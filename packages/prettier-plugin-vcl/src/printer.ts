@@ -2,8 +2,7 @@ import type { AstPath, Printer } from "prettier";
 import { doc } from "prettier";
 import type { FastlyVclNode } from "./types.js";
 
-const { group, indent, join, line, softline, hardline, dedentToRoot } =
-	doc.builders;
+const { group, indent, join, line, hardline } = doc.builders;
 
 const printComment = ((commentPath, _options) => {
 	const node = commentPath.node;
@@ -26,7 +25,7 @@ export const printer = {
 			case "vcl":
 				return [
 					join(
-						[line, line],
+						[hardline, hardline],
 						(path as AstPath<typeof node>).map(print, "declarations"),
 					),
 					hardline,
@@ -53,7 +52,7 @@ export const printer = {
 					node.name,
 					" {",
 					indent([
-						line,
+						hardline,
 						join(line, (path as AstPath<typeof node>).map(print, "entries")),
 					]),
 					line,
@@ -116,15 +115,25 @@ export const printer = {
 					" ",
 					node.type,
 					" {",
-					indent([
-						line,
-						join(line, (path as AstPath<typeof node>).map(print, "properties")),
-					]),
-					line,
-					indent([
-						line,
-						join(line, (path as AstPath<typeof node>).map(print, "directions")),
-					]),
+					node.properties.length > 0
+						? indent([
+								hardline,
+								join(
+									line,
+									(path as AstPath<typeof node>).map(print, "properties"),
+								),
+							])
+						: "",
+					node.properties.length > 0 && node.directions.length > 0 ? line : "",
+					node.directions.length > 0
+						? indent([
+								hardline,
+								join(
+									line,
+									(path as AstPath<typeof node>).map(print, "directions"),
+								),
+							])
+						: "",
 					line,
 					"}",
 				]);
@@ -216,21 +225,24 @@ export const printer = {
 			case "synthetic":
 				return group([
 					node.base64 ? "synthetic.base64" : "synthetic",
+					" ",
 					(path as AstPath<typeof node>).call(print, "value"),
+					";",
 				]);
 			case "log":
 				return group([
 					"log ",
 					(path as AstPath<typeof node>).call(print, "message"),
+					";",
 				]);
 
 			// expressions
 			case "binary":
 				return group([
 					(path as AstPath<typeof node>).call(print, "lhs"),
-					" ",
+					line,
 					(path as AstPath<typeof node>).call(print, "operator"),
-					" ",
+					line,
 					(path as AstPath<typeof node>).call(print, "rhs"),
 				]);
 			case "unary":
@@ -240,20 +252,20 @@ export const printer = {
 				]);
 			case "string_concat":
 				return group(
-					join(" + ", (path as AstPath<typeof node>).map(print, "tokens")),
+					join(
+						[" +", line],
+						(path as AstPath<typeof node>).map(print, "tokens"),
+					),
 				);
 			// literals
 			case "object":
 				return group([
 					"{",
 					indent([
-						softline,
-						join(
-							softline,
-							(path as AstPath<typeof node>).map(print, "properties"),
-						),
+						line,
+						join(line, (path as AstPath<typeof node>).map(print, "properties")),
 					]),
-					softline,
+					line,
 					"}",
 				]);
 			case "object-property":
@@ -274,11 +286,17 @@ export const printer = {
 				return group([
 					(path as AstPath<typeof node>).call(print, "target"),
 					"(",
-					join(", ", (path as AstPath<typeof node>).map(print, "arguments")),
+					join(
+						[",", line],
+						(path as AstPath<typeof node>).map(print, "arguments"),
+					),
 					")",
 				]);
 			case "string":
-				return join(" ", (path as AstPath<typeof node>).map(print, "tokens"));
+				return join(
+					[" +", line],
+					(path as AstPath<typeof node>).map(print, "tokens"),
+				);
 			case "quoted-string":
 			case "heredoc":
 				return node.raw;
