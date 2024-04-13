@@ -1,5 +1,11 @@
 # @vcltk/ast
 
+## 0.1.2
+
+### Patch Changes
+
+- [#14](https://github.com/ssssota/vcltk/pull/14) [`9571f9b`](https://github.com/ssssota/vcltk/commit/9571f9bbe17bf1c14f41c9b3fc505faa9520dc23) Thanks [@ssssota](https://github.com/ssssota)! - Fix return state/value
+
 ## 0.1.1
 
 ### Patch Changes
