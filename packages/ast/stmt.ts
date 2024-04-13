@@ -20,8 +20,10 @@ export type ReturnStateKind =
 export type Case = Node<"case", { expr: Expr; fallthrough: boolean }>;
 
 export namespace Stmt {
-	export type If = Node<"if", { condition: Expr; body: Stmt[]; else?: Else }>;
-	export type Else = If | Node<"else", { body: Stmt[] }>;
+	export type If = Node<
+		"if",
+		{ condition: Expr; body: Block; else?: If | Block }
+	>;
 	export type Switch = Node<"switch", { value: Expr; cases: Case[] }>;
 	export type Set = Node<
 		"set",
@@ -42,11 +44,11 @@ export namespace Stmt {
 	export type Return = Node<"return", { value?: Expr }>;
 	export type ReturnState = Node<"return-state", { state: ReturnStateKind }>;
 	export type Synthetic = Node<"synthetic", { value: Expr; base64: boolean }>;
+	export type Block = Node<"block", { body: Stmt[] }>;
 }
 
 export type Stmt =
 	| Stmt.If
-	| Stmt.Else
 	| Stmt.Set
 	| Stmt.Unset
 	| Stmt.Add
@@ -59,4 +61,5 @@ export type Stmt =
 	| Stmt.Restart
 	| Stmt.Return
 	| Stmt.ReturnState
-	| Stmt.Synthetic;
+	| Stmt.Synthetic
+	| Stmt.Block;

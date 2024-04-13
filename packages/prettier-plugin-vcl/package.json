@@ -17,7 +17,7 @@
 	"license": "MIT",
 	"author": "TOMIKAWA Sotaro <tommysouta@gmail.com>",
 	"peerDependencies": {
-		"prettier": ">=2.0.0"
+		"prettier": ">=3.0.0"
 	},
 	"devDependencies": {
 		"prettier": "^3.2.5",

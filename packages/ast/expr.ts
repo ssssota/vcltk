@@ -15,6 +15,7 @@ export namespace Expr {
 	>;
 	export type Unary = Node<"unary", { operator: UnaryOperator; rhs: Expr }>;
 	export type StringConcat = Node<"string_concat", { tokens: Expr[] }>;
+	export type Parenthesized = Node<"parenthesized", { expr: Expr }>;
 }
 
 export type Expr =
@@ -22,5 +23,6 @@ export type Expr =
 	| Expr.Unary
 	| Expr.FunctionCall
 	| Expr.StringConcat
+	| Expr.Parenthesized
 	| Variable
 	| Literal;

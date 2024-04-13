@@ -2,7 +2,7 @@ import type { AstPath, Printer } from "prettier";
 import { doc } from "prettier";
 import type { FastlyVclNode } from "./types.js";
 
-const { group, indent, join, line, hardline } = doc.builders;
+const { group, indent, join, line, softline, hardline } = doc.builders;
 
 const printComment = ((commentPath, _options) => {
 	const node = commentPath.node;
@@ -38,13 +38,7 @@ export const printer = {
 					node.name,
 					" ",
 					(path as AstPath<typeof node>).call(print, "returnType"),
-					"{",
-					indent([
-						hardline,
-						join(line, (path as AstPath<typeof node>).map(print, "body")),
-					]),
-					line,
-					"}",
+					(path as AstPath<typeof node>).call(print, "body"),
 				]);
 			case "acl":
 				return group([
@@ -139,6 +133,16 @@ export const printer = {
 				]);
 
 			// statements
+			case "block":
+				return group([
+					"{",
+					indent([
+						hardline,
+						join(line, (path as AstPath<typeof node>).map(print, "body")),
+					]),
+					line,
+					"}",
+				]);
 			case "declare":
 				return group([
 					"declare ",
@@ -180,26 +184,17 @@ export const printer = {
 			case "if":
 				return group([
 					"if (",
-					(path as AstPath<typeof node>).call(print, "condition"),
-					") {",
-					indent([
-						hardline,
-						join(line, (path as AstPath<typeof node>).map(print, "body")),
+					group([
+						indent([
+							softline,
+							(path as AstPath<typeof node>).call(print, "condition"),
+						]),
+						softline,
 					]),
-					line,
-					"}",
+					") ",
+					(path as AstPath<typeof node>).call(print, "body"),
 					node.else ? " else " : "",
 					(path as AstPath<typeof node>).call(print, "else"),
-				]);
-			case "else":
-				return group([
-					"{",
-					indent([
-						hardline,
-						join(line, (path as AstPath<typeof node>).map(print, "body")),
-					]),
-					line,
-					"}",
 				]);
 			case "error":
 				return group([
@@ -237,6 +232,12 @@ export const printer = {
 				]);
 
 			// expressions
+			case "parenthesized":
+				return group([
+					"(",
+					(path as AstPath<typeof node>).call(print, "expr"),
+					")",
+				]);
 			case "binary":
 				return group([
 					(path as AstPath<typeof node>).call(print, "lhs"),
@@ -286,10 +287,13 @@ export const printer = {
 				return group([
 					(path as AstPath<typeof node>).call(print, "target"),
 					"(",
-					join(
-						[",", line],
-						(path as AstPath<typeof node>).map(print, "arguments"),
-					),
+					indent([
+						softline,
+						join(
+							[",", line],
+							(path as AstPath<typeof node>).map(print, "arguments"),
+						),
+					]),
 					")",
 				]);
 			case "string":
@@ -297,19 +301,17 @@ export const printer = {
 					[" +", line],
 					(path as AstPath<typeof node>).map(print, "tokens"),
 				);
-			case "quoted-string":
-			case "heredoc":
-				return node.raw;
 			case "rtime":
 				return [node.value.toString(), node.unit];
 			case "integer":
-				return node.value.toString();
 			case "float":
-				return node.value.toString();
+			case "quoted-string":
+			case "heredoc":
+				return node.raw;
 			case "bool":
 				return node.value ? "true" : "false";
 			case "parcent":
-				return `${node.value}%`;
+				return [node.value.toString(), "%"];
 
 			// types
 			case "type":
@@ -412,16 +414,18 @@ export const printer = {
 				return ["target"];
 			case "return":
 				return ["value"];
+			case "block":
+				return ["body"];
 			case "if":
 				return ["condition", "body", "else"];
-			case "else":
-				return ["body"];
 			case "error":
 				return ["message"];
 			case "synthetic":
 				return ["value"];
 			case "log":
 				return ["message"];
+			case "parenthesized":
+				return ["expr"];
 			case "binary":
 				return ["lhs", "rhs"];
 			case "unary":

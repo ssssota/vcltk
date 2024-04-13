@@ -478,12 +478,17 @@ export class Parser {
 		};
 	}
 
-	parseBlock(): Stmt[] {
+	parseBlock(): Stmt.Block {
 		this.skipWhitespacesAndComments();
-		this.assertToken(this.nextToken(), "{");
+		const start = this.nextToken();
+		this.assertToken(start, "{");
 		const body = this.parseStatements();
 		this.assertToken(this.nextToken(), "}");
-		return body;
+		return {
+			kind: "block",
+			body,
+			span: this.getSpanWithLastToken(start.start),
+		};
 	}
 
 	parseStatements(): Stmt[] {
@@ -492,6 +497,10 @@ export class Parser {
 			this.skipWhitespacesAndComments();
 			const token = this.peekToken();
 			if (token.kind === "}") break;
+			if (token.kind === "{") {
+				statements.push(this.parseBlock());
+				continue;
+			}
 			this.assertToken(token, "keyword");
 			switch (token.value) {
 				case "if":
@@ -567,11 +576,7 @@ export class Parser {
 							kind: "if",
 							condition,
 							body,
-							else: {
-								kind: "else",
-								body: this.parseBlock(),
-								span: this.getSpanWithLastToken(token.start),
-							},
+							else: this.parseBlock(),
 							span: this.getSpanWithLastToken(start),
 						};
 					}
@@ -936,50 +941,50 @@ export class Parser {
 			});
 			i = candidates.findIndex((c) => unaryOperators.includes(c.kind));
 		}
-		// Process binary operators
-		const binaryOperators = [
-			"&&",
-			"||",
-			"<",
-			"<=",
-			"==",
-			">=",
-			">",
-			"!=",
-			"!~",
-			"~",
-			"+",
-		];
-		i = candidates.findIndex((c) => binaryOperators.includes(c.kind));
-		while (i !== -1) {
-			const left = candidates[i - 1];
-			const operator = candidates[i];
-			const right = candidates[i + 1];
-			candidates.splice(i - 1, 3, {
-				kind: "binary",
-				operator: {
-					kind: operator.kind as BinaryOperator["kind"],
+		const processBinaryOperator = (...operators: string[]) => {
+			let i = candidates.findIndex((c) => operators.includes(c.kind));
+			while (i !== -1) {
+				const left = candidates[i - 1];
+				const operator = candidates[i];
+				const right = candidates[i + 1];
+				candidates.splice(i - 1, 3, {
+					kind: "binary",
+					operator: {
+						kind: operator.kind as BinaryOperator["kind"],
+						span: getSpan(
+							this.source,
+							operator.span.start.index,
+							operator.span.end.index,
+						),
+					},
+					lhs: left as Expr,
+					rhs: right as Expr,
 					span: getSpan(
 						this.source,
-						operator.span.start.index,
-						operator.span.end.index,
+						left.span.start.index,
+						right.span.end.index,
 					),
-				},
-				lhs: left as Expr,
-				rhs: right as Expr,
-				span: getSpan(this.source, left.span.start.index, right.span.end.index),
-			});
-			i = candidates.findIndex((c) => binaryOperators.includes(c.kind));
-		}
+				});
+				i = candidates.findIndex((c) => operators.includes(c.kind));
+			}
+		};
+		processBinaryOperator("<", "<=", "==", ">=", ">", "!=", "!~", "~", "+");
+		processBinaryOperator("&&");
+		processBinaryOperator("||");
 	}
 
-	parseParenthesizedExpr(): Expr {
+	parseParenthesizedExpr(): Expr.Parenthesized {
 		this.skipWhitespacesAndComments();
-		this.assertToken(this.nextToken(), "(");
+		const start = this.nextToken();
+		this.assertToken(start, "(");
 		const expr = this.parseExpr();
 		this.skipWhitespacesAndComments();
 		this.assertToken(this.nextToken(), ")");
-		return expr;
+		return {
+			kind: "parenthesized",
+			expr,
+			span: this.getSpanWithLastToken(start.start),
+		};
 	}
 
 	parseArguments(): Expr[] {
