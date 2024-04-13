@@ -4,10 +4,11 @@ import { parser } from "./parser.js";
 import { printer } from "./printer.js";
 import type { FastlyVclNode } from "./types.js";
 
-export const plugin: Plugin<FastlyVclNode | undefined> = {
+const plugin = {
 	languages: [language],
 	parsers: { [language.parsers[0]]: parser },
 	printers: { [parser.astFormat]: printer },
-};
+} as const satisfies Plugin<FastlyVclNode | undefined>;
 
-export { language, parser, printer };
+export { language, parser, printer, plugin };
+export default plugin;
