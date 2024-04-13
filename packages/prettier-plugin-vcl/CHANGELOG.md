@@ -1,5 +1,15 @@
 # prettier-plugin-vcl
 
+## 0.1.3
+
+### Patch Changes
+
+- [#12](https://github.com/ssssota/vcltk/pull/12) [`74f1f90`](https://github.com/ssssota/vcltk/commit/74f1f90a624e2f39c01b0375e1532b5b34caf237) Thanks [@ssssota](https://github.com/ssssota)! - Fix function-call ast
+
+- Updated dependencies [[`74f1f90`](https://github.com/ssssota/vcltk/commit/74f1f90a624e2f39c01b0375e1532b5b34caf237)]:
+  - @vcltk/parser@0.1.2
+  - @vcltk/ast@0.1.1
+
 ## 0.1.2
 
 ### Patch Changes
