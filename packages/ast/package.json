@@ -9,12 +9,7 @@
 		"url": "https://github.com/ssssota/vcltk.git"
 	},
 	"homepage": "https://github.com/ssssota/vcltk",
-	"keywords": [
-		"Fastly",
-		"VCL",
-		"toolkit",
-		"ast"
-	],
+	"keywords": ["Fastly", "VCL", "toolkit", "ast"],
 	"author": "TOMIKAWA Sotaro <tommysouta@gmail.com>",
 	"license": "MIT",
 	"packageManager": "pnpm@8.15.6"

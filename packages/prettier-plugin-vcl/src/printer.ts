@@ -15,7 +15,7 @@ const printComment = ((commentPath, _options) => {
 			return `#${node.value.replace(/\s+$/, "")}`;
 	}
 	return "";
-}) satisfies Printer<FastlyVclNode | undefined>['printComment'];
+}) satisfies Printer<FastlyVclNode | undefined>["printComment"];
 
 export const printer = {
 	print(path, _options, print) {
@@ -330,41 +330,73 @@ export const printer = {
 	printComment,
 	canAttachComment(node) {
 		if (node === undefined) return false;
-		return node.kind !== "comment_block" && node.kind !== "comment_line" && node.kind !== "comment_hash";
+		return (
+			node.kind !== "comment_block" &&
+			node.kind !== "comment_line" &&
+			node.kind !== "comment_hash"
+		);
 	},
 	getVisitorKeys(node, _nonTraversableKeys) {
 		if (node === undefined) return [];
 		switch (node.kind) {
-			case "vcl": return ["declarations"];
-			case "sub": return ["returnType", "body"];
-			case "acl": return ["entries"];
-			case "acl-entry": return ["address"];
-			case "import": return ["ident"];
-			case "include": return ["path"];
+			case "vcl":
+				return ["declarations"];
+			case "sub":
+				return ["returnType", "body"];
+			case "acl":
+				return ["entries"];
+			case "acl-entry":
+				return ["address"];
+			case "import":
+				return ["ident"];
+			case "include":
+				return ["path"];
 			case "penaltybox":
-			case "ratecounter": return ["name"];
-			case "table": return ["type", "entries"];
-			case "table-entry": return ["key", "value"];
-			case "backend": return ["properties"];
-			case "director": return ["properties", "directions"];
-			case "declare": return ["target", "type"];
-			case "set": return ["target", "operator", "value"];
-			case "unset": return ["target"];
-			case "add": return ["target", "value"];
-			case "call": return ["target"];
-			case "if": return ["condition", "body", "else"];
-			case "else": return ["body"];
-			case "error": return ["message"];
-			case "synthetic": return ["value"];
-			case "log": return ["message"];
-			case "binary": return ["lhs", "rhs"];
-			case "unary": return ["rhs"];
-			case "string_concat": return ["tokens"];
-			case "object": return ["properties"];
-			case "object-property": return ["value"];
-			case "variable": return [];
-			case "string": return ["tokens"];
+			case "ratecounter":
+				return ["name"];
+			case "table":
+				return ["type", "entries"];
+			case "table-entry":
+				return ["key", "value"];
+			case "backend":
+				return ["properties"];
+			case "director":
+				return ["properties", "directions"];
+			case "declare":
+				return ["target", "type"];
+			case "set":
+				return ["target", "operator", "value"];
+			case "unset":
+				return ["target"];
+			case "add":
+				return ["target", "value"];
+			case "call":
+				return ["target"];
+			case "if":
+				return ["condition", "body", "else"];
+			case "else":
+				return ["body"];
+			case "error":
+				return ["message"];
+			case "synthetic":
+				return ["value"];
+			case "log":
+				return ["message"];
+			case "binary":
+				return ["lhs", "rhs"];
+			case "unary":
+				return ["rhs"];
+			case "string_concat":
+				return ["tokens"];
+			case "object":
+				return ["properties"];
+			case "object-property":
+				return ["value"];
+			case "variable":
+				return [];
+			case "string":
+				return ["tokens"];
 		}
 		return [];
-	}
+	},
 } as const satisfies Printer<FastlyVclNode | undefined>;

@@ -13,13 +13,7 @@
 		"url": "https://github.com/ssssota/vcltk.git"
 	},
 	"homepage": "https://github.com/ssssota/vcltk",
-	"keywords": [
-		"Fastly",
-		"VCL",
-		"toolkit",
-		"prettier",
-		"plugin"
-	],
+	"keywords": ["Fastly", "VCL", "toolkit", "prettier", "plugin"],
 	"license": "MIT",
 	"author": "TOMIKAWA Sotaro <tommysouta@gmail.com>",
 	"peerDependencies": {
@@ -35,7 +29,5 @@
 		"@vcltk/ast": "workspace:*",
 		"@vcltk/parser": "workspace:*"
 	},
-	"files": [
-		"dist"
-	]
+	"files": ["dist"]
 }
