@@ -1,5 +1,11 @@
 # @vcltk/parser
 
+## 0.1.1
+
+### Patch Changes
+
+- [#8](https://github.com/ssssota/vcltk/pull/8) [`af60685`](https://github.com/ssssota/vcltk/commit/af60685c4ce0c7a7dd8b2ff577c533487386b407) Thanks [@ssssota](https://github.com/ssssota)! - Fix if statement parsing bug
+
 ## 0.1.0
 
 ### Minor Changes
