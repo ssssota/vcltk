@@ -23,10 +23,13 @@ export const printer = {
 		if (node === undefined) return "";
 		switch (node.kind) {
 			case "vcl":
-				return join(
-					[line, line],
-					(path as AstPath<typeof node>).map(print, "declarations"),
-				);
+				return [
+					join(
+						[line, line],
+						(path as AstPath<typeof node>).map(print, "declarations"),
+					),
+					hardline,
+				];
 
 			// declarations
 			case "sub":
@@ -175,11 +178,12 @@ export const printer = {
 					]),
 					line,
 					"}",
+					node.else ? " else " : "",
 					(path as AstPath<typeof node>).call(print, "else"),
 				]);
 			case "else":
 				return group([
-					"else {",
+					"{",
 					indent([
 						hardline,
 						join(line, (path as AstPath<typeof node>).map(print, "body")),
@@ -191,6 +195,7 @@ export const printer = {
 				return group([
 					"error ",
 					node.status?.toString() ?? "",
+					node.message ? " " : "",
 					(path as AstPath<typeof node>).call(print, "message"),
 					";",
 				]);
@@ -256,6 +261,13 @@ export const printer = {
 					node.name,
 					node.properties.length > 0 ? [".", join(".", node.properties)] : [],
 					node.subField ? [":", node.subField] : [],
+				]);
+			case "function-call":
+				return group([
+					(path as AstPath<typeof node>).call(print, "target"),
+					"(",
+					join(", ", (path as AstPath<typeof node>).map(print, "arguments")),
+					")",
 				]);
 			case "string":
 				return join(" ", (path as AstPath<typeof node>).map(print, "tokens"));
