@@ -1,5 +1,11 @@
 # prettier-plugin-vcl
 
+## 0.1.2
+
+### Patch Changes
+
+- [#10](https://github.com/ssssota/vcltk/pull/10) [`c57c552`](https://github.com/ssssota/vcltk/commit/c57c552ee9dcc4469a2b5cd8beb9e1d6e8e2038c) Thanks [@ssssota](https://github.com/ssssota)! - Fix export
+
 ## 0.1.1
 
 ### Patch Changes
