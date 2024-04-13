@@ -1,5 +1,11 @@
 # prettier-plugin-vcl
 
+## 0.1.5
+
+### Patch Changes
+
+- [`00be67c`](https://github.com/ssssota/vcltk/commit/00be67ca67adf974a0149fec002aab8ef76eb222) Thanks [@ssssota](https://github.com/ssssota)! - Fix director format
+
 ## 0.1.4
 
 ### Patch Changes
