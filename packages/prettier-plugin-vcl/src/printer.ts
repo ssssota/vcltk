@@ -241,7 +241,7 @@ export const printer = {
 			case "binary":
 				return group([
 					(path as AstPath<typeof node>).call(print, "lhs"),
-					line,
+					" ",
 					(path as AstPath<typeof node>).call(print, "operator"),
 					line,
 					(path as AstPath<typeof node>).call(print, "rhs"),

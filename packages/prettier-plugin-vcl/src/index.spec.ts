@@ -153,9 +153,9 @@ synthetic {"Hello, admin! Please log in."} ;
     error 403 "Forbidden";
   }
   return(lookup);
-
   if (
-    req.http.Location ~ "^/admin" && req.http.Cookie !~ "admin" || req.http.Location ~ "^/admin" && req.http.Cookie !~ "admin"
+    req.http.Location ~ "^/admin" && req.http.Cookie !~ "admin" ||
+    req.http.Location ~ "^/admin" && req.http.Cookie !~ "admin"
   ) {
     synthetic {"Hello, admin! Please log in."};
   }
