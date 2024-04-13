@@ -2338,6 +2338,200 @@ exports[`Subroutine 1`] = `
             },
           },
         },
+        {
+          "kind": "set",
+          "operator": {
+            "kind": "=",
+            "span": {
+              "end": {
+                "column": 32,
+                "index": 424,
+                "line": 16,
+              },
+              "start": {
+                "column": 31,
+                "index": 423,
+                "line": 16,
+              },
+            },
+          },
+          "span": {
+            "end": {
+              "column": 49,
+              "index": 441,
+              "line": 16,
+            },
+            "start": {
+              "column": 2,
+              "index": 394,
+              "line": 16,
+            },
+          },
+          "target": {
+            "kind": "variable",
+            "name": "req",
+            "properties": [
+              "http",
+              "X-Forwarded-For",
+            ],
+            "span": {
+              "end": {
+                "column": 30,
+                "index": 422,
+                "line": 16,
+              },
+              "start": {
+                "column": 6,
+                "index": 398,
+                "line": 16,
+              },
+            },
+            "subField": undefined,
+          },
+          "value": {
+            "arguments": [],
+            "kind": "call",
+            "span": {
+              "end": {
+                "column": 48,
+                "index": 440,
+                "line": 16,
+              },
+              "start": {
+                "column": 33,
+                "index": 425,
+                "line": 16,
+              },
+            },
+            "target": {
+              "kind": "variable",
+              "name": "some_function",
+              "properties": [],
+              "span": {
+                "end": {
+                  "column": 46,
+                  "index": 438,
+                  "line": 16,
+                },
+                "start": {
+                  "column": 33,
+                  "index": 425,
+                  "line": 16,
+                },
+              },
+              "subField": undefined,
+            },
+          },
+        },
+        {
+          "kind": "set",
+          "operator": {
+            "kind": "=",
+            "span": {
+              "end": {
+                "column": 32,
+                "index": 474,
+                "line": 17,
+              },
+              "start": {
+                "column": 31,
+                "index": 473,
+                "line": 17,
+              },
+            },
+          },
+          "span": {
+            "end": {
+              "column": 73,
+              "index": 515,
+              "line": 17,
+            },
+            "start": {
+              "column": 2,
+              "index": 444,
+              "line": 17,
+            },
+          },
+          "target": {
+            "kind": "variable",
+            "name": "req",
+            "properties": [
+              "http",
+              "X-Forwarded-For",
+            ],
+            "span": {
+              "end": {
+                "column": 30,
+                "index": 472,
+                "line": 17,
+              },
+              "start": {
+                "column": 6,
+                "index": 448,
+                "line": 17,
+              },
+            },
+            "subField": undefined,
+          },
+          "value": {
+            "arguments": [
+              {
+                "kind": "variable",
+                "name": "req",
+                "properties": [
+                  "http",
+                  "X-Forwarded-For",
+                ],
+                "span": {
+                  "end": {
+                    "column": 71,
+                    "index": 513,
+                    "line": 17,
+                  },
+                  "start": {
+                    "column": 47,
+                    "index": 489,
+                    "line": 17,
+                  },
+                },
+                "subField": undefined,
+              },
+            ],
+            "kind": "call",
+            "span": {
+              "end": {
+                "column": 72,
+                "index": 514,
+                "line": 17,
+              },
+              "start": {
+                "column": 33,
+                "index": 475,
+                "line": 17,
+              },
+            },
+            "target": {
+              "kind": "variable",
+              "name": "some",
+              "properties": [
+                "function",
+              ],
+              "span": {
+                "end": {
+                  "column": 46,
+                  "index": 488,
+                  "line": 17,
+                },
+                "start": {
+                  "column": 33,
+                  "index": 475,
+                  "line": 17,
+                },
+              },
+              "subField": undefined,
+            },
+          },
+        },
       ],
       "kind": "sub",
       "name": "vcl_recv",
@@ -2345,8 +2539,8 @@ exports[`Subroutine 1`] = `
       "span": {
         "end": {
           "column": 1,
-          "index": 392,
-          "line": 15,
+          "index": 517,
+          "line": 18,
         },
         "start": {
           "column": 13,
@@ -2360,8 +2554,8 @@ exports[`Subroutine 1`] = `
   "span": {
     "end": {
       "column": 1,
-      "index": 392,
-      "line": 15,
+      "index": 517,
+      "line": 18,
     },
     "start": {
       "column": 0,

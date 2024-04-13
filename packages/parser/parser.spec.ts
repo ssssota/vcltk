@@ -105,6 +105,9 @@ test("Subroutine", () => {
   } else {
     error 601;
   }
+
+  set req.http.X-Forwarded-For = some_function();
+  set req.http.X-Forwarded-For = some.function(req.http.X-Forwarded-For);
 }`;
 	const parser = createParser(source);
 	expect(parser.parse()).toMatchSnapshot();
