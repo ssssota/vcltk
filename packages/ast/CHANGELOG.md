@@ -1,5 +1,11 @@
 # @vcltk/ast
 
+## 0.2.0
+
+### Minor Changes
+
+- [#17](https://github.com/ssssota/vcltk/pull/17) [`78c8e54`](https://github.com/ssssota/vcltk/commit/78c8e5427a13dd6707510c18ca8ed38d6003a4ae) Thanks [@ssssota](https://github.com/ssssota)! - Handle block statement
+
 ## 0.1.2
 
 ### Patch Changes
