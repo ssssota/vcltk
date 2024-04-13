@@ -11,13 +11,13 @@ function formatVcl(source: string) {
 
 it("should format ACL declaration", async () => {
 	const source = `acl office_ip_ranges {
-  "192.0.2.0" / 24;
+  "192.0.2.0" / 24; // office network
   !"192.0.2.12" ;
 "198.51.100.4";
       "2001:db8:ffff:ffff:ffff:ffff:ffff:ffff";
   }`;
 	const expected = `acl office_ip_ranges {
-  "192.0.2.0"/24;
+  "192.0.2.0"/24; // office network
   ! "192.0.2.12";
   "198.51.100.4";
   "2001:db8:ffff:ffff:ffff:ffff:ffff:ffff";
@@ -59,8 +59,8 @@ table routing_table BACKEND {
 });
 
 it("should format import declaration", async () => {
-	const source = `import  std ;`;
-	const expected = `import std;`;
+	const source = "import  std ;";
+	const expected = "import std;";
 	await expect(formatVcl(source)).resolves.toBe(expected);
 });
 

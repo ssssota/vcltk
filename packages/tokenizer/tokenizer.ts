@@ -351,7 +351,6 @@ export class Tokenizer implements Iterable<Token> {
 	 * @returns token iterator
 	 */
 	[Symbol.iterator](): Iterator<Token> {
-		// deno-lint-ignore no-this-alias
 		const self = this;
 		return (function* () {
 			let token: Token | undefined = self.next();

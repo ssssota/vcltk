@@ -1,6 +1,5 @@
 import type { Node } from "./base.js";
 
-// deno-lint-ignore no-namespace
 export namespace AssignmentOperator {
 	export type Set = Node<"=">;
 	export type Add = Node<"+=">;
