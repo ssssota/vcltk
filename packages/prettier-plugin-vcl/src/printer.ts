@@ -2,7 +2,8 @@ import type { AstPath, Printer } from "prettier";
 import { doc } from "prettier";
 import type { FastlyVclNode } from "./types.js";
 
-const { group, indent, join, line, softline, hardline } = doc.builders;
+const { group, indent, join, line, softline, hardline, dedentToRoot } =
+	doc.builders;
 
 const printComment = ((commentPath, _options) => {
 	const node = commentPath.node;
@@ -204,7 +205,14 @@ export const printer = {
 			case "restart":
 				return "restart;";
 			case "return":
-				return "return;";
+				return group([
+					"return",
+					node.value ? " " : "",
+					(path as AstPath<typeof node>).call(print, "value"),
+					";",
+				]);
+			case "return-state":
+				return group(["return(", node.state, ");"]);
 			case "synthetic":
 				return group([
 					node.base64 ? "synthetic.base64" : "synthetic",
@@ -384,6 +392,8 @@ export const printer = {
 				return ["target", "value"];
 			case "call":
 				return ["target"];
+			case "return":
+				return ["value"];
 			case "if":
 				return ["condition", "body", "else"];
 			case "else":
@@ -404,11 +414,62 @@ export const printer = {
 				return ["properties"];
 			case "object-property":
 				return ["value"];
+			case "function-call":
+				return ["target", "arguments"];
 			case "variable":
 				return [];
 			case "string":
 				return ["tokens"];
+			case "!":
+			case "!=":
+			case "!~":
+			case "%=":
+			case "&&":
+			case "&&=":
+			case "&=":
+			case "*":
+			case "*=":
+			case "+":
+			case "+=":
+			case "-":
+			case "-=":
+			case "/":
+			case "/=":
+			case "<":
+			case "<<=":
+			case "<=":
+			case "=":
+			case "==":
+			case ">":
+			case ">=":
+			case ">>=":
+			case "^=":
+			case "bool":
+			case "case":
+			case "comment_block":
+			case "comment_hash":
+			case "comment_line":
+			case "esi":
+			case "float":
+			case "heredoc":
+			case "integer":
+			case "parcent":
+			case "quoted-string":
+			case "restart":
+			case "return-state":
+			case "rol=":
+			case "ror=":
+			case "rtime":
+			case "type":
+			case "|=":
+			case "||":
+			case "||=":
+			case "~":
+				return [];
+			default:
+				throw new Error(
+					`Unknown node: ${JSON.stringify(node satisfies never)}`,
+				);
 		}
-		return [];
 	},
 } as const satisfies Printer<FastlyVclNode | undefined>;

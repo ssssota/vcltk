@@ -109,10 +109,12 @@ first_byte_timeout = 15s;
 
 it("should format subroutine declaration", async () => {
 	const source = `sub vcl_recv {
+#FASTLY recv
 set req.http.X-Forwarded-For = client.ip;
 if(table.contains(deny_list, client.ip)){ error 403 "Forbidden"
 ; }}`;
 	const expected = `sub vcl_recv {
+  #FASTLY recv
   set req.http.X-Forwarded-For = client.ip;
   if (table.contains(deny_list, client.ip)) {
     error 403 "Forbidden";

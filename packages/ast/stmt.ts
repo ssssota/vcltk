@@ -6,7 +6,7 @@ import type { StringToken } from "./string_token.js";
 import type { Type } from "./type.js";
 import type { Variable } from "./variable.js";
 
-export type ReturnState =
+export type ReturnStateKind =
 	| "lookup"
 	| "pass"
 	| "error"
@@ -39,10 +39,8 @@ export namespace Stmt {
 	export type Include = Node<"include", { path: StringToken }>;
 	export type Log = Node<"log", { message: Expr }>;
 	export type Restart = Node<"restart">;
-	export type Return = Node<
-		"return",
-		{ value?: Expr } | { state?: ReturnState }
-	>;
+	export type Return = Node<"return", { value?: Expr }>;
+	export type ReturnState = Node<"return-state", { state: ReturnStateKind }>;
 	export type Synthetic = Node<"synthetic", { value: Expr; base64: boolean }>;
 }
 
@@ -60,4 +58,5 @@ export type Stmt =
 	| Stmt.Log
 	| Stmt.Restart
 	| Stmt.Return
+	| Stmt.ReturnState
 	| Stmt.Synthetic;
