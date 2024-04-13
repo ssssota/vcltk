@@ -108,6 +108,7 @@ test("Subroutine", () => {
 
   set req.http.X-Forwarded-For = some_function();
   set req.http.X-Forwarded-For = some.function(req.http.X-Forwarded-For);
+  if (table.contains(deny_list, client.ip)) { }
 }`;
 	const parser = createParser(source);
 	expect(parser.parse()).toMatchSnapshot();

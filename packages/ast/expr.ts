@@ -5,7 +5,10 @@ import type { UnaryOperator } from "./unary_operator.js";
 import type { Variable } from "./variable.js";
 
 export namespace Expr {
-	export type Call = Node<"call", { target: Variable; arguments: Expr[] }>;
+	export type FunctionCall = Node<
+		"function-call",
+		{ target: Variable; arguments: Expr[] }
+	>;
 	export type Binary = Node<
 		"binary",
 		{ lhs: Expr; operator: BinaryOperator; rhs: Expr }
@@ -17,7 +20,7 @@ export namespace Expr {
 export type Expr =
 	| Expr.Binary
 	| Expr.Unary
-	| Expr.Call
+	| Expr.FunctionCall
 	| Expr.StringConcat
 	| Variable
 	| Literal;

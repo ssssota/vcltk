@@ -336,13 +336,13 @@ export class Parser {
 		};
 	}
 
-	parseIdentAsExpr(): Expr.Call | Variable {
+	parseIdentAsExpr(): Expr.FunctionCall | Variable {
 		const variable = this.parseIdentAsVariable();
 		this.skipWhitespacesAndComments();
 		const token = this.peekToken();
 		if (token.kind === "(") {
 			return {
-				kind: "call",
+				kind: "function-call",
 				target: variable,
 				arguments: this.parseArguments(),
 				span: getSpan(
@@ -882,7 +882,7 @@ export class Parser {
 		for (const candidate of candidates) {
 			switch (candidate.kind) {
 				case "variable":
-				case "call":
+				case "function-call":
 				case "unary":
 				case "binary":
 				case "integer":
