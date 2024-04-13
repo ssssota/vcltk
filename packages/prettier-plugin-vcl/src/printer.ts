@@ -4,6 +4,19 @@ import type { FastlyVclNode } from "./types.js";
 
 const { group, indent, join, line, softline, hardline } = doc.builders;
 
+const printComment = ((commentPath, _options) => {
+	const node = commentPath.node;
+	switch (node?.kind) {
+		case "comment_block":
+			return `/*${node.value.replace(/^ +/, "").replace(/ +$/, "")}*/`;
+		case "comment_line":
+			return `//${node.value.replace(/\s+$/, "")}`;
+		case "comment_hash":
+			return `#${node.value.replace(/\s+$/, "")}`;
+	}
+	return "";
+}) satisfies Printer<FastlyVclNode | undefined>['printComment'];
+
 export const printer = {
 	print(path, _options, print) {
 		const node = path.node;
@@ -239,11 +252,11 @@ export const printer = {
 					";",
 				]);
 			case "variable":
-				return [
+				return group([
 					node.name,
 					node.properties.length > 0 ? [".", join(".", node.properties)] : [],
 					node.subField ? [":", node.subField] : [],
-				];
+				]);
 			case "string":
 				return join(" ", (path as AstPath<typeof node>).map(print, "tokens"));
 			case "quoted-string":
@@ -299,11 +312,9 @@ export const printer = {
 
 			// comments
 			case "comment_block":
-				return `/* ${node.text.replace(/^ +/, "").replace(/ +$/, "")} */`;
 			case "comment_line":
-				return `// ${node.text.trim()}`;
 			case "comment_hash":
-				return `#${node.text.replace(/ +$/, "")}`;
+				return printComment(path, _options);
 
 			case "case":
 				throw new Error(`${node.kind} is not supported yet.`);
@@ -316,5 +327,44 @@ export const printer = {
 	isBlockComment(node) {
 		return node?.kind === "comment_block";
 	},
-	handleComments: {},
+	printComment,
+	canAttachComment(node) {
+		if (node === undefined) return false;
+		return node.kind !== "comment_block" && node.kind !== "comment_line" && node.kind !== "comment_hash";
+	},
+	getVisitorKeys(node, _nonTraversableKeys) {
+		if (node === undefined) return [];
+		switch (node.kind) {
+			case "vcl": return ["declarations"];
+			case "sub": return ["returnType", "body"];
+			case "acl": return ["entries"];
+			case "acl-entry": return ["address"];
+			case "import": return ["ident"];
+			case "include": return ["path"];
+			case "penaltybox":
+			case "ratecounter": return ["name"];
+			case "table": return ["type", "entries"];
+			case "table-entry": return ["key", "value"];
+			case "backend": return ["properties"];
+			case "director": return ["properties", "directions"];
+			case "declare": return ["target", "type"];
+			case "set": return ["target", "operator", "value"];
+			case "unset": return ["target"];
+			case "add": return ["target", "value"];
+			case "call": return ["target"];
+			case "if": return ["condition", "body", "else"];
+			case "else": return ["body"];
+			case "error": return ["message"];
+			case "synthetic": return ["value"];
+			case "log": return ["message"];
+			case "binary": return ["lhs", "rhs"];
+			case "unary": return ["rhs"];
+			case "string_concat": return ["tokens"];
+			case "object": return ["properties"];
+			case "object-property": return ["value"];
+			case "variable": return [];
+			case "string": return ["tokens"];
+		}
+		return [];
+	}
 } as const satisfies Printer<FastlyVclNode | undefined>;

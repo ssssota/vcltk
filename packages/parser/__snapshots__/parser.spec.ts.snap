@@ -17,7 +17,7 @@ exports[`ACL 1`] = `
           "line": 1,
         },
       },
-      "text": " internal office...",
+      "value": " internal office...",
     },
     {
       "kind": "comment_hash",
@@ -33,7 +33,7 @@ exports[`ACL 1`] = `
           "line": 2,
         },
       },
-      "text": " ... except for the vending machine",
+      "value": " ... except for the vending machine",
     },
     {
       "kind": "comment_hash",
@@ -49,7 +49,7 @@ exports[`ACL 1`] = `
           "line": 3,
         },
       },
-      "text": " remote VPN office",
+      "value": " remote VPN office",
     },
     {
       "kind": "comment_hash",
@@ -65,7 +65,7 @@ exports[`ACL 1`] = `
           "line": 4,
         },
       },
-      "text": " ipv6 address remote",
+      "value": " ipv6 address remote",
     },
   ],
   "declarations": [
@@ -257,7 +257,7 @@ exports[`Backend 1`] = `
           "line": 2,
         },
       },
-      "text": " Required to be set for all VCL defined backends",
+      "value": " Required to be set for all VCL defined backends",
     },
     {
       "kind": "comment_hash",
@@ -273,7 +273,7 @@ exports[`Backend 1`] = `
           "line": 6,
         },
       },
-      "text": " Server location",
+      "value": " Server location",
     },
     {
       "kind": "comment_hash",
@@ -289,7 +289,7 @@ exports[`Backend 1`] = `
           "line": 14,
         },
       },
-      "text": " Timeouts and limits",
+      "value": " Timeouts and limits",
     },
     {
       "kind": "comment_hash",
@@ -305,7 +305,7 @@ exports[`Backend 1`] = `
           "line": 20,
         },
       },
-      "text": " Host header override",
+      "value": " Host header override",
     },
     {
       "kind": "comment_hash",
@@ -321,7 +321,7 @@ exports[`Backend 1`] = `
           "line": 24,
         },
       },
-      "text": " Protected properties",
+      "value": " Protected properties",
     },
     {
       "kind": "comment_hash",
@@ -337,7 +337,7 @@ exports[`Backend 1`] = `
           "line": 27,
         },
       },
-      "text": " Health check",
+      "value": " Health check",
     },
     {
       "kind": "comment_hash",
@@ -353,7 +353,7 @@ exports[`Backend 1`] = `
           "line": 29,
         },
       },
-      "text": " Boolean value determines the behavior of the probe.",
+      "value": " Boolean value determines the behavior of the probe.",
     },
     {
       "kind": "comment_hash",
@@ -369,7 +369,7 @@ exports[`Backend 1`] = `
           "line": 30,
         },
       },
-      "text": " \`true\` performs DNS lookups only.",
+      "value": " \`true\` performs DNS lookups only.",
     },
     {
       "kind": "comment_hash",
@@ -385,7 +385,7 @@ exports[`Backend 1`] = `
           "line": 31,
         },
       },
-      "text": " \`false\` performs DNS lookups and HTTP health checks.",
+      "value": " \`false\` performs DNS lookups and HTTP health checks.",
     },
     {
       "kind": "comment_hash",
@@ -401,7 +401,7 @@ exports[`Backend 1`] = `
           "line": 34,
         },
       },
-      "text": " Send a check every 60s",
+      "value": " Send a check every 60s",
     },
     {
       "kind": "comment_hash",
@@ -417,7 +417,7 @@ exports[`Backend 1`] = `
           "line": 35,
         },
       },
-      "text": " Allow up to 2s for the backend to respond to the check",
+      "value": " Allow up to 2s for the backend to respond to the check",
     },
     {
       "kind": "comment_hash",
@@ -433,7 +433,7 @@ exports[`Backend 1`] = `
           "line": 36,
         },
       },
-      "text": " Keep a history of 5 checks",
+      "value": " Keep a history of 5 checks",
     },
     {
       "kind": "comment_hash",
@@ -449,7 +449,7 @@ exports[`Backend 1`] = `
           "line": 37,
         },
       },
-      "text": " Start with 4 successful checks in the history",
+      "value": " Start with 4 successful checks in the history",
     },
     {
       "kind": "comment_hash",
@@ -465,7 +465,7 @@ exports[`Backend 1`] = `
           "line": 38,
         },
       },
-      "text": " 4 of the recent checks must be successful for backend to be healthy",
+      "value": " 4 of the recent checks must be successful for backend to be healthy",
     },
   ],
   "declarations": [
@@ -1788,7 +1788,7 @@ exports[`Penaltybox 1`] = `
           "line": 1,
         },
       },
-      "text": " no properties",
+      "value": " no properties",
     },
   ],
   "declarations": [
@@ -1842,7 +1842,7 @@ exports[`Ratecounter 1`] = `
           "line": 1,
         },
       },
-      "text": " no properties",
+      "value": " no properties",
     },
   ],
   "declarations": [
@@ -1896,7 +1896,7 @@ exports[`Subroutine 1`] = `
           "line": 1,
         },
       },
-      "text": " Requests for /status and all subpaths => origin 0",
+      "value": " Requests for /status and all subpaths => origin 0",
     },
     {
       "kind": "comment_hash",
@@ -1912,7 +1912,7 @@ exports[`Subroutine 1`] = `
           "line": 2,
         },
       },
-      "text": " (query strings allowed)",
+      "value": " (query strings allowed)",
     },
     {
       "kind": "comment_hash",
@@ -1928,7 +1928,7 @@ exports[`Subroutine 1`] = `
           "line": 6,
         },
       },
-      "text": " Requests for exactly / => origin 1",
+      "value": " Requests for exactly / => origin 1",
     },
     {
       "kind": "comment_hash",
@@ -1944,7 +1944,7 @@ exports[`Subroutine 1`] = `
           "line": 7,
         },
       },
-      "text": " (query strings not allowed)",
+      "value": " (query strings not allowed)",
     },
     {
       "kind": "comment_hash",
@@ -1960,7 +1960,7 @@ exports[`Subroutine 1`] = `
           "line": 11,
         },
       },
-      "text": " Unrecognised path => synthethic 404 error",
+      "value": " Unrecognised path => synthethic 404 error",
     },
   ],
   "declarations": [

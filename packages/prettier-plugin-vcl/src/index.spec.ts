@@ -17,7 +17,7 @@ it("should format ACL declaration", async () => {
       "2001:db8:ffff:ffff:ffff:ffff:ffff:ffff";
   }`;
 	const expected = `acl office_ip_ranges {
-  "192.0.2.0"/24; # office network
+  "192.0.2.0"/24; // office network
   ! "192.0.2.12";
   "198.51.100.4";
   "2001:db8:ffff:ffff:ffff:ffff:ffff:ffff";

@@ -72,19 +72,19 @@ export class Parser {
 				if (comment.startsWith("/*")) {
 					this.comments.push({
 						kind: "comment_block",
-						text: comment.slice(2, -2),
+						value: comment.slice(2, -2),
 						span: getSpan(this.source, token.start, token.end),
 					});
 				} else if (comment.startsWith("//")) {
 					this.comments.push({
 						kind: "comment_line",
-						text: comment.slice(2),
+						value: comment.slice(2),
 						span: getSpan(this.source, token.start, token.end),
 					});
 				} else {
 					this.comments.push({
 						kind: "comment_hash",
-						text: comment.slice(1),
+						value: comment.slice(1),
 						span: getSpan(this.source, token.start, token.end),
 					});
 				}
