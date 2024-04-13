@@ -1965,233 +1965,94 @@ exports[`Subroutine 1`] = `
   ],
   "declarations": [
     {
-      "body": [
-        {
-          "body": [
-            {
-              "kind": "set",
-              "operator": {
-                "kind": "=",
-                "span": {
-                  "end": {
-                    "column": 21,
-                    "index": 164,
-                    "line": 4,
-                  },
-                  "start": {
-                    "column": 20,
-                    "index": 163,
-                    "line": 4,
-                  },
-                },
-              },
-              "span": {
-                "end": {
-                  "column": 33,
-                  "index": 176,
-                  "line": 4,
-                },
-                "start": {
-                  "column": 4,
-                  "index": 147,
-                  "line": 4,
-                },
-              },
-              "target": {
-                "kind": "variable",
-                "name": "req",
-                "properties": [
-                  "backend",
-                ],
-                "span": {
-                  "end": {
-                    "column": 19,
-                    "index": 162,
-                    "line": 4,
-                  },
-                  "start": {
-                    "column": 8,
-                    "index": 151,
-                    "line": 4,
-                  },
-                },
-                "subField": undefined,
-              },
-              "value": {
-                "kind": "variable",
-                "name": "F_origin_0",
-                "properties": [],
-                "span": {
-                  "end": {
-                    "column": 32,
-                    "index": 175,
-                    "line": 4,
-                  },
-                  "start": {
-                    "column": 22,
-                    "index": 165,
-                    "line": 4,
-                  },
-                },
-                "subField": undefined,
-              },
-            },
-          ],
-          "condition": {
-            "kind": "binary",
-            "lhs": {
-              "kind": "variable",
-              "name": "req",
-              "properties": [
-                "url",
-              ],
-              "span": {
-                "end": {
-                  "column": 13,
-                  "index": 110,
-                  "line": 3,
-                },
-                "start": {
-                  "column": 6,
-                  "index": 103,
-                  "line": 3,
-                },
-              },
-              "subField": undefined,
-            },
-            "operator": {
-              "kind": "~",
-              "span": {
-                "end": {
-                  "column": 15,
-                  "index": 112,
-                  "line": 3,
-                },
-                "start": {
-                  "column": 14,
-                  "index": 111,
-                  "line": 3,
-                },
-              },
-            },
-            "rhs": {
-              "kind": "string",
-              "span": {
-                "end": {
-                  "column": 42,
-                  "index": 139,
-                  "line": 3,
-                },
-                "start": {
-                  "column": 16,
-                  "index": 113,
-                  "line": 3,
-                },
-              },
-              "tokens": [
+      "body": {
+        "body": [
+          {
+            "body": {
+              "body": [
                 {
-                  "kind": "quoted-string",
-                  "raw": ""^/status(/[^?]*)?(?.*)?$"",
-                  "span": {
-                    "end": {
-                      "column": 42,
-                      "index": 139,
-                      "line": 3,
-                    },
-                    "start": {
-                      "column": 16,
-                      "index": 113,
-                      "line": 3,
+                  "kind": "set",
+                  "operator": {
+                    "kind": "=",
+                    "span": {
+                      "end": {
+                        "column": 21,
+                        "index": 164,
+                        "line": 4,
+                      },
+                      "start": {
+                        "column": 20,
+                        "index": 163,
+                        "line": 4,
+                      },
                     },
                   },
-                  "value": "^/status(/[^?]*)?(?.*)?$",
+                  "span": {
+                    "end": {
+                      "column": 33,
+                      "index": 176,
+                      "line": 4,
+                    },
+                    "start": {
+                      "column": 4,
+                      "index": 147,
+                      "line": 4,
+                    },
+                  },
+                  "target": {
+                    "kind": "variable",
+                    "name": "req",
+                    "properties": [
+                      "backend",
+                    ],
+                    "span": {
+                      "end": {
+                        "column": 19,
+                        "index": 162,
+                        "line": 4,
+                      },
+                      "start": {
+                        "column": 8,
+                        "index": 151,
+                        "line": 4,
+                      },
+                    },
+                    "subField": undefined,
+                  },
+                  "value": {
+                    "kind": "variable",
+                    "name": "F_origin_0",
+                    "properties": [],
+                    "span": {
+                      "end": {
+                        "column": 32,
+                        "index": 175,
+                        "line": 4,
+                      },
+                      "start": {
+                        "column": 22,
+                        "index": 165,
+                        "line": 4,
+                      },
+                    },
+                    "subField": undefined,
+                  },
                 },
               ],
+              "kind": "block",
+              "span": {
+                "end": {
+                  "column": 3,
+                  "index": 252,
+                  "line": 8,
+                },
+                "start": {
+                  "column": 44,
+                  "index": 141,
+                  "line": 3,
+                },
+              },
             },
-            "span": {
-              "end": {
-                "column": 42,
-                "index": 139,
-                "line": 3,
-              },
-              "start": {
-                "column": 6,
-                "index": 103,
-                "line": 3,
-              },
-            },
-          },
-          "else": {
-            "body": [
-              {
-                "kind": "set",
-                "operator": {
-                  "kind": "=",
-                  "span": {
-                    "end": {
-                      "column": 21,
-                      "index": 301,
-                      "line": 9,
-                    },
-                    "start": {
-                      "column": 20,
-                      "index": 300,
-                      "line": 9,
-                    },
-                  },
-                },
-                "span": {
-                  "end": {
-                    "column": 33,
-                    "index": 313,
-                    "line": 9,
-                  },
-                  "start": {
-                    "column": 4,
-                    "index": 284,
-                    "line": 9,
-                  },
-                },
-                "target": {
-                  "kind": "variable",
-                  "name": "req",
-                  "properties": [
-                    "backend",
-                  ],
-                  "span": {
-                    "end": {
-                      "column": 19,
-                      "index": 299,
-                      "line": 9,
-                    },
-                    "start": {
-                      "column": 8,
-                      "index": 288,
-                      "line": 9,
-                    },
-                  },
-                  "subField": undefined,
-                },
-                "value": {
-                  "kind": "variable",
-                  "name": "F_origin_1",
-                  "properties": [],
-                  "span": {
-                    "end": {
-                      "column": 32,
-                      "index": 312,
-                      "line": 9,
-                    },
-                    "start": {
-                      "column": 22,
-                      "index": 302,
-                      "line": 9,
-                    },
-                  },
-                  "subField": undefined,
-                },
-              },
-            ],
             "condition": {
               "kind": "binary",
               "lhs": {
@@ -2202,8 +2063,241 @@ exports[`Subroutine 1`] = `
                 ],
                 "span": {
                   "end": {
-                    "column": 20,
-                    "index": 269,
+                    "column": 13,
+                    "index": 110,
+                    "line": 3,
+                  },
+                  "start": {
+                    "column": 6,
+                    "index": 103,
+                    "line": 3,
+                  },
+                },
+                "subField": undefined,
+              },
+              "operator": {
+                "kind": "~",
+                "span": {
+                  "end": {
+                    "column": 15,
+                    "index": 112,
+                    "line": 3,
+                  },
+                  "start": {
+                    "column": 14,
+                    "index": 111,
+                    "line": 3,
+                  },
+                },
+              },
+              "rhs": {
+                "kind": "string",
+                "span": {
+                  "end": {
+                    "column": 42,
+                    "index": 139,
+                    "line": 3,
+                  },
+                  "start": {
+                    "column": 16,
+                    "index": 113,
+                    "line": 3,
+                  },
+                },
+                "tokens": [
+                  {
+                    "kind": "quoted-string",
+                    "raw": ""^/status(/[^?]*)?(?.*)?$"",
+                    "span": {
+                      "end": {
+                        "column": 42,
+                        "index": 139,
+                        "line": 3,
+                      },
+                      "start": {
+                        "column": 16,
+                        "index": 113,
+                        "line": 3,
+                      },
+                    },
+                    "value": "^/status(/[^?]*)?(?.*)?$",
+                  },
+                ],
+              },
+              "span": {
+                "end": {
+                  "column": 42,
+                  "index": 139,
+                  "line": 3,
+                },
+                "start": {
+                  "column": 6,
+                  "index": 103,
+                  "line": 3,
+                },
+              },
+            },
+            "else": {
+              "body": {
+                "body": [
+                  {
+                    "kind": "set",
+                    "operator": {
+                      "kind": "=",
+                      "span": {
+                        "end": {
+                          "column": 21,
+                          "index": 301,
+                          "line": 9,
+                        },
+                        "start": {
+                          "column": 20,
+                          "index": 300,
+                          "line": 9,
+                        },
+                      },
+                    },
+                    "span": {
+                      "end": {
+                        "column": 33,
+                        "index": 313,
+                        "line": 9,
+                      },
+                      "start": {
+                        "column": 4,
+                        "index": 284,
+                        "line": 9,
+                      },
+                    },
+                    "target": {
+                      "kind": "variable",
+                      "name": "req",
+                      "properties": [
+                        "backend",
+                      ],
+                      "span": {
+                        "end": {
+                          "column": 19,
+                          "index": 299,
+                          "line": 9,
+                        },
+                        "start": {
+                          "column": 8,
+                          "index": 288,
+                          "line": 9,
+                        },
+                      },
+                      "subField": undefined,
+                    },
+                    "value": {
+                      "kind": "variable",
+                      "name": "F_origin_1",
+                      "properties": [],
+                      "span": {
+                        "end": {
+                          "column": 32,
+                          "index": 312,
+                          "line": 9,
+                        },
+                        "start": {
+                          "column": 22,
+                          "index": 302,
+                          "line": 9,
+                        },
+                      },
+                      "subField": undefined,
+                    },
+                  },
+                ],
+                "kind": "block",
+                "span": {
+                  "end": {
+                    "column": 3,
+                    "index": 364,
+                    "line": 12,
+                  },
+                  "start": {
+                    "column": 29,
+                    "index": 278,
+                    "line": 8,
+                  },
+                },
+              },
+              "condition": {
+                "kind": "binary",
+                "lhs": {
+                  "kind": "variable",
+                  "name": "req",
+                  "properties": [
+                    "url",
+                  ],
+                  "span": {
+                    "end": {
+                      "column": 20,
+                      "index": 269,
+                      "line": 8,
+                    },
+                    "start": {
+                      "column": 13,
+                      "index": 262,
+                      "line": 8,
+                    },
+                  },
+                  "subField": undefined,
+                },
+                "operator": {
+                  "kind": "==",
+                  "span": {
+                    "end": {
+                      "column": 23,
+                      "index": 272,
+                      "line": 8,
+                    },
+                    "start": {
+                      "column": 21,
+                      "index": 270,
+                      "line": 8,
+                    },
+                  },
+                },
+                "rhs": {
+                  "kind": "string",
+                  "span": {
+                    "end": {
+                      "column": 27,
+                      "index": 276,
+                      "line": 8,
+                    },
+                    "start": {
+                      "column": 24,
+                      "index": 273,
+                      "line": 8,
+                    },
+                  },
+                  "tokens": [
+                    {
+                      "kind": "quoted-string",
+                      "raw": ""/"",
+                      "span": {
+                        "end": {
+                          "column": 27,
+                          "index": 276,
+                          "line": 8,
+                        },
+                        "start": {
+                          "column": 24,
+                          "index": 273,
+                          "line": 8,
+                        },
+                      },
+                      "value": "/",
+                    },
+                  ],
+                },
+                "span": {
+                  "end": {
+                    "column": 27,
+                    "index": 276,
                     "line": 8,
                   },
                   "start": {
@@ -2212,91 +2306,42 @@ exports[`Subroutine 1`] = `
                     "line": 8,
                   },
                 },
-                "subField": undefined,
               },
-              "operator": {
-                "kind": "==",
-                "span": {
-                  "end": {
-                    "column": 23,
-                    "index": 272,
-                    "line": 8,
-                  },
-                  "start": {
-                    "column": 21,
-                    "index": 270,
-                    "line": 8,
-                  },
-                },
-              },
-              "rhs": {
-                "kind": "string",
-                "span": {
-                  "end": {
-                    "column": 27,
-                    "index": 276,
-                    "line": 8,
-                  },
-                  "start": {
-                    "column": 24,
-                    "index": 273,
-                    "line": 8,
-                  },
-                },
-                "tokens": [
+              "else": {
+                "body": [
                   {
-                    "kind": "quoted-string",
-                    "raw": ""/"",
+                    "kind": "error",
+                    "message": undefined,
                     "span": {
                       "end": {
-                        "column": 27,
-                        "index": 276,
-                        "line": 8,
+                        "column": 14,
+                        "index": 386,
+                        "line": 13,
                       },
                       "start": {
-                        "column": 24,
-                        "index": 273,
-                        "line": 8,
+                        "column": 4,
+                        "index": 376,
+                        "line": 13,
                       },
                     },
-                    "value": "/",
+                    "status": 601,
                   },
                 ],
-              },
-              "span": {
-                "end": {
-                  "column": 27,
-                  "index": 276,
-                  "line": 8,
-                },
-                "start": {
-                  "column": 13,
-                  "index": 262,
-                  "line": 8,
-                },
-              },
-            },
-            "else": {
-              "body": [
-                {
-                  "kind": "error",
-                  "message": undefined,
-                  "span": {
-                    "end": {
-                      "column": 14,
-                      "index": 386,
-                      "line": 13,
-                    },
-                    "start": {
-                      "column": 4,
-                      "index": 376,
-                      "line": 13,
-                    },
+                "kind": "block",
+                "span": {
+                  "end": {
+                    "column": 3,
+                    "index": 390,
+                    "line": 14,
                   },
-                  "status": 601,
+                  "start": {
+                    "column": 9,
+                    "index": 370,
+                    "line": 12,
+                  },
                 },
-              ],
-              "kind": "else",
+              },
+              "kind": "if",
               "span": {
                 "end": {
                   "column": 3,
@@ -2305,8 +2350,8 @@ exports[`Subroutine 1`] = `
                 },
                 "start": {
                   "column": 9,
-                  "index": 370,
-                  "line": 12,
+                  "index": 258,
+                  "line": 8,
                 },
               },
             },
@@ -2318,99 +2363,69 @@ exports[`Subroutine 1`] = `
                 "line": 14,
               },
               "start": {
-                "column": 9,
-                "index": 258,
-                "line": 8,
+                "column": 2,
+                "index": 99,
+                "line": 3,
               },
             },
           },
-          "kind": "if",
-          "span": {
-            "end": {
-              "column": 3,
-              "index": 390,
-              "line": 14,
+          {
+            "kind": "set",
+            "operator": {
+              "kind": "=",
+              "span": {
+                "end": {
+                  "column": 32,
+                  "index": 424,
+                  "line": 16,
+                },
+                "start": {
+                  "column": 31,
+                  "index": 423,
+                  "line": 16,
+                },
+              },
             },
-            "start": {
-              "column": 2,
-              "index": 99,
-              "line": 3,
-            },
-          },
-        },
-        {
-          "kind": "set",
-          "operator": {
-            "kind": "=",
             "span": {
               "end": {
-                "column": 32,
-                "index": 424,
+                "column": 49,
+                "index": 441,
                 "line": 16,
               },
               "start": {
-                "column": 31,
-                "index": 423,
-                "line": 16,
-              },
-            },
-          },
-          "span": {
-            "end": {
-              "column": 49,
-              "index": 441,
-              "line": 16,
-            },
-            "start": {
-              "column": 2,
-              "index": 394,
-              "line": 16,
-            },
-          },
-          "target": {
-            "kind": "variable",
-            "name": "req",
-            "properties": [
-              "http",
-              "X-Forwarded-For",
-            ],
-            "span": {
-              "end": {
-                "column": 30,
-                "index": 422,
-                "line": 16,
-              },
-              "start": {
-                "column": 6,
-                "index": 398,
-                "line": 16,
-              },
-            },
-            "subField": undefined,
-          },
-          "value": {
-            "arguments": [],
-            "kind": "function-call",
-            "span": {
-              "end": {
-                "column": 48,
-                "index": 440,
-                "line": 16,
-              },
-              "start": {
-                "column": 33,
-                "index": 425,
+                "column": 2,
+                "index": 394,
                 "line": 16,
               },
             },
             "target": {
               "kind": "variable",
-              "name": "some_function",
-              "properties": [],
+              "name": "req",
+              "properties": [
+                "http",
+                "X-Forwarded-For",
+              ],
               "span": {
                 "end": {
-                  "column": 46,
-                  "index": 438,
+                  "column": 30,
+                  "index": 422,
+                  "line": 16,
+                },
+                "start": {
+                  "column": 6,
+                  "index": 398,
+                  "line": 16,
+                },
+              },
+              "subField": undefined,
+            },
+            "value": {
+              "arguments": [],
+              "kind": "function-call",
+              "span": {
+                "end": {
+                  "column": 48,
+                  "index": 440,
                   "line": 16,
                 },
                 "start": {
@@ -2419,107 +2434,105 @@ exports[`Subroutine 1`] = `
                   "line": 16,
                 },
               },
-              "subField": undefined,
-            },
-          },
-        },
-        {
-          "kind": "set",
-          "operator": {
-            "kind": "=",
-            "span": {
-              "end": {
-                "column": 32,
-                "index": 474,
-                "line": 17,
-              },
-              "start": {
-                "column": 31,
-                "index": 473,
-                "line": 17,
-              },
-            },
-          },
-          "span": {
-            "end": {
-              "column": 73,
-              "index": 515,
-              "line": 17,
-            },
-            "start": {
-              "column": 2,
-              "index": 444,
-              "line": 17,
-            },
-          },
-          "target": {
-            "kind": "variable",
-            "name": "req",
-            "properties": [
-              "http",
-              "X-Forwarded-For",
-            ],
-            "span": {
-              "end": {
-                "column": 30,
-                "index": 472,
-                "line": 17,
-              },
-              "start": {
-                "column": 6,
-                "index": 448,
-                "line": 17,
-              },
-            },
-            "subField": undefined,
-          },
-          "value": {
-            "arguments": [
-              {
+              "target": {
                 "kind": "variable",
-                "name": "req",
-                "properties": [
-                  "http",
-                  "X-Forwarded-For",
-                ],
+                "name": "some_function",
+                "properties": [],
                 "span": {
                   "end": {
-                    "column": 71,
-                    "index": 513,
-                    "line": 17,
+                    "column": 46,
+                    "index": 438,
+                    "line": 16,
                   },
                   "start": {
-                    "column": 47,
-                    "index": 489,
-                    "line": 17,
+                    "column": 33,
+                    "index": 425,
+                    "line": 16,
                   },
                 },
                 "subField": undefined,
               },
-            ],
-            "kind": "function-call",
+            },
+          },
+          {
+            "kind": "set",
+            "operator": {
+              "kind": "=",
+              "span": {
+                "end": {
+                  "column": 32,
+                  "index": 474,
+                  "line": 17,
+                },
+                "start": {
+                  "column": 31,
+                  "index": 473,
+                  "line": 17,
+                },
+              },
+            },
             "span": {
               "end": {
-                "column": 72,
-                "index": 514,
+                "column": 73,
+                "index": 515,
                 "line": 17,
               },
               "start": {
-                "column": 33,
-                "index": 475,
+                "column": 2,
+                "index": 444,
                 "line": 17,
               },
             },
             "target": {
               "kind": "variable",
-              "name": "some",
+              "name": "req",
               "properties": [
-                "function",
+                "http",
+                "X-Forwarded-For",
               ],
               "span": {
                 "end": {
-                  "column": 46,
-                  "index": 488,
+                  "column": 30,
+                  "index": 472,
+                  "line": 17,
+                },
+                "start": {
+                  "column": 6,
+                  "index": 448,
+                  "line": 17,
+                },
+              },
+              "subField": undefined,
+            },
+            "value": {
+              "arguments": [
+                {
+                  "kind": "variable",
+                  "name": "req",
+                  "properties": [
+                    "http",
+                    "X-Forwarded-For",
+                  ],
+                  "span": {
+                    "end": {
+                      "column": 71,
+                      "index": 513,
+                      "line": 17,
+                    },
+                    "start": {
+                      "column": 47,
+                      "index": 489,
+                      "line": 17,
+                    },
+                  },
+                  "subField": undefined,
+                },
+              ],
+              "kind": "function-call",
+              "span": {
+                "end": {
+                  "column": 72,
+                  "index": 514,
                   "line": 17,
                 },
                 "start": {
@@ -2528,76 +2541,91 @@ exports[`Subroutine 1`] = `
                   "line": 17,
                 },
               },
-              "subField": undefined,
-            },
-          },
-        },
-        {
-          "body": [],
-          "condition": {
-            "arguments": [
-              {
+              "target": {
                 "kind": "variable",
-                "name": "deny_list",
-                "properties": [],
-                "span": {
-                  "end": {
-                    "column": 30,
-                    "index": 546,
-                    "line": 18,
-                  },
-                  "start": {
-                    "column": 21,
-                    "index": 537,
-                    "line": 18,
-                  },
-                },
-                "subField": undefined,
-              },
-              {
-                "kind": "variable",
-                "name": "client",
+                "name": "some",
                 "properties": [
-                  "ip",
+                  "function",
                 ],
                 "span": {
                   "end": {
-                    "column": 41,
-                    "index": 557,
-                    "line": 18,
+                    "column": 46,
+                    "index": 488,
+                    "line": 17,
                   },
                   "start": {
-                    "column": 32,
-                    "index": 548,
-                    "line": 18,
+                    "column": 33,
+                    "index": 475,
+                    "line": 17,
                   },
                 },
                 "subField": undefined,
               },
-            ],
-            "kind": "function-call",
-            "span": {
-              "end": {
-                "column": 42,
-                "index": 558,
-                "line": 18,
-              },
-              "start": {
-                "column": 6,
-                "index": 522,
-                "line": 18,
-              },
             },
-            "target": {
-              "kind": "variable",
-              "name": "table",
-              "properties": [
-                "contains",
-              ],
+          },
+          {
+            "body": {
+              "body": [],
+              "kind": "block",
               "span": {
                 "end": {
-                  "column": 20,
-                  "index": 536,
+                  "column": 47,
+                  "index": 563,
+                  "line": 18,
+                },
+                "start": {
+                  "column": 44,
+                  "index": 560,
+                  "line": 18,
+                },
+              },
+            },
+            "condition": {
+              "arguments": [
+                {
+                  "kind": "variable",
+                  "name": "deny_list",
+                  "properties": [],
+                  "span": {
+                    "end": {
+                      "column": 30,
+                      "index": 546,
+                      "line": 18,
+                    },
+                    "start": {
+                      "column": 21,
+                      "index": 537,
+                      "line": 18,
+                    },
+                  },
+                  "subField": undefined,
+                },
+                {
+                  "kind": "variable",
+                  "name": "client",
+                  "properties": [
+                    "ip",
+                  ],
+                  "span": {
+                    "end": {
+                      "column": 41,
+                      "index": 557,
+                      "line": 18,
+                    },
+                    "start": {
+                      "column": 32,
+                      "index": 548,
+                      "line": 18,
+                    },
+                  },
+                  "subField": undefined,
+                },
+              ],
+              "kind": "function-call",
+              "span": {
+                "end": {
+                  "column": 42,
+                  "index": 558,
                   "line": 18,
                 },
                 "start": {
@@ -2606,24 +2634,56 @@ exports[`Subroutine 1`] = `
                   "line": 18,
                 },
               },
-              "subField": undefined,
+              "target": {
+                "kind": "variable",
+                "name": "table",
+                "properties": [
+                  "contains",
+                ],
+                "span": {
+                  "end": {
+                    "column": 20,
+                    "index": 536,
+                    "line": 18,
+                  },
+                  "start": {
+                    "column": 6,
+                    "index": 522,
+                    "line": 18,
+                  },
+                },
+                "subField": undefined,
+              },
+            },
+            "kind": "if",
+            "span": {
+              "end": {
+                "column": 0,
+                "index": 564,
+                "line": 19,
+              },
+              "start": {
+                "column": 2,
+                "index": 518,
+                "line": 18,
+              },
             },
           },
-          "kind": "if",
-          "span": {
-            "end": {
-              "column": 0,
-              "index": 564,
-              "line": 19,
-            },
-            "start": {
-              "column": 2,
-              "index": 518,
-              "line": 18,
-            },
+        ],
+        "kind": "block",
+        "span": {
+          "end": {
+            "column": 1,
+            "index": 565,
+            "line": 19,
+          },
+          "start": {
+            "column": 13,
+            "index": 13,
+            "line": 0,
           },
         },
-      ],
+      },
       "kind": "sub",
       "name": "vcl_recv",
       "returnType": undefined,

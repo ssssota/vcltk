@@ -20,7 +20,7 @@ export namespace Declaration {
 	export type ImportDeclaration = Node<"import", { ident: string }>;
 	export type SubroutineDeclaration = Node<
 		"sub",
-		{ name: string; returnType?: Type; body: Stmt[] }
+		{ name: string; returnType?: Type; body: Stmt.Block }
 	>;
 	export type AclDeclaration = Node<
 		"acl",
