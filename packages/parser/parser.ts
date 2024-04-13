@@ -7,7 +7,7 @@ import type {
 	Expr,
 	Literal,
 	ObjectProperty,
-	ReturnState,
+	ReturnStateKind,
 	Span,
 	Stmt,
 	StringToken,
@@ -381,7 +381,7 @@ export class Parser {
 		throw new Error(`Unexpected director type: ${ident}`);
 	}
 
-	parseIdentAsReturnState(): ReturnState {
+	parseIdentAsReturnState(): ReturnStateKind {
 		this.skipWhitespacesAndComments();
 		const ident = this.parseIdent();
 		switch (ident) {
@@ -739,7 +739,7 @@ export class Parser {
 		};
 	}
 
-	parseReturn(): Stmt.Return {
+	parseReturn(): Stmt.Return | Stmt.ReturnState {
 		this.skipWhitespacesAndComments();
 		let token = this.nextToken();
 		this.assertKeywordToken(token, "return");
@@ -762,7 +762,7 @@ export class Parser {
 			this.skipWhitespacesAndComments();
 			this.assertToken(this.nextToken(), ";");
 			return {
-				kind: "return",
+				kind: "return-state",
 				state,
 				span: this.getSpanWithLastToken(start),
 			};
