@@ -21,6 +21,7 @@ export const printer = {
 	print(path, _options, print) {
 		const node = path.node;
 		if (node === undefined) return "";
+		const previousLine = path.previous?.span.end.line ?? node.span.start.line;
 		switch (node.kind) {
 			case "vcl":
 				return [
@@ -152,84 +153,114 @@ export const printer = {
 					";",
 				]);
 			case "set":
-				return group([
-					"set ",
-					(path as AstPath<typeof node>).call(print, "target"),
-					" ",
-					(path as AstPath<typeof node>).call(print, "operator"),
-					" ",
-					(path as AstPath<typeof node>).call(print, "value"),
-					";",
-				]);
-			case "unset":
-				return group([
-					"unset ",
-					(path as AstPath<typeof node>).call(print, "target"),
-					";",
-				]);
-			case "add":
-				return group([
-					"add ",
-					(path as AstPath<typeof node>).call(print, "target"),
-					" = ",
-					(path as AstPath<typeof node>).call(print, "value"),
-					";",
-				]);
-			case "call":
-				return group([
-					"call ",
-					(path as AstPath<typeof node>).call(print, "target"),
-					";",
-				]);
-			case "if":
-				return group([
-					"if (",
+				return [
+					previousLine - node.span.start.line > 1 ? hardline : "",
 					group([
-						indent([
-							softline,
-							(path as AstPath<typeof node>).call(print, "condition"),
-						]),
-						softline,
+						"set ",
+						(path as AstPath<typeof node>).call(print, "target"),
+						" ",
+						(path as AstPath<typeof node>).call(print, "operator"),
+						" ",
+						(path as AstPath<typeof node>).call(print, "value"),
+						";",
 					]),
-					") ",
-					(path as AstPath<typeof node>).call(print, "body"),
-					node.else ? " else " : "",
-					(path as AstPath<typeof node>).call(print, "else"),
-				]);
+				];
+			case "unset":
+				return [
+					previousLine - node.span.start.line > 1 ? hardline : "",
+					group([
+						"unset ",
+						(path as AstPath<typeof node>).call(print, "target"),
+						";",
+					]),
+				];
+			case "add":
+				return [
+					previousLine - node.span.start.line > 1 ? hardline : "",
+					group([
+						"add ",
+						(path as AstPath<typeof node>).call(print, "target"),
+						" = ",
+						(path as AstPath<typeof node>).call(print, "value"),
+						";",
+					]),
+				];
+			case "call":
+				return [
+					previousLine - node.span.start.line > 1 ? hardline : "",
+					group([
+						"call ",
+						(path as AstPath<typeof node>).call(print, "target"),
+						";",
+					]),
+				];
+			case "if":
+				return [
+					node.span.start.line - previousLine > 1 ? hardline : "",
+					group([
+						"if (",
+						group([
+							indent([
+								softline,
+								(path as AstPath<typeof node>).call(print, "condition"),
+							]),
+							softline,
+						]),
+						") ",
+						(path as AstPath<typeof node>).call(print, "body"),
+						node.else ? " else " : "",
+						(path as AstPath<typeof node>).call(print, "else"),
+					]),
+				];
 			case "error":
-				return group([
-					"error ",
-					node.status?.toString() ?? "",
-					node.message ? " " : "",
-					(path as AstPath<typeof node>).call(print, "message"),
-					";",
-				]);
+				return [
+					previousLine - node.span.start.line > 1 ? hardline : "",
+					group([
+						"error ",
+						node.status?.toString() ?? "",
+						node.message ? " " : "",
+						(path as AstPath<typeof node>).call(print, "message"),
+						";",
+					]),
+				];
 			case "esi":
 				return "esi;";
 			case "restart":
 				return "restart;";
 			case "return":
-				return group([
-					"return",
-					node.value ? " " : "",
-					(path as AstPath<typeof node>).call(print, "value"),
-					";",
-				]);
+				return [
+					previousLine - node.span.start.line > 1 ? hardline : "",
+					group([
+						"return",
+						node.value ? " " : "",
+						(path as AstPath<typeof node>).call(print, "value"),
+						";",
+					]),
+				];
 			case "return-state":
-				return group(["return(", node.state, ");"]);
+				return [
+					previousLine - node.span.start.line > 1 ? hardline : "",
+					group(["return(", node.state, ");"]),
+				];
 			case "synthetic":
-				return group([
-					node.base64 ? "synthetic.base64" : "synthetic",
-					" ",
-					(path as AstPath<typeof node>).call(print, "value"),
-					";",
-				]);
+				return [
+					previousLine - node.span.start.line > 1 ? hardline : "",
+					group([
+						node.base64 ? "synthetic.base64" : "synthetic",
+						" ",
+						(path as AstPath<typeof node>).call(print, "value"),
+						";",
+					]),
+				];
 			case "log":
-				return group([
-					"log ",
-					(path as AstPath<typeof node>).call(print, "message"),
-					";",
-				]);
+				return [
+					previousLine - node.span.start.line > 1 ? hardline : "",
+					group([
+						"log ",
+						(path as AstPath<typeof node>).call(print, "message"),
+						";",
+					]),
+				];
 
 			// expressions
 			case "parenthesized":
