@@ -1,5 +1,15 @@
 # prettier-plugin-vcl
 
+## 0.2.3
+
+### Patch Changes
+
+- [#23](https://github.com/ssssota/vcltk/pull/23) [`680a0e9`](https://github.com/ssssota/vcltk/commit/680a0e95fc93c6527f274b70f1fc39d77c693d11) Thanks [@ssssota](https://github.com/ssssota)! - Support goto statement
+
+- Updated dependencies [[`680a0e9`](https://github.com/ssssota/vcltk/commit/680a0e95fc93c6527f274b70f1fc39d77c693d11)]:
+  - @vcltk/ast@0.2.1
+  - @vcltk/parser@0.2.1
+
 ## 0.2.2
 
 ### Patch Changes
