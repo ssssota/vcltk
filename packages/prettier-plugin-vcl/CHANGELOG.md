@@ -1,5 +1,11 @@
 # prettier-plugin-vcl
 
+## 0.2.2
+
+### Patch Changes
+
+- [#21](https://github.com/ssssota/vcltk/pull/21) [`d2126b7`](https://github.com/ssssota/vcltk/commit/d2126b77ba23ee2b7419ad7043d773d7f8128fa0) Thanks [@ssssota](https://github.com/ssssota)! - Handle comment in empty body
+
 ## 0.2.1
 
 ### Patch Changes
