@@ -1,5 +1,11 @@
 # @vcltk/ast
 
+## 0.2.1
+
+### Patch Changes
+
+- [#23](https://github.com/ssssota/vcltk/pull/23) [`680a0e9`](https://github.com/ssssota/vcltk/commit/680a0e95fc93c6527f274b70f1fc39d77c693d11) Thanks [@ssssota](https://github.com/ssssota)! - Support goto statement
+
 ## 0.2.0
 
 ### Minor Changes
