@@ -45,6 +45,8 @@ export namespace Stmt {
 	export type ReturnState = Node<"return-state", { state: ReturnStateKind }>;
 	export type Synthetic = Node<"synthetic", { value: Expr; base64: boolean }>;
 	export type Block = Node<"block", { body: Stmt[] }>;
+	export type Label = Node<"label", { name: string }>;
+	export type Goto = Node<"goto", { label: string }>;
 }
 
 export type Stmt =
@@ -62,4 +64,6 @@ export type Stmt =
 	| Stmt.Return
 	| Stmt.ReturnState
 	| Stmt.Synthetic
-	| Stmt.Block;
+	| Stmt.Block
+	| Stmt.Label
+	| Stmt.Goto;

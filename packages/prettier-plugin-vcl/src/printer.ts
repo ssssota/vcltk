@@ -297,6 +297,16 @@ export const printer = {
 						";",
 					]),
 				];
+			case "goto":
+				return [
+					node.span.start.line - previousLine > 1 ? hardline : "",
+					group(["goto ", node.label, ";"]),
+				];
+			case "label":
+				return [
+					node.span.start.line - previousLine > 1 ? hardline : "",
+					group([node.name, ":"]),
+				];
 
 			// expressions
 			case "parenthesized":
@@ -547,6 +557,8 @@ export const printer = {
 			case "comment_hash":
 			case "comment_line":
 			case "esi":
+			case "goto":
+			case "label":
 			case "float":
 			case "heredoc":
 			case "integer":

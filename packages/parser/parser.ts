@@ -548,6 +548,11 @@ export class Parser {
 				case "synthetic.base64":
 					statements.push(this.parseSynthetic(true));
 					break;
+				case "goto":
+					statements.push(this.parseGoto());
+					break;
+				default:
+					statements.push(this.parseLabel());
 			}
 		}
 		return statements;
@@ -807,6 +812,34 @@ export class Parser {
 		return {
 			kind: "unset",
 			target,
+			span: this.getSpanWithLastToken(token.start),
+		};
+	}
+
+	parseGoto(): Stmt.Goto {
+		this.skipWhitespacesAndComments();
+		const token = this.nextToken();
+		this.assertKeywordToken(token, "goto");
+		const label = this.parseIdent();
+		this.skipWhitespacesAndComments();
+		this.assertToken(this.nextToken(), ";");
+		return {
+			kind: "goto",
+			label,
+			span: this.getSpanWithLastToken(token.start),
+		};
+	}
+
+	parseLabel(): Stmt.Label {
+		this.skipWhitespacesAndComments();
+		const token = this.nextToken();
+		this.assertToken(token, "keyword");
+		if (!token.value.endsWith(":")) {
+			throw new Error(`Expected label, got ${token.value}`);
+		}
+		return {
+			kind: "label",
+			name: token.value.slice(0, -1),
 			span: this.getSpanWithLastToken(token.start),
 		};
 	}

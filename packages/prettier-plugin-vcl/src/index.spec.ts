@@ -152,12 +152,13 @@ it("should format subroutine declaration", async () => {
 #FASTLY recv
 set req.http.X-Forwarded-For = client.ip;
 if(table.contains(deny_list, client.ip)){ error 403 "Forbidden"
-; }return ( lookup );
+;
+ goto test; }return ( lookup );
 
 if(req.http.Location~"^/admin"&&(req.http.Cookie!~"admin")||req.http.Location~"^/admin"&&req.http.Cookie!~
 "admin"){
 synthetic {"Hello, admin! Please log in."} ;
-  }
+  }test:
 }
 sub test {}
 
@@ -173,6 +174,7 @@ sub vcl_deliver {
 		  set req.http.X-Forwarded-For = client.ip;
 		  if (table.contains(deny_list, client.ip)) {
 		    error 403 "Forbidden";
+		    goto test;
 		  }
 		  return(lookup);
 
@@ -182,6 +184,7 @@ sub vcl_deliver {
 		  ) {
 		    synthetic {"Hello, admin! Please log in."};
 		  }
+		  test:
 		}
 		sub test {
 		}
