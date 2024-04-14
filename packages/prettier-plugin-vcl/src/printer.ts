@@ -6,7 +6,10 @@ const { group, indent, join, line, softline, hardline } = doc.builders;
 
 const printComment = ((commentPath, _options) => {
 	const node = commentPath.node;
-	switch (node?.kind) {
+	if (node === undefined) return "";
+	// @ts-expect-error
+	node.printed = true;
+	switch (node.kind) {
 		case "comment_block":
 			return `/*${node.value.replace(/^ +/, "").replace(/ +$/, "")}*/`;
 		case "comment_line":
@@ -26,7 +29,7 @@ export const printer = {
 			case "vcl":
 				return [
 					join(
-						[hardline, hardline],
+						hardline,
 						(path as AstPath<typeof node>).map(print, "declarations"),
 					),
 					hardline,
@@ -34,25 +37,33 @@ export const printer = {
 
 			// declarations
 			case "sub":
-				return group([
-					"sub ",
-					node.name,
-					" ",
-					(path as AstPath<typeof node>).call(print, "returnType"),
-					(path as AstPath<typeof node>).call(print, "body"),
-				]);
-			case "acl":
-				return group([
-					"acl ",
-					node.name,
-					" {",
-					indent([
-						hardline,
-						join(line, (path as AstPath<typeof node>).map(print, "entries")),
+				return [
+					node.span.start.line - previousLine > 1 ? hardline : "",
+					group([
+						"sub ",
+						node.name,
+						" ",
+						node.returnType
+							? [(path as AstPath<typeof node>).call(print, "returnType"), " "]
+							: "",
+						(path as AstPath<typeof node>).call(print, "body"),
 					]),
-					line,
-					"}",
-				]);
+				];
+			case "acl":
+				return [
+					node.span.start.line - previousLine > 1 ? hardline : "",
+					group([
+						"acl ",
+						node.name,
+						" {",
+						indent([
+							line,
+							join(line, (path as AstPath<typeof node>).map(print, "entries")),
+						]),
+						hardline,
+						"}",
+					]),
+				];
 			case "acl-entry":
 				return group([
 					node.negated ? "! " : "",
@@ -63,27 +74,39 @@ export const printer = {
 					";",
 				]);
 			case "import":
-				return group(["import ", node.ident, ";"]);
+				return [
+					node.span.start.line - previousLine > 1 ? hardline : "",
+					group(["import ", node.ident, ";"]),
+				];
 			case "include":
-				return group(['include "', node.path.value, '";']);
+				return [
+					node.span.start.line - previousLine > 1 ? hardline : "",
+					group(['include "', node.path.value, '";']),
+				];
 			case "penaltybox":
 			case "ratecounter":
-				return group([node.kind, " ", node.name, " {", "}"]);
+				return [
+					node.span.start.line - previousLine > 1 ? hardline : "",
+					group([node.kind, " ", node.name, " {", "}"]),
+				];
 			case "table":
-				return group([
-					"table ",
-					node.name,
-					" ",
-					(path as AstPath<typeof node>).call(print, "type"),
-					node.type === undefined ? "" : " ",
-					"{",
-					indent([
+				return [
+					node.span.start.line - previousLine > 1 ? hardline : "",
+					group([
+						"table ",
+						node.name,
+						" ",
+						(path as AstPath<typeof node>).call(print, "type"),
+						node.type === undefined ? "" : " ",
+						"{",
+						indent([
+							line,
+							join(line, (path as AstPath<typeof node>).map(print, "entries")),
+						]),
 						line,
-						join(line, (path as AstPath<typeof node>).map(print, "entries")),
+						"}",
 					]),
-					line,
-					"}",
-				]);
+				];
 			case "table-entry":
 				return group([
 					(path as AstPath<typeof node>).call(print, "key"),
@@ -92,56 +115,69 @@ export const printer = {
 					",",
 				]);
 			case "backend":
-				return group([
-					"backend ",
-					node.name,
-					" {",
-					indent([
+				return [
+					node.span.start.line - previousLine > 1 ? hardline : "",
+					group([
+						"backend ",
+						node.name,
+						" {",
+						indent([
+							line,
+							join(
+								line,
+								(path as AstPath<typeof node>).map(print, "properties"),
+							),
+						]),
 						line,
-						join(line, (path as AstPath<typeof node>).map(print, "properties")),
+						"}",
 					]),
-					line,
-					"}",
-				]);
+				];
 			case "director":
-				return group([
-					"director ",
-					node.name,
-					" ",
-					node.type,
-					" {",
-					node.properties.length > 0
-						? indent([
-								hardline,
-								join(
-									line,
-									(path as AstPath<typeof node>).map(print, "properties"),
-								),
-							])
-						: "",
-					node.properties.length > 0 && node.directions.length > 0 ? line : "",
-					node.directions.length > 0
-						? indent([
-								hardline,
-								join(
-									line,
-									(path as AstPath<typeof node>).map(print, "directions"),
-								),
-							])
-						: "",
-					line,
-					"}",
-				]);
+				return [
+					node.span.start.line - previousLine > 1 ? hardline : "",
+					group([
+						"director ",
+						node.name,
+						" ",
+						node.type,
+						" {",
+						node.properties.length > 0
+							? indent([
+									hardline,
+									join(
+										line,
+										(path as AstPath<typeof node>).map(print, "properties"),
+									),
+								])
+							: "",
+						node.properties.length > 0 && node.directions.length > 0
+							? line
+							: "",
+						node.directions.length > 0
+							? indent([
+									hardline,
+									join(
+										line,
+										(path as AstPath<typeof node>).map(print, "directions"),
+									),
+								])
+							: "",
+						line,
+						"}",
+					]),
+				];
 
 			// statements
 			case "block":
 				return group([
 					"{",
-					indent([
-						hardline,
-						join(line, (path as AstPath<typeof node>).map(print, "body")),
-					]),
-					line,
+					node.body.length > 0
+						? indent([
+								line,
+								join(line, (path as AstPath<typeof node>).map(print, "body")),
+							])
+						: "",
+					hardline,
 					"}",
 				]);
 			case "declare":
@@ -154,7 +190,7 @@ export const printer = {
 				]);
 			case "set":
 				return [
-					previousLine - node.span.start.line > 1 ? hardline : "",
+					node.span.start.line - previousLine > 1 ? hardline : "",
 					group([
 						"set ",
 						(path as AstPath<typeof node>).call(print, "target"),
@@ -167,7 +203,7 @@ export const printer = {
 				];
 			case "unset":
 				return [
-					previousLine - node.span.start.line > 1 ? hardline : "",
+					node.span.start.line - previousLine > 1 ? hardline : "",
 					group([
 						"unset ",
 						(path as AstPath<typeof node>).call(print, "target"),
@@ -176,7 +212,7 @@ export const printer = {
 				];
 			case "add":
 				return [
-					previousLine - node.span.start.line > 1 ? hardline : "",
+					node.span.start.line - previousLine > 1 ? hardline : "",
 					group([
 						"add ",
 						(path as AstPath<typeof node>).call(print, "target"),
@@ -187,7 +223,7 @@ export const printer = {
 				];
 			case "call":
 				return [
-					previousLine - node.span.start.line > 1 ? hardline : "",
+					node.span.start.line - previousLine > 1 ? hardline : "",
 					group([
 						"call ",
 						(path as AstPath<typeof node>).call(print, "target"),
@@ -214,7 +250,7 @@ export const printer = {
 				];
 			case "error":
 				return [
-					previousLine - node.span.start.line > 1 ? hardline : "",
+					node.span.start.line - previousLine > 1 ? hardline : "",
 					group([
 						"error ",
 						node.status?.toString() ?? "",
@@ -229,7 +265,7 @@ export const printer = {
 				return "restart;";
 			case "return":
 				return [
-					previousLine - node.span.start.line > 1 ? hardline : "",
+					node.span.start.line - previousLine > 1 ? hardline : "",
 					group([
 						"return",
 						node.value ? " " : "",
@@ -239,12 +275,12 @@ export const printer = {
 				];
 			case "return-state":
 				return [
-					previousLine - node.span.start.line > 1 ? hardline : "",
+					node.span.start.line - previousLine > 1 ? hardline : "",
 					group(["return(", node.state, ");"]),
 				];
 			case "synthetic":
 				return [
-					previousLine - node.span.start.line > 1 ? hardline : "",
+					node.span.start.line - previousLine > 1 ? hardline : "",
 					group([
 						node.base64 ? "synthetic.base64" : "synthetic",
 						" ",
@@ -254,7 +290,7 @@ export const printer = {
 				];
 			case "log":
 				return [
-					previousLine - node.span.start.line > 1 ? hardline : "",
+					node.span.start.line - previousLine > 1 ? hardline : "",
 					group([
 						"log ",
 						(path as AstPath<typeof node>).call(print, "message"),
@@ -284,10 +320,7 @@ export const printer = {
 				]);
 			case "string_concat":
 				return group(
-					join(
-						[" +", line],
-						(path as AstPath<typeof node>).map(print, "tokens"),
-					),
+					join(line, (path as AstPath<typeof node>).map(print, "tokens")),
 				);
 			// literals
 			case "object":
@@ -394,6 +427,17 @@ export const printer = {
 					`Unknown node: ${JSON.stringify(node satisfies never)}`,
 				);
 		}
+	},
+	handleComments: {
+		ownLine(commentNode) {
+			if (commentNode.precedingNode || commentNode.followingNode) return false;
+			const enclosingNode: FastlyVclNode = commentNode.enclosingNode;
+			if ("body" in enclosingNode && Array.isArray(enclosingNode.body)) {
+				enclosingNode.body.push(commentNode);
+				return true;
+			}
+			return false;
+		},
 	},
 	isBlockComment(node) {
 		return node?.kind === "comment_block";
