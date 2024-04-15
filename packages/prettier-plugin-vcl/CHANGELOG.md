@@ -1,5 +1,13 @@
 # prettier-plugin-vcl
 
+## 0.2.4
+
+### Patch Changes
+
+- Updated dependencies [[`2eb0312`](https://github.com/ssssota/vcltk/commit/2eb0312ff97bee24c243d83c29c4958d40596cf2)]:
+  - @vcltk/ast@0.2.2
+  - @vcltk/parser@0.2.2
+
 ## 0.2.3
 
 ### Patch Changes
