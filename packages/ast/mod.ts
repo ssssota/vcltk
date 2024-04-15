@@ -9,5 +9,6 @@ export * from "./stmt.js";
 export * from "./string_token.js";
 export * from "./type.js";
 export * from "./unary_operator.js";
+export * from "./utils.js";
 export * from "./variable.js";
 export * from "./vcl.js";
