@@ -1,7 +1,7 @@
 {
 	"name": "prettier-plugin-vcl",
 	"description": "Prettier plugin for Fastly VCL",
-	"version": "0.2.3",
+	"version": "0.2.4",
 	"type": "module",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",

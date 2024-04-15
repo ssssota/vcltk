@@ -1,5 +1,11 @@
 # @vcltk/ast
 
+## 0.2.2
+
+### Patch Changes
+
+- [#25](https://github.com/ssssota/vcltk/pull/25) [`2eb0312`](https://github.com/ssssota/vcltk/commit/2eb0312ff97bee24c243d83c29c4958d40596cf2) Thanks [@ssssota](https://github.com/ssssota)! - Add utility type for AST
+
 ## 0.2.1
 
 ### Patch Changes
