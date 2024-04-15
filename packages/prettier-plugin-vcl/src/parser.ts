@@ -1,6 +1,6 @@
+import type { AST } from "@vcltk/ast";
 import { parse } from "@vcltk/parser";
 import type { Parser } from "prettier";
-import type { FastlyVclNode } from "./types.js";
 
 export const parser = {
 	parse(text, _options) {
@@ -13,4 +13,4 @@ export const parser = {
 	locEnd(node) {
 		return node?.span.end.index ?? 0;
 	},
-} as const satisfies Parser<FastlyVclNode | undefined>;
+} as const satisfies Parser<AST | undefined>;
