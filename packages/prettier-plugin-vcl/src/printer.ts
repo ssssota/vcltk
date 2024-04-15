@@ -1,6 +1,7 @@
+import type { AST } from "@vcltk/ast";
 import type { AstPath, Printer } from "prettier";
 import { doc } from "prettier";
-import type { FastlyVclNode } from "./types.js";
+import { visitorKeys } from "./visitor-keys.js";
 
 const { group, indent, join, line, softline, hardline } = doc.builders;
 
@@ -18,7 +19,7 @@ const printComment = ((commentPath, _options) => {
 			return `#${node.value.replace(/\s+$/, "")}`;
 	}
 	return "";
-}) satisfies Printer<FastlyVclNode | undefined>["printComment"];
+}) satisfies Printer<AST | undefined>["printComment"];
 
 export const printer = {
 	print(path, _options, print) {
@@ -441,7 +442,7 @@ export const printer = {
 	handleComments: {
 		ownLine(commentNode) {
 			if (commentNode.precedingNode || commentNode.followingNode) return false;
-			const enclosingNode: FastlyVclNode = commentNode.enclosingNode;
+			const enclosingNode: AST = commentNode.enclosingNode;
 			if ("body" in enclosingNode && Array.isArray(enclosingNode.body)) {
 				enclosingNode.body.push(commentNode);
 				return true;
@@ -463,122 +464,6 @@ export const printer = {
 	},
 	getVisitorKeys(node, _nonTraversableKeys) {
 		if (node === undefined) return [];
-		switch (node.kind) {
-			case "vcl":
-				return ["declarations"];
-			case "sub":
-				return ["returnType", "body"];
-			case "acl":
-				return ["entries"];
-			case "acl-entry":
-				return ["address"];
-			case "import":
-				return ["ident"];
-			case "include":
-				return ["path"];
-			case "penaltybox":
-			case "ratecounter":
-				return ["name"];
-			case "table":
-				return ["type", "entries"];
-			case "table-entry":
-				return ["key", "value"];
-			case "backend":
-				return ["properties"];
-			case "director":
-				return ["properties", "directions"];
-			case "declare":
-				return ["target", "type"];
-			case "set":
-				return ["target", "operator", "value"];
-			case "unset":
-				return ["target"];
-			case "add":
-				return ["target", "value"];
-			case "call":
-				return ["target"];
-			case "return":
-				return ["value"];
-			case "block":
-				return ["body"];
-			case "if":
-				return ["condition", "body", "else"];
-			case "error":
-				return ["message"];
-			case "synthetic":
-				return ["value"];
-			case "log":
-				return ["message"];
-			case "parenthesized":
-				return ["expr"];
-			case "binary":
-				return ["lhs", "rhs"];
-			case "unary":
-				return ["rhs"];
-			case "string_concat":
-				return ["tokens"];
-			case "object":
-				return ["properties"];
-			case "object-property":
-				return ["value"];
-			case "function-call":
-				return ["target", "arguments"];
-			case "variable":
-				return [];
-			case "string":
-				return ["tokens"];
-			case "!":
-			case "!=":
-			case "!~":
-			case "%=":
-			case "&&":
-			case "&&=":
-			case "&=":
-			case "*":
-			case "*=":
-			case "+":
-			case "+=":
-			case "-":
-			case "-=":
-			case "/":
-			case "/=":
-			case "<":
-			case "<<=":
-			case "<=":
-			case "=":
-			case "==":
-			case ">":
-			case ">=":
-			case ">>=":
-			case "^=":
-			case "bool":
-			case "case":
-			case "comment_block":
-			case "comment_hash":
-			case "comment_line":
-			case "esi":
-			case "goto":
-			case "label":
-			case "float":
-			case "heredoc":
-			case "integer":
-			case "parcent":
-			case "quoted-string":
-			case "restart":
-			case "return-state":
-			case "rol=":
-			case "ror=":
-			case "rtime":
-			case "type":
-			case "|=":
-			case "||":
-			case "||=":
-			case "~":
-				return [];
-			default:
-				throw new Error(
-					`Unknown node: ${JSON.stringify(node satisfies never)}`,
-				);
-		}
+		return visitorKeys[node.kind] ?? [];
 	},
-} as const satisfies Printer<FastlyVclNode | undefined>;
+} as const satisfies Printer<AST | undefined>;
