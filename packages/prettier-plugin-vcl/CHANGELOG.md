@@ -1,5 +1,11 @@
 # prettier-plugin-vcl
 
+## 0.2.5
+
+### Patch Changes
+
+- [#28](https://github.com/ssssota/vcltk/pull/28) [`7a7e437`](https://github.com/ssssota/vcltk/commit/7a7e4373232539b4d0c56f33da8ad85c1a32dae6) Thanks [@ssssota](https://github.com/ssssota)! - Fix long-line indentation
+
 ## 0.2.4
 
 ### Patch Changes
