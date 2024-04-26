@@ -197,9 +197,13 @@ export const printer = {
 						(path as AstPath<typeof node>).call(print, "target"),
 						" ",
 						(path as AstPath<typeof node>).call(print, "operator"),
-						" ",
-						(path as AstPath<typeof node>).call(print, "value"),
-						";",
+						group([
+							indent([
+								line,
+								(path as AstPath<typeof node>).call(print, "value"),
+							]),
+							";",
+						]),
 					]),
 				];
 			case "unset":
@@ -369,6 +373,7 @@ export const printer = {
 							(path as AstPath<typeof node>).map(print, "arguments"),
 						),
 					]),
+					softline,
 					")",
 				]);
 			case "string":

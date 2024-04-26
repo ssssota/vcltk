@@ -159,6 +159,19 @@ if(req.http.Location~"^/admin"&&(req.http.Cookie!~"admin")||req.http.Location~"^
 "admin"){
 synthetic {"Hello, admin! Please log in."} ;
   }test:
+
+	set req.http.X-Forwarded-For = "1234567890" "1234567890" "1234567890" "1234567890" "1234567890" "1234567890" "1234567890" "1234567890" ;
+	set req.http.X-Forwarded-For = func(
+		"hoge",
+		"hoge",
+		"hoge",
+		"hoge",
+		"hoge",
+		"hoge",
+		"hoge",
+		"hoge",
+		"hoge"
+	);
 }
 sub test {}
 
@@ -185,6 +198,28 @@ sub vcl_deliver {
 		    synthetic {"Hello, admin! Please log in."};
 		  }
 		  test:
+
+		  set req.http.X-Forwarded-For =
+		    "1234567890" +
+		    "1234567890" +
+		    "1234567890" +
+		    "1234567890" +
+		    "1234567890" +
+		    "1234567890" +
+		    "1234567890" +
+		    "1234567890";
+		  set req.http.X-Forwarded-For =
+		    func(
+		      "hoge",
+		      "hoge",
+		      "hoge",
+		      "hoge",
+		      "hoge",
+		      "hoge",
+		      "hoge",
+		      "hoge",
+		      "hoge"
+		    );
 		}
 		sub test {
 		}
